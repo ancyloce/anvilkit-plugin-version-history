@@ -1,0 +1,17 @@
+[
+	{
+		"name": "@anvilkit/plugin-version-history",
+		"path": "dist/index.js",
+		"limit": "8 KB",
+		"gzip": true,
+		"ignore": [
+			"react",
+			"react-dom",
+			"@puckeditor/core",
+			"@anvilkit/core",
+			"@anvilkit/ir",
+			"@anvilkit/ui",
+			"@anvilkit/utils"
+		]
+	}
+]
