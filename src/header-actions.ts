@@ -22,6 +22,14 @@ export const saveSnapshotAction: StudioHeaderAction = {
 			return;
 		}
 
+		if (state.saveInFlight) {
+			ctx.log(
+				"info",
+				"Version history save skipped because another save is already in flight.",
+			);
+			return;
+		}
+
 		const ir = toPageIR(ctx.getData());
 		if (!ir) {
 			ctx.log(
@@ -31,40 +39,45 @@ export const saveSnapshotAction: StudioHeaderAction = {
 			return;
 		}
 
-		const id = await Promise.resolve(
-			state.adapter.save(ir, {
-				pageIRHash: hashPageIR(ir),
-			}),
-		);
+		state.saveInFlight = true;
+		try {
+			const id = await Promise.resolve(
+				state.adapter.save(ir, {
+					pageIRHash: hashPageIR(ir),
+				}),
+			);
 
-		let snapshots = await Promise.resolve(state.adapter.list());
+			let snapshots = await Promise.resolve(state.adapter.list());
 
-		if (state.maxSnapshots !== undefined) {
-			const idsToDelete = evictOldest(snapshots, state.maxSnapshots);
-			if (idsToDelete.length > 0) {
-				if (!state.adapter.delete) {
-					ctx.log(
-						"warn",
-						"Version history maxSnapshots overflow could not evict because adapter.delete is unavailable.",
-						{
-							maxSnapshots: state.maxSnapshots,
-							overflowIds: idsToDelete,
-						},
-					);
-				} else {
-					for (const snapshotId of idsToDelete) {
-						await Promise.resolve(state.adapter.delete(snapshotId));
+			if (state.maxSnapshots !== undefined) {
+				const idsToDelete = evictOldest(snapshots, state.maxSnapshots);
+				if (idsToDelete.length > 0) {
+					if (!state.adapter.delete) {
+						ctx.log(
+							"warn",
+							"Version history maxSnapshots overflow could not evict because adapter.delete is unavailable.",
+							{
+								maxSnapshots: state.maxSnapshots,
+								overflowIds: idsToDelete,
+							},
+						);
+					} else {
+						for (const snapshotId of idsToDelete) {
+							await Promise.resolve(state.adapter.delete(snapshotId));
+						}
+						snapshots = await Promise.resolve(state.adapter.list());
 					}
-					snapshots = await Promise.resolve(state.adapter.list());
 				}
 			}
-		}
 
-		setVersionHistorySnapshots(ctx, snapshots);
-		ctx.log("info", "Version history snapshot saved.", {
-			id,
-			snapshotCount: snapshots.length,
-		});
+			setVersionHistorySnapshots(ctx, snapshots);
+			ctx.log("info", "Version history snapshot saved.", {
+				id,
+				snapshotCount: snapshots.length,
+			});
+		} finally {
+			state.saveInFlight = false;
+		}
 	},
 };
 

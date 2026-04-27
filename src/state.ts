@@ -7,6 +7,7 @@ export interface VersionHistoryRuntimeState {
 	readonly adapter: SnapshotAdapter;
 	readonly maxSnapshots?: number;
 	snapshots: readonly SnapshotMeta[];
+	saveInFlight: boolean;
 }
 
 const stateByToken = new WeakMap<object, VersionHistoryRuntimeState>();

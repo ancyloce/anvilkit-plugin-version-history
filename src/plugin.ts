@@ -21,7 +21,6 @@ export interface CreateVersionHistoryPluginOptions {
 export function createVersionHistoryPlugin(
 	options: CreateVersionHistoryPluginOptions,
 ): StudioPlugin {
-	const token = {};
 	const maxSnapshots =
 		options.maxSnapshots !== undefined &&
 		Number.isFinite(options.maxSnapshots) &&
@@ -32,6 +31,7 @@ export function createVersionHistoryPlugin(
 	return {
 		meta: META,
 		register(_ctx) {
+			const token = {};
 			const headerActions: StudioPluginRegistration["headerActions"] = [
 				{
 					...saveSnapshotAction,
@@ -57,6 +57,7 @@ export function createVersionHistoryPlugin(
 						bindVersionHistoryState(token, initCtx, {
 							adapter: options.adapter,
 							maxSnapshots,
+							saveInFlight: false,
 							snapshots: [],
 						});
 

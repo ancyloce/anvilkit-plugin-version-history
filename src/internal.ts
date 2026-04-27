@@ -4,14 +4,8 @@ import { VersionHistoryError } from "./errors.js";
 import { hashPageIR } from "./hash.js";
 import type { SnapshotMeta } from "./types.js";
 
-let fallbackSnapshotId = 0;
-
 export function clonePageIR(ir: PageIR): PageIR {
-	if (typeof globalThis.structuredClone === "function") {
-		return globalThis.structuredClone(ir);
-	}
-
-	return JSON.parse(JSON.stringify(ir)) as PageIR;
+	return globalThis.structuredClone(ir);
 }
 
 export function deepFreeze<T>(value: T): T {
@@ -26,15 +20,20 @@ export function deepFreeze<T>(value: T): T {
 	return Object.freeze(value);
 }
 
-export function createSnapshotId(): string {
-	if (typeof globalThis.crypto?.randomUUID === "function") {
-		return globalThis.crypto.randomUUID();
-	}
+const createSnapshotId = (() => {
+	let counter = 0;
+	return (): string => {
+		if (typeof globalThis.crypto?.randomUUID === "function") {
+			return globalThis.crypto.randomUUID();
+		}
 
-	const id = `snapshot-${String(fallbackSnapshotId).padStart(4, "0")}`;
-	fallbackSnapshotId += 1;
-	return id;
-}
+		const id = `snapshot-${String(counter).padStart(4, "0")}`;
+		counter += 1;
+		return id;
+	};
+})();
+
+export { createSnapshotId };
 
 export function createSnapshotMeta(
 	ir: PageIR,

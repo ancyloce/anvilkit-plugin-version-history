@@ -28,8 +28,19 @@ function compareBySavedAtAscending(
 	const rightTime = Date.parse(right.savedAt);
 
 	if (Number.isNaN(leftTime) || Number.isNaN(rightTime)) {
-		return left.savedAt.localeCompare(right.savedAt) || left.id.localeCompare(right.id);
+		// ISO-8601 strings sort lexicographically, but the field accepts any
+		// string — fall back to direct compare and break ties on id.
+		if (left.savedAt < right.savedAt) return -1;
+		if (left.savedAt > right.savedAt) return 1;
+		if (left.id < right.id) return -1;
+		if (left.id > right.id) return 1;
+		return 0;
 	}
 
-	return leftTime - rightTime || left.id.localeCompare(right.id);
+	if (leftTime !== rightTime) {
+		return leftTime - rightTime;
+	}
+	if (left.id < right.id) return -1;
+	if (left.id > right.id) return 1;
+	return 0;
 }

@@ -1,5 +1,12 @@
 import type { PageIR, PageIRNode } from "@anvilkit/core/types";
 
+/**
+ * Note: `move-node` is a hint, not a mutation. `applyDiff` validates it but
+ * does not perform any reparenting — the authoritative reparenting/reorder
+ * signal is `change-children` on the affected parent(s). Consumers that
+ * inspect an `IRDiff` for display or logging may use `move-node` for
+ * presentation, but should not rely on it for replay correctness.
+ */
 export type IRDiffOp =
 	| { kind: "add-node"; path: string; node: PageIRNode }
 	| { kind: "remove-node"; path: string; nodeId: string }
@@ -386,7 +393,7 @@ function assertValidChildIndexPath(path: string): void {
 			throw new DiffApplyError(`Missing child index in ${path}`);
 		}
 		const childIndex = Number(indexSegment);
-		if (!Number.isInteger(childIndex)) {
+		if (!Number.isInteger(childIndex) || childIndex < 0) {
 			throw new DiffApplyError(`Invalid child index "${indexSegment}" in ${path}`);
 		}
 	}
@@ -443,12 +450,27 @@ function buildReconstructedNode(
 }
 
 export function summarizeDiff(diff: IRDiff): IRDiffSummary {
-	const added = diff.filter((op) => op.kind === "add-node").length;
-	const removed = diff.filter((op) => op.kind === "remove-node").length;
-	const moved = diff.filter((op) => op.kind === "move-node").length;
-	const changed = diff.filter(
-		(op) => op.kind === "change-prop" || op.kind === "change-children",
-	).length;
+	let added = 0;
+	let removed = 0;
+	let moved = 0;
+	let changed = 0;
+	for (const op of diff) {
+		switch (op.kind) {
+			case "add-node":
+				added += 1;
+				break;
+			case "remove-node":
+				removed += 1;
+				break;
+			case "move-node":
+				moved += 1;
+				break;
+			case "change-prop":
+			case "change-children":
+				changed += 1;
+				break;
+		}
+	}
 	const total = added + removed + moved + changed;
 
 	if (total === 0) {
@@ -463,16 +485,16 @@ export function summarizeDiff(diff: IRDiff): IRDiffSummary {
 
 	const parts: string[] = [];
 	if (added > 0) {
-		parts.push(formatSummaryPart(added, "added"));
+		parts.push(`${added} added`);
 	}
 	if (removed > 0) {
-		parts.push(formatSummaryPart(removed, "removed"));
+		parts.push(`${removed} removed`);
 	}
 	if (moved > 0) {
-		parts.push(formatSummaryPart(moved, "moved"));
+		parts.push(`${moved} moved`);
 	}
 	if (changed > 0) {
-		parts.push(formatSummaryPart(changed, "changed"));
+		parts.push(`${changed} changed`);
 	}
 
 	return {
@@ -480,7 +502,7 @@ export function summarizeDiff(diff: IRDiff): IRDiffSummary {
 		removed,
 		moved,
 		changed,
-		description: `${formatCount(total, "change")}: ${parts.join(", ")}`,
+		description: `${total} change${total === 1 ? "" : "s"}: ${parts.join(", ")}`,
 	};
 }
 
@@ -597,14 +619,6 @@ function trimSuffix(value: string, suffix: string): string {
 	}
 
 	return value.slice(0, -suffix.length);
-}
-
-function formatCount(count: number, noun: string): string {
-	return `${count} ${noun}${count === 1 ? "" : "s"}`;
-}
-
-function formatSummaryPart(count: number, label: string): string {
-	return `${count} ${label}`;
 }
 
 function sortedIds(index: Map<string, IndexedNode>): string[] {
