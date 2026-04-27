@@ -59,7 +59,7 @@ function DiffColumn({ entries, title }: DiffColumnProps) {
 				</CardHeader>
 				<CardContent className="pt-4">
 					<ul className="flex flex-col gap-3">
-						{entries.map((entry) => (
+						{entries.map((entry, entryIndex) => (
 							<li
 								className={cn(
 									"rounded-xl border px-3 py-3",
@@ -72,7 +72,7 @@ function DiffColumn({ entries, title }: DiffColumnProps) {
 									entry.tone === "neutral" &&
 										"border-border bg-muted/40 text-foreground",
 								)}
-								key={`${title}-${entry.label}-${entry.title}-${entry.detail}`}
+								key={`${title}-${entryIndex}-${entry.label}-${entry.title}`}
 							>
 								<div className="text-sm font-semibold">{entry.label}</div>
 								<div className="mt-1 font-medium">{entry.title}</div>
