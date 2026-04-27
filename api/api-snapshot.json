@@ -914,6 +914,54 @@
 			"variant": "declaration",
 			"kind": 2097152,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Note: "
+					},
+					{
+						"kind": "code",
+						"text": "`move-node`"
+					},
+					{
+						"kind": "text",
+						"text": " is a hint, not a mutation. "
+					},
+					{
+						"kind": "code",
+						"text": "`applyDiff`"
+					},
+					{
+						"kind": "text",
+						"text": " validates it but\ndoes not perform any reparenting — the authoritative reparenting/reorder\nsignal is "
+					},
+					{
+						"kind": "code",
+						"text": "`change-children`"
+					},
+					{
+						"kind": "text",
+						"text": " on the affected parent(s). Consumers that\ninspect an "
+					},
+					{
+						"kind": "code",
+						"text": "`IRDiff`"
+					},
+					{
+						"kind": "text",
+						"text": " for display or logging may use "
+					},
+					{
+						"kind": "code",
+						"text": "`move-node`"
+					},
+					{
+						"kind": "text",
+						"text": " for\npresentation, but should not rely on it for replay correctness."
+					}
+				]
+			},
 			"type": {
 				"type": "union",
 				"types": [
@@ -1329,6 +1377,10 @@
 					},
 					{
 						"type": "literal",
+						"value": "STORAGE_QUOTA_EXCEEDED"
+					},
+					{
+						"type": "literal",
 						"value": "STORAGE_UNAVAILABLE"
 					}
 				]
@@ -1631,15 +1683,183 @@
 	"readme": [
 		{
 			"kind": "text",
-			"text": "# @anvilkit/plugin-version-history\n\nHeadless version-history plugin for Anvilkit Studio.\n\n## What It Ships\n\n- "
+			"text": "# @anvilkit/plugin-version-history\n\nHeadless version-history plugin for Anvilkit Studio.\n\nSnapshot persistence is delegated to a host-provided "
 		},
 		{
 			"kind": "code",
-			"text": "`createVersionHistoryPlugin({ adapter, maxSnapshots })`"
+			"text": "`SnapshotAdapter`"
 		},
 		{
 			"kind": "text",
-			"text": "\n- "
+			"text": ", so the\nplugin itself ships no I/O — only the diff/apply engine, header actions,\noptional UI primitives, and reference adapters for tests and demos.\n\n## Install\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```bash\npnpm add @anvilkit/plugin-version-history\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nPeer deps: "
+		},
+		{
+			"kind": "code",
+			"text": "`react ^18 || ^19`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`react-dom ^18 || ^19`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`@puckeditor/core ^0.19`"
+		},
+		{
+			"kind": "text",
+			"text": ".\n\n## Usage\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nimport { createVersionHistoryPlugin, inMemoryAdapter } from \"@anvilkit/plugin-version-history\";\n\nconst plugin = createVersionHistoryPlugin({\n\tadapter: inMemoryAdapter(),\n\tmaxSnapshots: 50, // optional FIFO cap\n});\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "`createVersionHistoryPlugin`"
+		},
+		{
+			"kind": "text",
+			"text": " returns a "
+		},
+		{
+			"kind": "code",
+			"text": "`StudioPlugin`"
+		},
+		{
+			"kind": "text",
+			"text": ". Pass the result to\n"
+		},
+		{
+			"kind": "code",
+			"text": "`compilePlugins(...)`"
+		},
+		{
+			"kind": "text",
+			"text": " (or whichever Studio composition you use). The plugin\ncontributes two header actions today ("
+		},
+		{
+			"kind": "code",
+			"text": "`version-history:save`"
+		},
+		{
+			"kind": "text",
+			"text": " and\n"
+		},
+		{
+			"kind": "code",
+			"text": "`version-history:open`"
+		},
+		{
+			"kind": "text",
+			"text": ") and emits "
+		},
+		{
+			"kind": "code",
+			"text": "`version-history:save-requested`"
+		},
+		{
+			"kind": "text",
+			"text": " /\n"
+		},
+		{
+			"kind": "code",
+			"text": "`version-history:open-requested`"
+		},
+		{
+			"kind": "text",
+			"text": " on the Studio event bus.\n\n## Adapter contract\n\nA "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotAdapter`"
+		},
+		{
+			"kind": "text",
+			"text": " implements:\n\n| Method | Purpose |\n| --- | --- |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`save(ir, meta) → string`"
+		},
+		{
+			"kind": "text",
+			"text": " | Persist a "
+		},
+		{
+			"kind": "code",
+			"text": "`PageIR`"
+		},
+		{
+			"kind": "text",
+			"text": ", return the snapshot id |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`list() → SnapshotMeta[]`"
+		},
+		{
+			"kind": "text",
+			"text": " | Return all known snapshots (order-preserving) |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`load(id) → PageIR`"
+		},
+		{
+			"kind": "text",
+			"text": " | Hydrate a snapshot by id (throws "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryError(\"SNAPSHOT_NOT_FOUND\")`"
+		},
+		{
+			"kind": "text",
+			"text": ") |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`delete?(id) → void`"
+		},
+		{
+			"kind": "text",
+			"text": " | Optional — required for "
+		},
+		{
+			"kind": "code",
+			"text": "`maxSnapshots`"
+		},
+		{
+			"kind": "text",
+			"text": " eviction |\n\nAll methods may be sync or async ("
+		},
+		{
+			"kind": "code",
+			"text": "`MaybePromise<T>`"
+		},
+		{
+			"kind": "text",
+			"text": "). Frozen, structurally-equal\nresults are recommended.\n\n## Reference adapters\n\n- "
 		},
 		{
 			"kind": "code",
@@ -1647,7 +1867,7 @@
 		},
 		{
 			"kind": "text",
-			"text": " for tests\n- "
+			"text": " — for tests; deep-freezes stored IRs.\n- "
 		},
 		{
 			"kind": "code",
@@ -1655,7 +1875,55 @@
 		},
 		{
 			"kind": "text",
-			"text": " for demos\n- "
+			"text": " — for demos; persists each snapshot under\n  "
+		},
+		{
+			"kind": "code",
+			"text": "`<namespace>:snapshots:<id>`"
+		},
+		{
+			"kind": "text",
+			"text": " plus a "
+		},
+		{
+			"kind": "code",
+			"text": "`<namespace>:snapshots:index`"
+		},
+		{
+			"kind": "text",
+			"text": " array.\n  Throws "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryError`"
+		},
+		{
+			"kind": "text",
+			"text": " with codes "
+		},
+		{
+			"kind": "code",
+			"text": "`STORAGE_UNAVAILABLE`"
+		},
+		{
+			"kind": "text",
+			"text": ",\n  "
+		},
+		{
+			"kind": "code",
+			"text": "`STORAGE_CORRUPT`"
+		},
+		{
+			"kind": "text",
+			"text": ", or "
+		},
+		{
+			"kind": "code",
+			"text": "`STORAGE_QUOTA_EXCEEDED`"
+		},
+		{
+			"kind": "text",
+			"text": " on the relevant failure modes.\n\n## Testing your own adapter\n\nThe "
 		},
 		{
 			"kind": "code",
@@ -1663,15 +1931,215 @@
 		},
 		{
 			"kind": "text",
-			"text": " with "
+			"text": " subpath exports\n"
 		},
 		{
 			"kind": "code",
-			"text": "`runAdapterContract()`"
+			"text": "`runAdapterContract`"
 		},
 		{
 			"kind": "text",
-			"text": "\n\n## Status\n\nThis package is the phase5-011 scaffold. It contributes header actions\ntoday and defers the sidebar-panel slot wiring to phase5-013 once Core\nadds the sidebar registration API."
+			"text": ", the same suite the reference adapters use:\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nimport { runAdapterContract } from \"@anvilkit/plugin-version-history/testing\";\nimport { describe, expect, it } from \"vitest\";\n\nimport { myAdapter } from \"./my-adapter.js\";\n\nrunAdapterContract(() => myAdapter(), { describe, expect, it });\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n## Optional UI\n\nThe "
+		},
+		{
+			"kind": "code",
+			"text": "`@anvilkit/plugin-version-history/ui`"
+		},
+		{
+			"kind": "text",
+			"text": " subpath ships React components\n("
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryUI`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`SaveSnapshotButton`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotList`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotHistoryModal`"
+		},
+		{
+			"kind": "text",
+			"text": ",\n"
+		},
+		{
+			"kind": "code",
+			"text": "`DiffView`"
+		},
+		{
+			"kind": "text",
+			"text": ") that consume an adapter directly. They are entirely optional — the\ndefault plugin export does not import them, so consumers who only need the\nheader actions and adapter wiring pay no UI rendering cost.\n\n## Diff / apply engine\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "`diffIR(a, b)`"
+		},
+		{
+			"kind": "text",
+			"text": " produces a deterministic, frozen "
+		},
+		{
+			"kind": "code",
+			"text": "`IRDiff`"
+		},
+		{
+			"kind": "text",
+			"text": ". "
+		},
+		{
+			"kind": "code",
+			"text": "`applyDiff(a, diff)`"
+		},
+		{
+			"kind": "text",
+			"text": "\nround-trips: "
+		},
+		{
+			"kind": "code",
+			"text": "`applyDiff(a, diffIR(a, b))`"
+		},
+		{
+			"kind": "text",
+			"text": " is structurally equal to "
+		},
+		{
+			"kind": "code",
+			"text": "`b`"
+		},
+		{
+			"kind": "text",
+			"text": ".\n"
+		},
+		{
+			"kind": "code",
+			"text": "`summarizeDiff(diff)`"
+		},
+		{
+			"kind": "text",
+			"text": " returns a small "
+		},
+		{
+			"kind": "code",
+			"text": "`{ added, removed, moved, changed,\ndescription }`"
+		},
+		{
+			"kind": "text",
+			"text": " summary suitable for UI labels.\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "`move-node`"
+		},
+		{
+			"kind": "text",
+			"text": " ops are informational hints. "
+		},
+		{
+			"kind": "code",
+			"text": "`change-children`"
+		},
+		{
+			"kind": "text",
+			"text": " on the affected\nparent(s) is the authoritative reparenting/reorder signal — "
+		},
+		{
+			"kind": "code",
+			"text": "`applyDiff`"
+		},
+		{
+			"kind": "text",
+			"text": "\ndoes not reparent on "
+		},
+		{
+			"kind": "code",
+			"text": "`move-node`"
+		},
+		{
+			"kind": "text",
+			"text": " alone.\n\n## Bundle budget\n\nThe published entry has an 8 KB gzipped budget enforced in CI by\n"
+		},
+		{
+			"kind": "code",
+			"text": "`scripts/check-bundle-budget.mjs`"
+		},
+		{
+			"kind": "text",
+			"text": " (and "
+		},
+		{
+			"kind": "code",
+			"text": "`.size-limit.json`"
+		},
+		{
+			"kind": "text",
+			"text": "). Workspace deps\n("
+		},
+		{
+			"kind": "code",
+			"text": "`@anvilkit/*`"
+		},
+		{
+			"kind": "text",
+			"text": ") and peers ("
+		},
+		{
+			"kind": "code",
+			"text": "`react`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`react-dom`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`@puckeditor/core`"
+		},
+		{
+			"kind": "text",
+			"text": ") are\ntreated as external.\n\n## Status\n\nPhase5-011 scaffold. Header actions are wired today; the sidebar-panel slot\ncontribution is deferred to phase5-013 once "
+		},
+		{
+			"kind": "code",
+			"text": "`StudioPluginContext`"
+		},
+		{
+			"kind": "text",
+			"text": " exposes the\nsidebar registration API."
 		}
 	],
 	"symbolIdMap": {
