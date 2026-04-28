@@ -378,7 +378,7 @@
 					},
 					"type": {
 						"type": "reference",
-						"target": 78,
+						"target": 85,
 						"name": "SnapshotAdapter",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -409,14 +409,14 @@
 			]
 		},
 		{
-			"id": 70,
+			"id": 76,
 			"name": "IRDiffSummary",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 71,
+					"id": 77,
 					"name": "added",
 					"variant": "declaration",
 					"kind": 1024,
@@ -429,7 +429,7 @@
 					}
 				},
 				{
-					"id": 74,
+					"id": 80,
 					"name": "changed",
 					"variant": "declaration",
 					"kind": 1024,
@@ -442,7 +442,7 @@
 					}
 				},
 				{
-					"id": 75,
+					"id": 82,
 					"name": "description",
 					"variant": "declaration",
 					"kind": 1024,
@@ -455,7 +455,53 @@
 					}
 				},
 				{
-					"id": 73,
+					"id": 81,
+					"name": "metaChanged",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Count of "
+							},
+							{
+								"kind": "code",
+								"text": "`meta-changed`"
+							},
+							{
+								"kind": "text",
+								"text": " ops in the diff. Optional so older\nconsumers that destructure "
+							},
+							{
+								"kind": "code",
+								"text": "`summarizeDiff`"
+							},
+							{
+								"kind": "text",
+								"text": " without "
+							},
+							{
+								"kind": "code",
+								"text": "`metaChanged`"
+							},
+							{
+								"kind": "text",
+								"text": "\nstay backward-compatible — additive only."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 79,
 					"name": "moved",
 					"variant": "declaration",
 					"kind": 1024,
@@ -468,7 +514,7 @@
 					}
 				},
 				{
-					"id": 72,
+					"id": 78,
 					"name": "removed",
 					"variant": "declaration",
 					"kind": 1024,
@@ -485,11 +531,12 @@
 				{
 					"title": "Properties",
 					"children": [
-						71,
-						74,
-						75,
-						73,
-						72
+						77,
+						80,
+						82,
+						81,
+						79,
+						78
 					]
 				}
 			]
@@ -525,19 +572,72 @@
 			]
 		},
 		{
-			"id": 78,
+			"id": 85,
 			"name": "SnapshotAdapter",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 91,
+					"id": 98,
 					"name": "delete",
 					"variant": "declaration",
 					"kind": 1024,
 					"flags": {
 						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 99,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 100,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"parameters": [
+										{
+											"id": 101,
+											"name": "id",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": 83,
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										],
+										"name": "MaybePromise",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 91,
+					"name": "list",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
 						"isReadonly": true
 					},
 					"type": {
@@ -555,62 +655,9 @@
 									"variant": "signature",
 									"kind": 4096,
 									"flags": {},
-									"parameters": [
-										{
-											"id": 94,
-											"name": "id",
-											"variant": "param",
-											"kind": 32768,
-											"flags": {},
-											"type": {
-												"type": "intrinsic",
-												"name": "string"
-											}
-										}
-									],
 									"type": {
 										"type": "reference",
-										"target": 76,
-										"typeArguments": [
-											{
-												"type": "intrinsic",
-												"name": "void"
-											}
-										],
-										"name": "MaybePromise",
-										"package": "@anvilkit/plugin-version-history"
-									}
-								}
-							]
-						}
-					}
-				},
-				{
-					"id": 84,
-					"name": "list",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isReadonly": true
-					},
-					"type": {
-						"type": "reflection",
-						"declaration": {
-							"id": 85,
-							"name": "__type",
-							"variant": "declaration",
-							"kind": 65536,
-							"flags": {},
-							"signatures": [
-								{
-									"id": 86,
-									"name": "__type",
-									"variant": "signature",
-									"kind": 4096,
-									"flags": {},
-									"type": {
-										"type": "reference",
-										"target": 76,
+										"target": 83,
 										"typeArguments": [
 											{
 												"type": "typeOperator",
@@ -619,7 +666,7 @@
 													"type": "array",
 													"elementType": {
 														"type": "reference",
-														"target": 95,
+														"target": 102,
 														"name": "SnapshotMeta",
 														"package": "@anvilkit/plugin-version-history"
 													}
@@ -635,7 +682,7 @@
 					}
 				},
 				{
-					"id": 87,
+					"id": 94,
 					"name": "load",
 					"variant": "declaration",
 					"kind": 1024,
@@ -645,21 +692,21 @@
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 88,
+							"id": 95,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"signatures": [
 								{
-									"id": 89,
+									"id": 96,
 									"name": "__type",
 									"variant": "signature",
 									"kind": 4096,
 									"flags": {},
 									"parameters": [
 										{
-											"id": 90,
+											"id": 97,
 											"name": "id",
 											"variant": "param",
 											"kind": 32768,
@@ -672,7 +719,7 @@
 									],
 									"type": {
 										"type": "reference",
-										"target": 76,
+										"target": 83,
 										"typeArguments": [
 											{
 												"type": "reference",
@@ -694,7 +741,7 @@
 					}
 				},
 				{
-					"id": 79,
+					"id": 86,
 					"name": "save",
 					"variant": "declaration",
 					"kind": 1024,
@@ -704,21 +751,21 @@
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 80,
+							"id": 87,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"signatures": [
 								{
-									"id": 81,
+									"id": 88,
 									"name": "__type",
 									"variant": "signature",
 									"kind": 4096,
 									"flags": {},
 									"parameters": [
 										{
-											"id": 82,
+											"id": 89,
 											"name": "ir",
 											"variant": "param",
 											"kind": 32768,
@@ -735,7 +782,7 @@
 											}
 										},
 										{
-											"id": 83,
+											"id": 90,
 											"name": "meta",
 											"variant": "param",
 											"kind": 32768,
@@ -758,7 +805,7 @@
 														"typeArguments": [
 															{
 																"type": "reference",
-																"target": 95,
+																"target": 102,
 																"name": "SnapshotMeta",
 																"package": "@anvilkit/plugin-version-history"
 															},
@@ -787,7 +834,7 @@
 									],
 									"type": {
 										"type": "reference",
-										"target": 76,
+										"target": 83,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -807,23 +854,23 @@
 				{
 					"title": "Properties",
 					"children": [
+						98,
 						91,
-						84,
-						87,
-						79
+						94,
+						86
 					]
 				}
 			]
 		},
 		{
-			"id": 95,
+			"id": 102,
 			"name": "SnapshotMeta",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 96,
+					"id": 103,
 					"name": "id",
 					"variant": "declaration",
 					"kind": 1024,
@@ -836,7 +883,7 @@
 					}
 				},
 				{
-					"id": 97,
+					"id": 104,
 					"name": "label",
 					"variant": "declaration",
 					"kind": 1024,
@@ -850,7 +897,7 @@
 					}
 				},
 				{
-					"id": 99,
+					"id": 106,
 					"name": "pageIRHash",
 					"variant": "declaration",
 					"kind": 1024,
@@ -863,7 +910,7 @@
 					}
 				},
 				{
-					"id": 98,
+					"id": 105,
 					"name": "savedAt",
 					"variant": "declaration",
 					"kind": 1024,
@@ -880,10 +927,10 @@
 				{
 					"title": "Properties",
 					"children": [
-						96,
-						97,
-						99,
-						98
+						103,
+						104,
+						106,
+						105
 					]
 				}
 			]
@@ -1307,19 +1354,115 @@
 								}
 							]
 						}
+					},
+					{
+						"type": "reflection",
+						"declaration": {
+							"id": 70,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"children": [
+								{
+									"id": 75,
+									"name": "after",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "unknown"
+									}
+								},
+								{
+									"id": 74,
+									"name": "before",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "unknown"
+									}
+								},
+								{
+									"id": 73,
+									"name": "key",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "literal",
+												"value": "locked"
+											},
+											{
+												"type": "literal",
+												"value": "owner"
+											},
+											{
+												"type": "literal",
+												"value": "version"
+											},
+											{
+												"type": "literal",
+												"value": "notes"
+											}
+										]
+									}
+								},
+								{
+									"id": 71,
+									"name": "kind",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {},
+									"type": {
+										"type": "literal",
+										"value": "meta-changed"
+									}
+								},
+								{
+									"id": 72,
+									"name": "path",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										75,
+										74,
+										73,
+										71,
+										72
+									]
+								}
+							]
+						}
 					}
 				]
 			}
 		},
 		{
-			"id": 76,
+			"id": 83,
 			"name": "MaybePromise",
 			"variant": "declaration",
 			"kind": 2097152,
 			"flags": {},
 			"typeParameters": [
 				{
-					"id": 77,
+					"id": 84,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -1331,7 +1474,7 @@
 				"types": [
 					{
 						"type": "reference",
-						"target": 77,
+						"target": 84,
 						"name": "T",
 						"package": "@anvilkit/plugin-version-history",
 						"refersToTypeParameter": true
@@ -1346,7 +1489,7 @@
 						"typeArguments": [
 							{
 								"type": "reference",
-								"target": 77,
+								"target": 84,
 								"name": "T",
 								"package": "@anvilkit/plugin-version-history",
 								"refersToTypeParameter": true
@@ -1558,7 +1701,7 @@
 					"flags": {},
 					"type": {
 						"type": "reference",
-						"target": 78,
+						"target": 85,
 						"name": "SnapshotAdapter",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -1595,7 +1738,7 @@
 					],
 					"type": {
 						"type": "reference",
-						"target": 78,
+						"target": 85,
 						"name": "SnapshotAdapter",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -1632,7 +1775,7 @@
 					],
 					"type": {
 						"type": "reference",
-						"target": 70,
+						"target": 76,
 						"name": "IRDiffSummary",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -1652,10 +1795,10 @@
 			"title": "Interfaces",
 			"children": [
 				38,
-				70,
+				76,
 				3,
-				78,
-				95
+				85,
+				102
 			]
 		},
 		{
@@ -1663,7 +1806,7 @@
 			"children": [
 				44,
 				45,
-				76,
+				83,
 				37
 			]
 		},
@@ -2496,92 +2639,92 @@
 		"70": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/diff.ts",
-			"qualifiedName": "IRDiffSummary"
+			"qualifiedName": "__type"
 		},
 		"71": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/diff.ts",
-			"qualifiedName": "IRDiffSummary.added"
+			"qualifiedName": "__type.kind"
 		},
 		"72": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/diff.ts",
-			"qualifiedName": "IRDiffSummary.removed"
+			"qualifiedName": "__type.path"
 		},
 		"73": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/diff.ts",
-			"qualifiedName": "IRDiffSummary.moved"
+			"qualifiedName": "__type.key"
 		},
 		"74": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/diff.ts",
-			"qualifiedName": "IRDiffSummary.changed"
+			"qualifiedName": "__type.before"
 		},
 		"75": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/diff.ts",
-			"qualifiedName": "IRDiffSummary.description"
+			"qualifiedName": "__type.after"
 		},
 		"76": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "MaybePromise"
+			"packagePath": "src/diff.ts",
+			"qualifiedName": "IRDiffSummary"
 		},
 		"77": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "T"
+			"packagePath": "src/diff.ts",
+			"qualifiedName": "IRDiffSummary.added"
 		},
 		"78": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotAdapter"
+			"packagePath": "src/diff.ts",
+			"qualifiedName": "IRDiffSummary.removed"
 		},
 		"79": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotAdapter.save"
+			"packagePath": "src/diff.ts",
+			"qualifiedName": "IRDiffSummary.moved"
 		},
 		"80": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"packagePath": "src/diff.ts",
+			"qualifiedName": "IRDiffSummary.changed"
 		},
 		"81": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"packagePath": "src/diff.ts",
+			"qualifiedName": "IRDiffSummary.metaChanged"
 		},
 		"82": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types.ts",
-			"qualifiedName": "ir"
+			"packagePath": "src/diff.ts",
+			"qualifiedName": "IRDiffSummary.description"
 		},
 		"83": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "meta"
+			"qualifiedName": "MaybePromise"
 		},
 		"84": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotAdapter.list"
+			"qualifiedName": "T"
 		},
 		"85": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "SnapshotAdapter"
 		},
 		"86": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "SnapshotAdapter.save"
 		},
 		"87": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotAdapter.load"
+			"qualifiedName": "__type"
 		},
 		"88": {
 			"packageName": "@anvilkit/plugin-version-history",
@@ -2591,17 +2734,17 @@
 		"89": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "ir"
 		},
 		"90": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "id"
+			"qualifiedName": "meta"
 		},
 		"91": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotAdapter.delete"
+			"qualifiedName": "SnapshotAdapter.list"
 		},
 		"92": {
 			"packageName": "@anvilkit/plugin-version-history",
@@ -2616,29 +2759,64 @@
 		"94": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "id"
+			"qualifiedName": "SnapshotAdapter.load"
 		},
 		"95": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotMeta"
+			"qualifiedName": "__type"
 		},
 		"96": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotMeta.id"
+			"qualifiedName": "__type"
 		},
 		"97": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotMeta.label"
+			"qualifiedName": "id"
 		},
 		"98": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "SnapshotMeta.savedAt"
+			"qualifiedName": "SnapshotAdapter.delete"
 		},
 		"99": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "__type"
+		},
+		"100": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "__type"
+		},
+		"101": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "id"
+		},
+		"102": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "SnapshotMeta"
+		},
+		"103": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "SnapshotMeta.id"
+		},
+		"104": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "SnapshotMeta.label"
+		},
+		"105": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "SnapshotMeta.savedAt"
+		},
+		"106": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
 			"qualifiedName": "SnapshotMeta.pageIRHash"
