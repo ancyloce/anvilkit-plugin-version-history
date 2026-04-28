@@ -23,6 +23,13 @@ export type IRDiffOp =
 			path: string;
 			before: readonly string[];
 			after: readonly string[];
+	  }
+	| {
+			kind: "meta-changed";
+			path: string;
+			key: "locked" | "owner" | "version" | "notes";
+			before: unknown;
+			after: unknown;
 	  };
 
 export type IRDiff = readonly IRDiffOp[];
@@ -32,8 +39,17 @@ export interface IRDiffSummary {
 	readonly removed: number;
 	readonly moved: number;
 	readonly changed: number;
+	/**
+	 * Count of `meta-changed` ops in the diff. Optional so older
+	 * consumers that destructure `summarizeDiff` without `metaChanged`
+	 * stay backward-compatible — additive only.
+	 */
+	readonly metaChanged?: number;
 	readonly description: string;
 }
+
+const META_KEYS = ["locked", "owner", "version", "notes"] as const;
+type MetaKey = (typeof META_KEYS)[number];
 
 interface IndexedNode {
 	readonly path: string;
@@ -54,6 +70,7 @@ interface MutablePageIRNode {
 	props: Record<string, unknown>;
 	children?: MutablePageIRNode[];
 	assets?: unknown[];
+	meta?: Record<string, unknown>;
 }
 
 export class DiffApplyError extends Error {
@@ -71,6 +88,7 @@ export function diffIR(a: PageIR, b: PageIR): IRDiff {
 	const moves: Array<Extract<IRDiffOp, { kind: "move-node" }>> = [];
 	const childChanges: Array<Extract<IRDiffOp, { kind: "change-children" }>> = [];
 	const propChanges: Array<Extract<IRDiffOp, { kind: "change-prop" }>> = [];
+	const metaChanges: Array<Extract<IRDiffOp, { kind: "meta-changed" }>> = [];
 
 	for (const nodeId of sortedIds(bIndex)) {
 		if (!aIndex.has(nodeId)) {
@@ -147,6 +165,22 @@ export function diffIR(a: PageIR, b: PageIR): IRDiff {
 				});
 			}
 		}
+
+		const beforeMeta = (before.node.meta ?? {}) as Record<MetaKey, unknown>;
+		const afterMeta = (after.node.meta ?? {}) as Record<MetaKey, unknown>;
+		for (const metaKey of META_KEYS) {
+			const previous = beforeMeta[metaKey];
+			const next = afterMeta[metaKey];
+			if (!deepEqual(previous, next)) {
+				metaChanges.push({
+					kind: "meta-changed",
+					path: `${before.path}/meta`,
+					key: metaKey,
+					before: previous,
+					after: next,
+				});
+			}
+		}
 	}
 
 	return Object.freeze([
@@ -157,6 +191,14 @@ export function diffIR(a: PageIR, b: PageIR): IRDiff {
 			comparePathAsc(left.path, right.path),
 		),
 		...propChanges.sort((left, right) => {
+			const pathOrder = comparePathAsc(left.path, right.path);
+			if (pathOrder !== 0) {
+				return pathOrder;
+			}
+
+			return left.key.localeCompare(right.key);
+		}),
+		...metaChanges.sort((left, right) => {
 			const pathOrder = comparePathAsc(left.path, right.path);
 			if (pathOrder !== 0) {
 				return pathOrder;
@@ -267,6 +309,39 @@ export function applyDiff(a: PageIR, diff: IRDiff): PageIR {
 				}
 				break;
 			}
+			case "meta-changed": {
+				const nodeId = resolveNodeIdForChange(op.path, "/meta", originalPathNodeIds);
+				const content = nodeContent.get(nodeId);
+				if (!content) {
+					throw new DiffApplyError(
+						`Cannot change meta on missing node ${nodeId} (${op.path})`,
+					);
+				}
+
+				const currentMeta = content.meta ?? {};
+				const currentValue = currentMeta[op.key];
+				if (!deepEqual(currentValue, op.before)) {
+					throw new DiffApplyError(
+						`Meta mismatch at ${op.path}/${op.key}: expected ${JSON.stringify(op.before)}, got ${JSON.stringify(currentValue)}`,
+					);
+				}
+
+				if (op.after === undefined) {
+					const nextMeta = { ...currentMeta };
+					delete nextMeta[op.key];
+					if (Object.keys(nextMeta).length === 0) {
+						content.meta = undefined;
+					} else {
+						content.meta = nextMeta;
+					}
+				} else {
+					content.meta = {
+						...currentMeta,
+						[op.key]: structuredClone(op.after),
+					};
+				}
+				break;
+			}
 			/* c8 ignore next 2 */
 			default:
 				assertNever(op);
@@ -305,6 +380,7 @@ interface NodeContent {
 	type: string;
 	props: Record<string, unknown>;
 	assets?: unknown[];
+	meta?: Record<string, unknown>;
 }
 
 function collectContent(
@@ -319,6 +395,9 @@ function collectContent(
 	};
 	if (node.assets !== undefined) {
 		content.assets = structuredClone(node.assets) as unknown[];
+	}
+	if (node.meta !== undefined) {
+		content.meta = structuredClone(node.meta) as Record<string, unknown>;
 	}
 	nodeContent.set(node.id, content);
 
@@ -358,6 +437,9 @@ function collectAddedContent(
 	};
 	if (node.assets !== undefined) {
 		content.assets = structuredClone(node.assets) as unknown[];
+	}
+	if (node.meta !== undefined) {
+		content.meta = structuredClone(node.meta) as Record<string, unknown>;
 	}
 	nodeContent.set(node.id, content);
 	knownIds.add(node.id);
@@ -437,6 +519,9 @@ function buildReconstructedNode(
 	if (content.assets !== undefined) {
 		node.assets = structuredClone(content.assets) as unknown[];
 	}
+	if (content.meta !== undefined) {
+		node.meta = structuredClone(content.meta) as Record<string, unknown>;
+	}
 
 	const childIds = childrenMap.get(id);
 	if (childIds && childIds.length > 0) {
@@ -454,6 +539,7 @@ export function summarizeDiff(diff: IRDiff): IRDiffSummary {
 	let removed = 0;
 	let moved = 0;
 	let changed = 0;
+	let metaChanged = 0;
 	for (const op of diff) {
 		switch (op.kind) {
 			case "add-node":
@@ -469,9 +555,12 @@ export function summarizeDiff(diff: IRDiff): IRDiffSummary {
 			case "change-children":
 				changed += 1;
 				break;
+			case "meta-changed":
+				metaChanged += 1;
+				break;
 		}
 	}
-	const total = added + removed + moved + changed;
+	const total = added + removed + moved + changed + metaChanged;
 
 	if (total === 0) {
 		return {
@@ -496,14 +585,24 @@ export function summarizeDiff(diff: IRDiff): IRDiffSummary {
 	if (changed > 0) {
 		parts.push(`${changed} changed`);
 	}
+	if (metaChanged > 0) {
+		parts.push(`${metaChanged} meta`);
+	}
 
-	return {
+	const summary: IRDiffSummary = {
 		added,
 		removed,
 		moved,
 		changed,
 		description: `${total} change${total === 1 ? "" : "s"}: ${parts.join(", ")}`,
 	};
+	// Include `metaChanged` only when non-zero so legacy snapshot
+	// matchers (`toEqual({...})`) without `metaChanged` keep passing —
+	// the field is optional on `IRDiffSummary` for exactly this reason.
+	if (metaChanged > 0) {
+		(summary as { metaChanged?: number }).metaChanged = metaChanged;
+	}
+	return summary;
 }
 
 function indexTree(ir: PageIR): Map<string, IndexedNode> {
