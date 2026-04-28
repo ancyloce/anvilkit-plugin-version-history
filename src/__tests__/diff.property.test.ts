@@ -1,4 +1,4 @@
-import type { PageIR, PageIRNode } from "@anvilkit/core/types";
+import type { PageIR, PageIRNode, PageIRNodeMeta } from "@anvilkit/core/types";
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 
@@ -6,6 +6,8 @@ import { applyDiff, diffIR } from "../diff.js";
 
 const SEED = 20_260_422;
 const PROP_KEYS = ["title", "count", "flag", "items", "config"] as const;
+const META_KEYS = ["locked", "owner", "version", "notes"] as const;
+type MetaKey = (typeof META_KEYS)[number];
 
 const scalarValueArb = fc.oneof(
 	fc.string({ maxLength: 12 }),
@@ -34,11 +36,29 @@ const propsArb = fc.dictionary(fc.constantFrom(...PROP_KEYS), valueArb, {
 	maxKeys: 4,
 });
 
+const semverArb = fc
+	.tuple(fc.nat({ max: 99 }), fc.nat({ max: 99 }), fc.nat({ max: 99 }))
+	.map(([major, minor, patch]) => `${major}.${minor}.${patch}`);
+
+const metaArb: fc.Arbitrary<PageIRNodeMeta | undefined> = fc.option(
+	fc.record(
+		{
+			locked: fc.option(fc.boolean(), { nil: undefined }),
+			owner: fc.option(fc.string({ maxLength: 16 }), { nil: undefined }),
+			version: fc.option(semverArb, { nil: undefined }),
+			notes: fc.option(fc.string({ maxLength: 32 }), { nil: undefined }),
+		},
+		{ requiredKeys: [] },
+	),
+	{ nil: undefined, freq: 2 },
+);
+
 const irGen: fc.Arbitrary<PageIR> = fc
 	.record({
 		nodeCount: fc.integer({ min: 1, max: 50 }),
 		rootProps: propsArb,
 		nodeProps: fc.array(propsArb, { minLength: 49, maxLength: 49 }),
+		nodeMetas: fc.array(metaArb, { minLength: 50, maxLength: 50 }),
 		parentSeeds: fc.array(fc.nat(10_000), { minLength: 49, maxLength: 49 }),
 		typeSeeds: fc.array(fc.nat(10), { minLength: 49, maxLength: 49 }),
 		idSalt: fc.nat(1_000_000),
@@ -52,6 +72,19 @@ const pairPlanArb = fc.record({
 			keySeed: fc.nat(10_000),
 			mode: fc.constantFrom("set", "delete"),
 			value: valueArb,
+		}),
+		{ maxLength: 4 },
+	),
+	metaMutations: fc.array(
+		fc.record({
+			nodeSeed: fc.nat(10_000),
+			keySeed: fc.nat(10_000),
+			mode: fc.constantFrom("set", "delete"),
+			value: fc.oneof(
+				fc.boolean(),
+				fc.string({ maxLength: 16 }),
+				semverArb,
+			),
 		}),
 		{ maxLength: 4 },
 	),
@@ -118,6 +151,7 @@ function buildIR(spec: {
 	readonly nodeCount: number;
 	readonly rootProps: Record<string, unknown>;
 	readonly nodeProps: readonly Record<string, unknown>[];
+	readonly nodeMetas: readonly (PageIRNodeMeta | undefined)[];
 	readonly parentSeeds: readonly number[];
 	readonly typeSeeds: readonly number[];
 	readonly idSalt: number;
@@ -127,6 +161,7 @@ function buildIR(spec: {
 		type: "__root__",
 		props: structuredClone(spec.rootProps),
 		children: [],
+		meta: cloneMeta(spec.nodeMetas[0]),
 	};
 	const slots: Array<{ node: MutableNode; depth: number }> = [{ node: root, depth: 0 }];
 
@@ -138,12 +173,33 @@ function buildIR(spec: {
 			type: `Block${spec.typeSeeds[index]! % 4}`,
 			props: structuredClone(spec.nodeProps[index]!),
 			children: [],
+			meta: cloneMeta(spec.nodeMetas[index + 1]),
 		};
 		parent.node.children.push(node);
 		slots.push({ node, depth: parent.depth + 1 });
 	}
 
 	return toPageIR(root);
+}
+
+function cloneMeta(
+	meta: PageIRNodeMeta | undefined,
+): Record<string, unknown> | undefined {
+	if (meta === undefined) {
+		return undefined;
+	}
+	const cloned = structuredClone(meta) as Record<string, unknown>;
+	// Drop keys whose value is undefined to keep meta object shape stable
+	// (avoid `{ owner: undefined }` round-tripping differently from `{}`).
+	for (const key of Object.keys(cloned)) {
+		if (cloned[key] === undefined) {
+			delete cloned[key];
+		}
+	}
+	if (Object.keys(cloned).length === 0) {
+		return undefined;
+	}
+	return cloned;
 }
 
 function mutateIR(
@@ -154,6 +210,12 @@ function mutateIR(
 			readonly keySeed: number;
 			readonly mode: "set" | "delete";
 			readonly value: unknown;
+		}[];
+		readonly metaMutations: readonly {
+			readonly nodeSeed: number;
+			readonly keySeed: number;
+			readonly mode: "set" | "delete";
+			readonly value: boolean | string;
 		}[];
 		readonly adds: readonly {
 			readonly parentSeed: number;
@@ -197,6 +259,29 @@ function mutateIR(
 		}
 
 		target.props[key] = structuredClone(mutation.value);
+	}
+
+	for (const mutation of plan.metaMutations) {
+		const nodes = collectNodes(root);
+		const target = nodes[mutation.nodeSeed % nodes.length]?.node;
+		if (!target) {
+			continue;
+		}
+
+		const key = META_KEYS[mutation.keySeed % META_KEYS.length] as MetaKey;
+
+		if (mutation.mode === "delete") {
+			if (target.meta !== undefined) {
+				const next = { ...target.meta };
+				delete next[key];
+				target.meta = Object.keys(next).length === 0 ? undefined : next;
+			}
+			continue;
+		}
+
+		const coerced = coerceMetaValue(key, mutation.value);
+		const current = target.meta ?? {};
+		target.meta = { ...current, [key]: coerced };
 	}
 
 	for (const add of plan.adds) {
@@ -283,6 +368,7 @@ interface MutableNode {
 	type: string;
 	props: Record<string, unknown>;
 	children: MutableNode[];
+	meta?: Record<string, unknown>;
 }
 
 function toMutableNode(node: PageIRNode): MutableNode {
@@ -291,7 +377,26 @@ function toMutableNode(node: PageIRNode): MutableNode {
 		type: node.type,
 		props: structuredClone(node.props),
 		children: (node.children ?? []).map((child) => toMutableNode(child)),
+		...(node.meta !== undefined
+			? { meta: structuredClone(node.meta) as Record<string, unknown> }
+			: {}),
 	};
+}
+
+function coerceMetaValue(key: MetaKey, raw: boolean | string): unknown {
+	if (key === "locked") {
+		return typeof raw === "boolean" ? raw : raw.length > 0;
+	}
+	if (key === "version") {
+		// Force a semver-shaped string so `validator` would accept it
+		// downstream — fuzz mutations should produce documents the
+		// runtime would actually allow.
+		return typeof raw === "string" && /^\d+\.\d+\.\d+/.test(raw)
+			? raw
+			: "1.0.0";
+	}
+	// owner / notes — string fields, capped at 32/64 in the arb above.
+	return typeof raw === "string" ? raw : String(raw);
 }
 
 function toPageIR(root: MutableNode): PageIR {
@@ -310,6 +415,9 @@ function toPageNode(node: MutableNode): PageIRNode {
 		props: structuredClone(node.props),
 		...(node.children.length > 0
 			? { children: node.children.map((child) => toPageNode(child)) }
+			: {}),
+		...(node.meta !== undefined
+			? { meta: structuredClone(node.meta) as PageIRNodeMeta }
 			: {}),
 	};
 }
