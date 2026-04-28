@@ -186,6 +186,23 @@ function appendEntries(
 			});
 			return;
 		}
+		case "meta-changed": {
+			const lockGlyph = op.key === "locked" ? "🔒 " : "";
+			const label = `~ Meta ${lockGlyph}${op.key}`.trimEnd();
+			beforeEntries.push({
+				detail: formatValue(op.before),
+				label,
+				title: `${op.path}.${op.key}`,
+				tone: "changed",
+			});
+			afterEntries.push({
+				detail: formatValue(op.after),
+				label,
+				title: `${op.path}.${op.key}`,
+				tone: "changed",
+			});
+			return;
+		}
 	}
 }
 

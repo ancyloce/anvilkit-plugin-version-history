@@ -1,10 +1,22 @@
 import * as React from "react";
 
-import type { PageIR } from "@anvilkit/core/types";
+import type { PageIR, PageIRNode } from "@anvilkit/core/types";
 import { Card, CardContent, CardHeader, CardTitle, cn } from "@anvilkit/ui";
 
 import { diffIR, summarizeDiff } from "../diff.js";
 import type { SnapshotMeta } from "../types.js";
+
+function hasLockedNode(node: PageIRNode): boolean {
+	if (node.meta?.locked === true) {
+		return true;
+	}
+	for (const child of node.children ?? []) {
+		if (hasLockedNode(child)) {
+			return true;
+		}
+	}
+	return false;
+}
 
 export interface SnapshotListProps {
 	readonly currentIR: PageIR;
@@ -125,6 +137,11 @@ const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
 			return summarizeDiff(diffIR(currentIR, snapshotIR)).description;
 		}, [currentIR, loadFailed, snapshotIR]);
 
+		const isLocked = React.useMemo(
+			() => (snapshotIR ? hasLockedNode(snapshotIR.root) : false),
+			[snapshotIR],
+		);
+
 		const displayLabel =
 			snapshot.label?.trim().length ? snapshot.label.trim() : "Untitled snapshot";
 		const savedAt = new Date(snapshot.savedAt).toLocaleString();
@@ -163,7 +180,18 @@ const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
 				tabIndex={0}
 			>
 				<div className="flex flex-wrap items-start justify-between gap-2">
-					<div className="font-medium text-foreground">{displayLabel}</div>
+					<div className="flex items-center gap-2 font-medium text-foreground">
+						{displayLabel}
+						{isLocked ? (
+							<span
+								aria-label="Snapshot contains locked nodes"
+								className="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-900"
+								title="Contains locked nodes"
+							>
+								🔒 locked
+							</span>
+						) : null}
+					</div>
 					<div className="text-sm text-muted-foreground">{savedAt}</div>
 				</div>
 				<p className="mt-2 text-sm text-muted-foreground">{summary}</p>
