@@ -14,4 +14,14 @@ export {
 export type { CreateVersionHistoryPluginOptions } from "./plugin.js";
 export { createVersionHistoryPlugin } from "./plugin.js";
 export type { IRDiff, IRDiffOp, IRDiffSummary } from "./diff.js";
-export type { MaybePromise, SnapshotAdapter, SnapshotMeta } from "./types.js";
+export type {
+	MaybePromise,
+	PeerInfo,
+	PresenceCursor,
+	PresenceSelection,
+	PresenceState,
+	SnapshotAdapter,
+	SnapshotAdapterPresence,
+	SnapshotMeta,
+	Unsubscribe,
+} from "./types.js";

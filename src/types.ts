@@ -9,6 +9,36 @@ export interface SnapshotMeta {
 	readonly pageIRHash: string;
 }
 
+export type Unsubscribe = () => void;
+
+export interface PeerInfo {
+	readonly id: string;
+	readonly displayName?: string;
+	readonly color?: string;
+}
+
+export interface PresenceCursor {
+	readonly x: number;
+	readonly y: number;
+}
+
+export interface PresenceSelection {
+	readonly nodeIds: readonly string[];
+}
+
+export interface PresenceState {
+	readonly peer: PeerInfo;
+	readonly cursor?: PresenceCursor;
+	readonly selection?: PresenceSelection;
+}
+
+export interface SnapshotAdapterPresence {
+	update(state: PresenceState): void;
+	onPeerChange(
+		callback: (peers: readonly PresenceState[]) => void,
+	): Unsubscribe;
+}
+
 export interface SnapshotAdapter {
 	readonly save: (
 		ir: PageIR,
@@ -17,4 +47,8 @@ export interface SnapshotAdapter {
 	readonly list: () => MaybePromise<readonly SnapshotMeta[]>;
 	readonly load: (id: string) => MaybePromise<PageIR>;
 	readonly delete?: (id: string) => MaybePromise<void>;
+	readonly subscribe?: (
+		onUpdate: (ir: PageIR, peer?: PeerInfo) => void,
+	) => Unsubscribe;
+	readonly presence?: SnapshotAdapterPresence;
 }
