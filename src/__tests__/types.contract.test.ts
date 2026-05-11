@@ -27,10 +27,15 @@ describe("SnapshotAdapter v2 contract (additive)", () => {
 	});
 
 	it("accepts a v2 adapter that implements subscribe and presence", () => {
+		const noop: Unsubscribe = () => {
+			// test stub — no-op
+		};
 		const presence: SnapshotAdapterPresence = {
-			update(_state: PresenceState) {},
+			update(_state: PresenceState) {
+				// test stub — no-op
+			},
 			onPeerChange(_cb): Unsubscribe {
-				return () => {};
+				return noop;
 			},
 		};
 
@@ -42,7 +47,7 @@ describe("SnapshotAdapter v2 contract (additive)", () => {
 			},
 			subscribe(onUpdate: (ir: PageIR, peer?: PeerInfo) => void): Unsubscribe {
 				void onUpdate;
-				return () => {};
+				return noop;
 			},
 			presence,
 		};
