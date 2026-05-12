@@ -95,6 +95,6 @@ treated as external.
 
 ## Status
 
-Phase5-011 scaffold. Header actions are wired today; the sidebar-panel slot
-contribution is deferred to phase5-013 once `StudioPluginContext` exposes the
-sidebar registration API.
+Alpha (`0.1.0-alpha.0`). Header actions and the diff/apply engine are
+wired today. A sidebar-panel slot contribution is deferred until
+`StudioPluginContext` exposes the sidebar registration API.
