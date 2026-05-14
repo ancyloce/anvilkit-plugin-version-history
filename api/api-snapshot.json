@@ -1164,7 +1164,7 @@
 									],
 									"type": {
 										"type": "reference",
-										"target": 139,
+										"target": 140,
 										"name": "Unsubscribe",
 										"package": "@anvilkit/plugin-version-history"
 									}
@@ -1264,7 +1264,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 139,
+								"target": 140,
 								"name": "Unsubscribe",
 								"package": "@anvilkit/plugin-version-history"
 							}
@@ -1325,6 +1325,54 @@
 			"flags": {},
 			"children": [
 				{
+					"id": 139,
+					"name": "delta",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Structural diff from the immediately previous snapshot to this\none (L2). Optional — only populated when the producing adapter\nopts in (e.g. "
+							},
+							{
+								"kind": "code",
+								"text": "`createYjsAdapter({ computeDelta: true })`"
+							},
+							{
+								"kind": "text",
+								"text": "). Useful\nfor audit logs, undo-stack replay, and human-readable change\nsummaries via "
+							},
+							{
+								"kind": "code",
+								"text": "`summarizeDiff`"
+							},
+							{
+								"kind": "text",
+								"text": " from "
+							},
+							{
+								"kind": "code",
+								"text": "`./diff.js`"
+							},
+							{
+								"kind": "text",
+								"text": ".\n\nSnapshots written by older adapter versions omit this field; the\nshape stays backward compatible."
+							}
+						]
+					},
+					"type": {
+						"type": "reference",
+						"target": 44,
+						"name": "IRDiff",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				},
+				{
 					"id": 135,
 					"name": "id",
 					"variant": "declaration",
@@ -1382,6 +1430,7 @@
 				{
 					"title": "Properties",
 					"children": [
+						139,
 						135,
 						136,
 						138,
@@ -1957,7 +2006,7 @@
 			}
 		},
 		{
-			"id": 139,
+			"id": 140,
 			"name": "Unsubscribe",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -1965,14 +2014,14 @@
 			"type": {
 				"type": "reflection",
 				"declaration": {
-					"id": 140,
+					"id": 141,
 					"name": "__type",
 					"variant": "declaration",
 					"kind": 65536,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 141,
+							"id": 142,
 							"name": "__type",
 							"variant": "signature",
 							"kind": 4096,
@@ -2297,7 +2346,7 @@
 				44,
 				45,
 				83,
-				139,
+				140,
 				37
 			]
 		},
@@ -2765,7 +2814,15 @@
 		},
 		{
 			"kind": "text",
-			"text": ") are\ntreated as external.\n\n## Status\n\nPhase5-011 scaffold. Header actions are wired today; the sidebar-panel slot\ncontribution is deferred to phase5-013 once "
+			"text": ") are\ntreated as external.\n\n## Status\n\nAlpha ("
+		},
+		{
+			"kind": "code",
+			"text": "`0.1.0-alpha.0`"
+		},
+		{
+			"kind": "text",
+			"text": "). Header actions and the diff/apply engine are\nwired today. A sidebar-panel slot contribution is deferred until\n"
 		},
 		{
 			"kind": "code",
@@ -2773,7 +2830,7 @@
 		},
 		{
 			"kind": "text",
-			"text": " exposes the\nsidebar registration API."
+			"text": " exposes the sidebar registration API."
 		}
 	],
 	"symbolIdMap": {
@@ -3475,14 +3532,19 @@
 		"139": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "Unsubscribe"
+			"qualifiedName": "SnapshotMeta.delta"
 		},
 		"140": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "Unsubscribe"
 		},
 		"141": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types.ts",
+			"qualifiedName": "__type"
+		},
+		"142": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types.ts",
 			"qualifiedName": "__type"
