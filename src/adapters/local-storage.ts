@@ -1,5 +1,6 @@
 import type { PageIR } from "@anvilkit/core/types";
 
+import type { IRDiff } from "../diff.js";
 import { VersionHistoryError } from "../errors.js";
 import {
 	clonePageIR,
@@ -146,7 +147,7 @@ function assertSnapshotMeta(
 		);
 	}
 
-	const { id, savedAt, pageIRHash, label } = value;
+	const { id, savedAt, pageIRHash, label, delta } = value;
 	if (typeof id !== "string" || id.length === 0) {
 		throw new VersionHistoryError(
 			"STORAGE_CORRUPT",
@@ -171,10 +172,18 @@ function assertSnapshotMeta(
 			`Version history index entry "${id}" has a non-string "label".`,
 		);
 	}
+	if (delta !== undefined && !Array.isArray(delta)) {
+		throw new VersionHistoryError(
+			"STORAGE_CORRUPT",
+			`Version history index entry "${id}" has a non-array "delta".`,
+		);
+	}
 
-	return label === undefined
-		? { id, savedAt, pageIRHash }
-		: { id, label, savedAt, pageIRHash };
+	const base = { id, savedAt, pageIRHash } as const;
+	const withLabel = label === undefined ? base : { ...base, label };
+	return delta === undefined
+		? withLabel
+		: { ...withLabel, delta: delta as IRDiff };
 }
 
 function assertPageIR(value: unknown): PageIR {
