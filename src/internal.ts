@@ -44,6 +44,7 @@ export function createSnapshotMeta(
 		...(meta.label !== undefined ? { label: meta.label } : {}),
 		savedAt: new Date().toISOString(),
 		pageIRHash: meta.pageIRHash ?? hashPageIR(ir),
+		...(meta.delta !== undefined ? { delta: meta.delta } : {}),
 	});
 }
 
@@ -53,6 +54,7 @@ export function cloneSnapshotMeta(meta: SnapshotMeta): SnapshotMeta {
 		...(meta.label !== undefined ? { label: meta.label } : {}),
 		savedAt: meta.savedAt,
 		pageIRHash: meta.pageIRHash,
+		...(meta.delta !== undefined ? { delta: meta.delta } : {}),
 	});
 }
 

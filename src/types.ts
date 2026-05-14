@@ -1,5 +1,7 @@
 import type { PageIR } from "@anvilkit/core/types";
 
+import type { IRDiff } from "./diff.js";
+
 export type MaybePromise<T> = T | Promise<T>;
 
 export interface SnapshotMeta {
@@ -7,6 +9,17 @@ export interface SnapshotMeta {
 	readonly label?: string;
 	readonly savedAt: string;
 	readonly pageIRHash: string;
+	/**
+	 * Structural diff from the immediately previous snapshot to this
+	 * one (L2). Optional — only populated when the producing adapter
+	 * opts in (e.g. `createYjsAdapter({ computeDelta: true })`). Useful
+	 * for audit logs, undo-stack replay, and human-readable change
+	 * summaries via `summarizeDiff` from `./diff.js`.
+	 *
+	 * Snapshots written by older adapter versions omit this field; the
+	 * shape stays backward compatible.
+	 */
+	readonly delta?: IRDiff;
 }
 
 export type Unsubscribe = () => void;
