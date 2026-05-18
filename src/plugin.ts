@@ -1,13 +1,23 @@
-import type { StudioPlugin, StudioPluginRegistration } from "@anvilkit/core/types";
+import type {
+	StudioPlugin,
+	StudioPluginRegistration,
+} from "@anvilkit/core/types";
 
+import packageJson from "../package.json";
 import { openHistoryAction, saveSnapshotAction } from "./header-actions.js";
-import { bindVersionHistoryState, setVersionHistorySnapshots, unbindVersionHistoryState } from "./state.js";
+import {
+	bindVersionHistoryState,
+	setVersionHistorySnapshots,
+	unbindVersionHistoryState,
+} from "./state.js";
 import type { SnapshotAdapter } from "./types.js";
 
 const META = {
 	id: "anvilkit-plugin-version-history",
 	name: "Version History",
-	version: "0.1.0-alpha.0",
+	// Derived from package.json so a Changesets bump can never drift the
+	// runtime metadata; the metadata-drift test guards regressions.
+	version: packageJson.version,
 	coreVersion: "^0.1.0-alpha",
 	description:
 		"Headless version history plugin with host-provided snapshot persistence.",
@@ -69,8 +79,7 @@ export function createVersionHistoryPlugin(
 								"warn",
 								"Version history could not pre-load snapshots during onInit.",
 								{
-									error:
-										error instanceof Error ? error.message : String(error),
+									error: error instanceof Error ? error.message : String(error),
 								},
 							);
 						}

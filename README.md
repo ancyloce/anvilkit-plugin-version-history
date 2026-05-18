@@ -12,7 +12,7 @@ optional UI primitives, and reference adapters for tests and demos.
 pnpm add @anvilkit/plugin-version-history
 ```
 
-Peer deps: `react ^18 || ^19`, `react-dom ^18 || ^19`, `@puckeditor/core ^0.19`.
+Peer deps: `react ^18.2.0 || ^19.0.0`, `react-dom ^18.2.0 || ^19.0.0`, `@puckeditor/core ^0.21.2`.
 
 ## Usage
 
@@ -95,6 +95,6 @@ treated as external.
 
 ## Status
 
-Alpha (`0.1.0-alpha.0`). Header actions and the diff/apply engine are
+Alpha (`0.1.2`). Header actions and the diff/apply engine are
 wired today. A sidebar-panel slot contribution is deferred until
 `StudioPluginContext` exposes the sidebar registration API.
