@@ -1,5 +1,6 @@
+import { defineStudioPlugin } from "@anvilkit/core/types";
 import type {
-	StudioPlugin,
+	StudioPluginContributing,
 	StudioPluginRegistration,
 } from "@anvilkit/core/types";
 
@@ -10,7 +11,7 @@ import {
 	setVersionHistorySnapshots,
 	unbindVersionHistoryState,
 } from "./state.js";
-import type { SnapshotAdapter } from "./types.js";
+import type { SnapshotAdapter, VersionHistoryContribution } from "./types.js";
 
 const META = {
 	id: "anvilkit-plugin-version-history",
@@ -30,7 +31,7 @@ export interface CreateVersionHistoryPluginOptions {
 
 export function createVersionHistoryPlugin(
 	options: CreateVersionHistoryPluginOptions,
-): StudioPlugin {
+): StudioPluginContributing<VersionHistoryContribution> {
 	const maxSnapshots =
 		options.maxSnapshots !== undefined &&
 		Number.isFinite(options.maxSnapshots) &&
@@ -38,7 +39,7 @@ export function createVersionHistoryPlugin(
 			? Math.trunc(options.maxSnapshots)
 			: undefined;
 
-	return {
+	return defineStudioPlugin<VersionHistoryContribution>({
 		meta: META,
 		register(_ctx) {
 			const token = {};
@@ -94,5 +95,5 @@ export function createVersionHistoryPlugin(
 			// StudioPluginContext exposes the sidebar registration API.
 			return registration;
 		},
-	};
+	});
 }
