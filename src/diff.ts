@@ -86,7 +86,8 @@ export function diffIR(a: PageIR, b: PageIR): IRDiff {
 	const removes: Array<Extract<IRDiffOp, { kind: "remove-node" }>> = [];
 	const adds: Array<Extract<IRDiffOp, { kind: "add-node" }>> = [];
 	const moves: Array<Extract<IRDiffOp, { kind: "move-node" }>> = [];
-	const childChanges: Array<Extract<IRDiffOp, { kind: "change-children" }>> = [];
+	const childChanges: Array<Extract<IRDiffOp, { kind: "change-children" }>> =
+		[];
 	const propChanges: Array<Extract<IRDiffOp, { kind: "change-prop" }>> = [];
 	const metaChanges: Array<Extract<IRDiffOp, { kind: "meta-changed" }>> = [];
 
@@ -234,7 +235,13 @@ export function applyDiff(a: PageIR, diff: IRDiff): PageIR {
 					);
 				}
 
-				collectAddedContent(op.node, nodeContent, childrenMap, originalIds, knownIds);
+				collectAddedContent(
+					op.node,
+					nodeContent,
+					childrenMap,
+					originalIds,
+					knownIds,
+				);
 				break;
 			}
 			case "remove-node": {
@@ -255,7 +262,11 @@ export function applyDiff(a: PageIR, diff: IRDiff): PageIR {
 				break;
 			}
 			case "change-prop": {
-				const nodeId = resolveNodeIdForChange(op.path, "/props", originalPathNodeIds);
+				const nodeId = resolveNodeIdForChange(
+					op.path,
+					"/props",
+					originalPathNodeIds,
+				);
 				const content = nodeContent.get(nodeId);
 				if (!content) {
 					throw new DiffApplyError(
@@ -275,12 +286,19 @@ export function applyDiff(a: PageIR, diff: IRDiff): PageIR {
 					delete nextProps[op.key];
 					content.props = nextProps;
 				} else {
-					content.props = { ...content.props, [op.key]: structuredClone(op.after) };
+					content.props = {
+						...content.props,
+						[op.key]: structuredClone(op.after),
+					};
 				}
 				break;
 			}
 			case "change-children": {
-				const parentId = resolveNodeIdForChange(op.path, "/children", originalPathNodeIds);
+				const parentId = resolveNodeIdForChange(
+					op.path,
+					"/children",
+					originalPathNodeIds,
+				);
 				if (!nodeContent.has(parentId)) {
 					throw new DiffApplyError(
 						`Cannot reorder children of missing node ${parentId} (${op.path})`,
@@ -310,7 +328,11 @@ export function applyDiff(a: PageIR, diff: IRDiff): PageIR {
 				break;
 			}
 			case "meta-changed": {
-				const nodeId = resolveNodeIdForChange(op.path, "/meta", originalPathNodeIds);
+				const nodeId = resolveNodeIdForChange(
+					op.path,
+					"/meta",
+					originalPathNodeIds,
+				);
 				const content = nodeContent.get(nodeId);
 				if (!content) {
 					throw new DiffApplyError(
@@ -363,7 +385,12 @@ export function applyDiff(a: PageIR, diff: IRDiff): PageIR {
 
 	const rootId = a.root.id;
 	const visiting = new Set<string>();
-	const built = buildReconstructedNode(rootId, nodeContent, childrenMap, visiting);
+	const built = buildReconstructedNode(
+		rootId,
+		nodeContent,
+		childrenMap,
+		visiting,
+	);
 
 	const draft: MutablePageIR = {
 		version: "1",
@@ -403,7 +430,10 @@ function collectContent(
 
 	const children = node.children ?? [];
 	if (children.length > 0) {
-		childrenMap.set(node.id, children.map((child) => child.id));
+		childrenMap.set(
+			node.id,
+			children.map((child) => child.id),
+		);
 		for (const child of children) {
 			collectContent(child, nodeContent, childrenMap);
 		}
@@ -446,9 +476,18 @@ function collectAddedContent(
 
 	const children = node.children ?? [];
 	if (children.length > 0) {
-		childrenMap.set(node.id, children.map((child) => child.id));
+		childrenMap.set(
+			node.id,
+			children.map((child) => child.id),
+		);
 		for (const child of children) {
-			collectAddedContent(child, nodeContent, childrenMap, originalIds, knownIds);
+			collectAddedContent(
+				child,
+				nodeContent,
+				childrenMap,
+				originalIds,
+				knownIds,
+			);
 		}
 	}
 }
@@ -476,7 +515,9 @@ function assertValidChildIndexPath(path: string): void {
 		}
 		const childIndex = Number(indexSegment);
 		if (!Number.isInteger(childIndex) || childIndex < 0) {
-			throw new DiffApplyError(`Invalid child index "${indexSegment}" in ${path}`);
+			throw new DiffApplyError(
+				`Invalid child index "${indexSegment}" in ${path}`,
+			);
 		}
 	}
 }
@@ -502,7 +543,9 @@ function buildReconstructedNode(
 	visiting: Set<string>,
 ): MutablePageIRNode {
 	if (visiting.has(id)) {
-		throw new DiffApplyError(`Cycle detected while reconstructing tree at ${id}`);
+		throw new DiffApplyError(
+			`Cycle detected while reconstructing tree at ${id}`,
+		);
 	}
 	visiting.add(id);
 
@@ -649,7 +692,21 @@ function deepFreeze<T>(value: T): T {
 	return value;
 }
 
-function deepEqual(left: unknown, right: unknown): boolean {
+/**
+ * Structural deep-equality.
+ *
+ * Object comparison is order-insensitive (equal own-key count + every
+ * left key present on the right with an equal value) — O(n) instead of
+ * the previous O(n log n) per-node key sort. A `seen` pair-map guards
+ * against cyclic inputs: revisiting the same `(left, right)` pair up the
+ * stack returns `true`, so a real divergence elsewhere still wins while
+ * a self-referential cycle terminates instead of overflowing.
+ */
+function deepEqual(
+	left: unknown,
+	right: unknown,
+	seen: Map<object, Set<object>> = new Map(),
+): boolean {
 	if (Object.is(left, right)) {
 		return true;
 	}
@@ -659,12 +716,16 @@ function deepEqual(left: unknown, right: unknown): boolean {
 	}
 
 	if (Array.isArray(left) || Array.isArray(right)) {
-		if (!Array.isArray(left) || !Array.isArray(right) || left.length !== right.length) {
+		if (
+			!Array.isArray(left) ||
+			!Array.isArray(right) ||
+			left.length !== right.length
+		) {
 			return false;
 		}
 
 		for (let index = 0; index < left.length; index += 1) {
-			if (!deepEqual(left[index], right[index])) {
+			if (!deepEqual(left[index], right[index], seen)) {
 				return false;
 			}
 		}
@@ -681,22 +742,30 @@ function deepEqual(left: unknown, right: unknown): boolean {
 		return false;
 	}
 
+	const seenRights = seen.get(left);
+	if (seenRights?.has(right)) {
+		return true;
+	}
+	if (seenRights) {
+		seenRights.add(right);
+	} else {
+		seen.set(left, new Set([right]));
+	}
+
 	const leftRecord = left as Record<string, unknown>;
 	const rightRecord = right as Record<string, unknown>;
-	const leftKeys = Object.keys(leftRecord).sort((a, b) => a.localeCompare(b));
-	const rightKeys = Object.keys(rightRecord).sort((a, b) => a.localeCompare(b));
+	const leftKeys = Object.keys(leftRecord);
 
-	if (leftKeys.length !== rightKeys.length) {
+	if (leftKeys.length !== Object.keys(rightRecord).length) {
 		return false;
 	}
 
-	for (let index = 0; index < leftKeys.length; index += 1) {
-		if (leftKeys[index] !== rightKeys[index]) {
+	for (const key of leftKeys) {
+		if (!Object.hasOwn(rightRecord, key)) {
 			return false;
 		}
 
-		const key = leftKeys[index]!;
-		if (!deepEqual(leftRecord[key], rightRecord[key])) {
+		if (!deepEqual(leftRecord[key], rightRecord[key], seen)) {
 			return false;
 		}
 	}
@@ -721,10 +790,15 @@ function trimSuffix(value: string, suffix: string): string {
 }
 
 function sortedIds(index: Map<string, IndexedNode>): string[] {
-	return Array.from(index.keys()).sort((left, right) => left.localeCompare(right));
+	return Array.from(index.keys()).sort((left, right) =>
+		left.localeCompare(right),
+	);
 }
 
-function hasNodePositionChange(before: IndexedNode, after: IndexedNode): boolean {
+function hasNodePositionChange(
+	before: IndexedNode,
+	after: IndexedNode,
+): boolean {
 	return before.path !== after.path || before.parentId !== after.parentId;
 }
 
@@ -748,7 +822,8 @@ function comparePathAsc(left: string, right: string): number {
 
 		const leftNumber = Number(leftSegment);
 		const rightNumber = Number(rightSegment);
-		const bothNumeric = Number.isInteger(leftNumber) && Number.isInteger(rightNumber);
+		const bothNumeric =
+			Number.isInteger(leftNumber) && Number.isInteger(rightNumber);
 		if (bothNumeric) {
 			return leftNumber - rightNumber;
 		}
