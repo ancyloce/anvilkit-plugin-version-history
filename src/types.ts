@@ -65,3 +65,18 @@ export interface SnapshotAdapter {
 	) => Unsubscribe;
 	readonly presence?: SnapshotAdapterPresence;
 }
+
+/**
+ * Capability surface this plugin contributes to `<Studio>`.
+ *
+ * Carried as the `Contributes` type parameter of the returned
+ * `StudioPlugin` so a consumer can recover the adapter/snapshot types via
+ * `InferPluginContributions<typeof plugins>` — full type-safety and
+ * IntelliSense without importing this package's internals explicitly.
+ */
+export interface VersionHistoryContribution {
+	readonly versionHistory: {
+		readonly adapter: SnapshotAdapter;
+		readonly snapshots: readonly SnapshotMeta[];
+	};
+}
