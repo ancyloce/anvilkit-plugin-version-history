@@ -2,47 +2,69 @@ import type { PageIR } from "@anvilkit/core/types";
 
 import {
 	clonePageIR,
-	cloneSnapshotMeta,
 	createSnapshotMeta,
-	createSnapshotNotFoundError,
 	deepFreeze,
 	freezeSnapshotList,
 } from "../internal.js";
-import type { SnapshotAdapter } from "../types.js";
+import type { SnapshotAdapter, SnapshotMeta } from "../types.js";
+import {
+	type RecordBackend,
+	type StoredRecord,
+	buildStoredRecord,
+	loadFromChain,
+	planReRootedDependents,
+} from "./snapshot-chain.js";
 
-interface SnapshotRecord {
-	readonly ir: PageIR;
-	readonly meta: ReturnType<typeof createSnapshotMeta>;
-}
-
+/**
+ * Ephemeral, in-process snapshot store. Uses the shared delta-chain so a
+ * long history costs roughly one keyframe + N small diffs instead of N
+ * full `PageIR` copies. Suitable for tests, demos, and transient sessions.
+ */
 export function inMemoryAdapter(): SnapshotAdapter {
-	const records = new Map<string, SnapshotRecord>();
+	// Insertion order of `metaById` is the canonical save order.
+	const metaById = new Map<string, SnapshotMeta>();
+	const recordById = new Map<string, StoredRecord>();
+
+	const backend: RecordBackend = {
+		read: (id) => recordById.get(id),
+		write: (id, record) => {
+			recordById.set(id, record);
+		},
+		remove: (id) => {
+			recordById.delete(id);
+		},
+		orderedIds: () => [...metaById.keys()],
+	};
 
 	return {
 		save(ir, meta) {
+			// Single clone at the trust boundary; everything downstream is
+			// frozen and reused without re-cloning.
 			const storedIR = deepFreeze(clonePageIR(ir));
 			const snapshotMeta = createSnapshotMeta(storedIR, meta);
-			records.set(snapshotMeta.id, {
-				ir: storedIR,
-				meta: snapshotMeta,
-			});
+			const record = buildStoredRecord(backend, storedIR);
+			recordById.set(snapshotMeta.id, record);
+			metaById.set(snapshotMeta.id, snapshotMeta);
 			return snapshotMeta.id;
 		},
 		list() {
-			return freezeSnapshotList(
-				Array.from(records.values(), (record) => cloneSnapshotMeta(record.meta)),
-			);
+			return freezeSnapshotList([...metaById.values()]);
 		},
 		load(id) {
-			const record = records.get(id);
-			if (!record) {
-				throw createSnapshotNotFoundError(id);
-			}
-
-			return deepFreeze(clonePageIR(record.ir));
+			return loadFromChain(backend, id);
 		},
 		delete(id) {
-			records.delete(id);
+			// Plan re-roots while the base record is still readable, then
+			// remove it before writing the (larger) keyframe replacements.
+			// In memory there's no quota, but using the same protocol as
+			// the localStorage adapter keeps the two implementations
+			// behaviorally identical and easier to reason about.
+			const plans = planReRootedDependents(backend, id);
+			recordById.delete(id);
+			metaById.delete(id);
+			for (const { id: depId, record } of plans) {
+				recordById.set(depId, record);
+			}
 		},
 	};
 }
