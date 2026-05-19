@@ -33,6 +33,7 @@ export function VersionHistoryUI({
 	onRestore,
 }: VersionHistoryUIProps) {
 	const snapshotCacheRef = React.useRef(new Map<string, PageIR>());
+	const isMountedRef = React.useRef(true);
 	const [snapshots, setSnapshots] = React.useState<readonly SnapshotMeta[]>([]);
 	const [listError, setListError] = React.useState<string | null>(null);
 	const [selectedSnapshotId, setSelectedSnapshotId] = React.useState<
@@ -75,8 +76,28 @@ export function VersionHistoryUI({
 	}, [adapter]);
 
 	React.useEffect(() => {
+		isMountedRef.current = true;
+		return () => {
+			isMountedRef.current = false;
+		};
+	}, []);
+
+	React.useEffect(() => {
 		snapshotCacheRef.current.clear();
-	}, [adapter]);
+
+		if (!adapter.subscribe) {
+			return undefined;
+		}
+
+		// Collaborative adapters push remote updates; drop the cache and
+		// re-list so the diff view never renders a stale snapshot.
+		return adapter.subscribe(() => {
+			snapshotCacheRef.current.clear();
+			void refreshSnapshots().catch(() => {
+				/* refreshSnapshots already surfaces listError */
+			});
+		});
+	}, [adapter, refreshSnapshots]);
 
 	React.useEffect(() => {
 		let isActive = true;
@@ -165,14 +186,22 @@ export function VersionHistoryUI({
 		setIsRestoring(true);
 
 		try {
-			const snapshot = selectedSnapshotIR ?? (await loadSnapshot(selectedSnapshotId));
+			const snapshot =
+				selectedSnapshotIR ?? (await loadSnapshot(selectedSnapshotId));
 			onRestore(snapshot);
 			handleCloseModal();
 		} catch (error) {
-			setModalError(
-				error instanceof Error ? error.message : "Unable to restore snapshot.",
-			);
-			setIsRestoring(false);
+			if (isMountedRef.current) {
+				setModalError(
+					error instanceof Error
+						? error.message
+						: "Unable to restore snapshot.",
+				);
+			}
+		} finally {
+			if (isMountedRef.current) {
+				setIsRestoring(false);
+			}
 		}
 	}, [
 		handleCloseModal,

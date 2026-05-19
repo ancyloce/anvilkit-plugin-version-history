@@ -5,6 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle, cn } from "@anvilkit/ui";
 
 import { diffIR, summarizeDiff } from "../diff.js";
 import type { SnapshotMeta } from "../types.js";
+import { useFormattedTimestamp } from "./use-formatted-timestamp.js";
 
 function hasLockedNode(node: PageIRNode): boolean {
 	if (node.meta?.locked === true) {
@@ -144,7 +145,7 @@ const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
 
 		const displayLabel =
 			snapshot.label?.trim().length ? snapshot.label.trim() : "Untitled snapshot";
-		const savedAt = new Date(snapshot.savedAt).toLocaleString();
+		const savedAt = useFormattedTimestamp(snapshot.savedAt);
 
 		return (
 			<div
@@ -192,7 +193,12 @@ const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
 							</span>
 						) : null}
 					</div>
-					<div className="text-sm text-muted-foreground">{savedAt}</div>
+					<time
+						className="text-sm text-muted-foreground"
+						dateTime={snapshot.savedAt}
+					>
+						{savedAt}
+					</time>
 				</div>
 				<p className="mt-2 text-sm text-muted-foreground">{summary}</p>
 			</div>
