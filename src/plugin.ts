@@ -1,99 +1,99 @@
 import { defineStudioPlugin } from "@anvilkit/core/types";
 import type {
-	StudioPluginContributing,
-	StudioPluginRegistration,
+  StudioPluginContributing,
+  StudioPluginRegistration,
 } from "@anvilkit/core/types";
 
 import packageJson from "../package.json";
 import { openHistoryAction, saveSnapshotAction } from "./header-actions.js";
 import {
-	bindVersionHistoryState,
-	setVersionHistorySnapshots,
-	unbindVersionHistoryState,
+  bindVersionHistoryState,
+  setVersionHistorySnapshots,
+  unbindVersionHistoryState,
 } from "./state.js";
 import type { SnapshotAdapter, VersionHistoryContribution } from "./types.js";
 
 const META = {
-	id: "anvilkit-plugin-version-history",
-	name: "Version History",
-	// Derived from package.json so a Changesets bump can never drift the
-	// runtime metadata; the metadata-drift test guards regressions.
-	version: packageJson.version,
-	coreVersion: "^0.1.0-alpha",
-	description:
-		"Headless version history plugin with host-provided snapshot persistence.",
+  id: "anvilkit-plugin-version-history",
+  name: "Version History",
+  // Derived from package.json so a Changesets bump can never drift the
+  // runtime metadata; the metadata-drift test guards regressions.
+  version: packageJson.version,
+  coreVersion: "^0.1.0-alpha",
+  description:
+    "Headless version history plugin with host-provided snapshot persistence.",
 } as const;
 
 export interface CreateVersionHistoryPluginOptions {
-	readonly adapter: SnapshotAdapter;
-	readonly maxSnapshots?: number;
+  readonly adapter: SnapshotAdapter;
+  readonly maxSnapshots?: number;
 }
 
 export function createVersionHistoryPlugin(
-	options: CreateVersionHistoryPluginOptions,
+  options: CreateVersionHistoryPluginOptions,
 ): StudioPluginContributing<VersionHistoryContribution> {
-	const maxSnapshots =
-		options.maxSnapshots !== undefined &&
-		Number.isFinite(options.maxSnapshots) &&
-		options.maxSnapshots > 0
-			? Math.trunc(options.maxSnapshots)
-			: undefined;
+  const maxSnapshots =
+    options.maxSnapshots !== undefined &&
+    Number.isFinite(options.maxSnapshots) &&
+    options.maxSnapshots > 0
+      ? Math.trunc(options.maxSnapshots)
+      : undefined;
 
-	return defineStudioPlugin<VersionHistoryContribution>({
-		meta: META,
-		register(_ctx) {
-			const token = {};
-			const headerActions: StudioPluginRegistration["headerActions"] = [
-				{
-					...saveSnapshotAction,
-					async onClick(ctx) {
-						ctx.emit("version-history:save-requested");
-						await saveSnapshotAction.onClick(ctx);
-					},
-				},
-				{
-					...openHistoryAction,
-					onClick(ctx) {
-						ctx.emit("version-history:open-requested");
-						return openHistoryAction.onClick(ctx);
-					},
-				},
-			];
+  return defineStudioPlugin<VersionHistoryContribution>({
+    meta: META,
+    register(_ctx) {
+      const token = {};
+      const headerActions: StudioPluginRegistration["headerActions"] = [
+        {
+          ...saveSnapshotAction,
+          async onClick(ctx) {
+            ctx.emit("version-history:save-requested");
+            await saveSnapshotAction.onClick(ctx);
+          },
+        },
+        {
+          ...openHistoryAction,
+          onClick(ctx) {
+            ctx.emit("version-history:open-requested");
+            return openHistoryAction.onClick(ctx);
+          },
+        },
+      ];
 
-			const registration: StudioPluginRegistration = {
-				meta: META,
-				headerActions,
-				hooks: {
-					async onInit(initCtx) {
-						bindVersionHistoryState(token, initCtx, {
-							adapter: options.adapter,
-							maxSnapshots,
-							saveInFlight: false,
-							snapshots: [],
-						});
+      const registration: StudioPluginRegistration = {
+        meta: META,
+        headerActions,
+        hooks: {
+          async onInit(initCtx) {
+            bindVersionHistoryState(token, initCtx, {
+              adapter: options.adapter,
+              maxSnapshots,
+              saveInFlight: false,
+              snapshots: [],
+            });
 
-						try {
-							const snapshots = await Promise.resolve(options.adapter.list());
-							setVersionHistorySnapshots(initCtx, snapshots);
-						} catch (error) {
-							initCtx.log(
-								"warn",
-								"Version history could not pre-load snapshots during onInit.",
-								{
-									error: error instanceof Error ? error.message : String(error),
-								},
-							);
-						}
-					},
-					onDestroy(destroyCtx) {
-						unbindVersionHistoryState(token, destroyCtx);
-					},
-				},
-			};
+            try {
+              const snapshots = await Promise.resolve(options.adapter.list());
+              setVersionHistorySnapshots(initCtx, snapshots);
+            } catch (error) {
+              initCtx.log(
+                "warn",
+                "Version history could not pre-load snapshots during onInit.",
+                {
+                  error: error instanceof Error ? error.message : String(error),
+                },
+              );
+            }
+          },
+          onDestroy(destroyCtx) {
+            unbindVersionHistoryState(token, destroyCtx);
+          },
+        },
+      };
 
-			// TODO(phase5-013): contribute the sidebar-panel slot here once
-			// StudioPluginContext exposes the sidebar registration API.
-			return registration;
-		},
-	});
+      // TODO(phase5-013): contribute the sidebar-panel slot here once
+      // StudioPluginContext exposes the sidebar registration API.
+      return registration;
+    },
+  });
 }

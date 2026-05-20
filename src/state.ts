@@ -4,48 +4,48 @@ import { freezeSnapshotList } from "./internal.js";
 import type { SnapshotAdapter, SnapshotMeta } from "./types.js";
 
 export interface VersionHistoryRuntimeState {
-	readonly adapter: SnapshotAdapter;
-	readonly maxSnapshots?: number;
-	snapshots: readonly SnapshotMeta[];
-	saveInFlight: boolean;
+  readonly adapter: SnapshotAdapter;
+  readonly maxSnapshots?: number;
+  snapshots: readonly SnapshotMeta[];
+  saveInFlight: boolean;
 }
 
 const stateByToken = new WeakMap<object, VersionHistoryRuntimeState>();
 const tokenByContext = new WeakMap<StudioPluginContext, object>();
 
 export function bindVersionHistoryState(
-	token: object,
-	ctx: StudioPluginContext,
-	state: VersionHistoryRuntimeState,
+  token: object,
+  ctx: StudioPluginContext,
+  state: VersionHistoryRuntimeState,
 ): void {
-	state.snapshots = freezeSnapshotList(state.snapshots);
-	stateByToken.set(token, state);
-	tokenByContext.set(ctx, token);
+  state.snapshots = freezeSnapshotList(state.snapshots);
+  stateByToken.set(token, state);
+  tokenByContext.set(ctx, token);
 }
 
 export function unbindVersionHistoryState(
-	token: object,
-	ctx: StudioPluginContext,
+  token: object,
+  ctx: StudioPluginContext,
 ): void {
-	tokenByContext.delete(ctx);
-	stateByToken.delete(token);
+  tokenByContext.delete(ctx);
+  stateByToken.delete(token);
 }
 
 export function getVersionHistoryState(
-	ctx: StudioPluginContext,
+  ctx: StudioPluginContext,
 ): VersionHistoryRuntimeState | undefined {
-	const token = tokenByContext.get(ctx);
-	return token ? stateByToken.get(token) : undefined;
+  const token = tokenByContext.get(ctx);
+  return token ? stateByToken.get(token) : undefined;
 }
 
 export function setVersionHistorySnapshots(
-	ctx: StudioPluginContext,
-	snapshots: readonly SnapshotMeta[],
+  ctx: StudioPluginContext,
+  snapshots: readonly SnapshotMeta[],
 ): void {
-	const state = getVersionHistoryState(ctx);
-	if (!state) {
-		return;
-	}
+  const state = getVersionHistoryState(ctx);
+  if (!state) {
+    return;
+  }
 
-	state.snapshots = freezeSnapshotList(snapshots);
+  state.snapshots = freezeSnapshotList(snapshots);
 }

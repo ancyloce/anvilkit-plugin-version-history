@@ -9,47 +9,47 @@ import { inMemoryAdapter } from "../../adapters/in-memory.js";
 import { VersionHistoryUI } from "../VersionHistoryUI.js";
 
 describe("VersionHistoryUI accessibility", () => {
-	it("has no axe violations", async () => {
-		const adapter = inMemoryAdapter();
-		const snapshotIR = createFakePageIR({
-			children: [
-				{
-					id: "hero-1",
-					type: "Hero",
-					props: { headline: "Snapshot" },
-				},
-			],
-		});
-		const currentIR = createFakePageIR({
-			children: [
-				{
-					id: "hero-1",
-					type: "Hero",
-					props: { headline: "Current" },
-				},
-			],
-		});
+  it("has no axe violations", async () => {
+    const adapter = inMemoryAdapter();
+    const snapshotIR = createFakePageIR({
+      children: [
+        {
+          id: "hero-1",
+          type: "Hero",
+          props: { headline: "Snapshot" },
+        },
+      ],
+    });
+    const currentIR = createFakePageIR({
+      children: [
+        {
+          id: "hero-1",
+          type: "Hero",
+          props: { headline: "Current" },
+        },
+      ],
+    });
 
-		await Promise.resolve(
-			adapter.save(snapshotIR, {
-				label: "Accessible snapshot",
-			}),
-		);
+    await Promise.resolve(
+      adapter.save(snapshotIR, {
+        label: "Accessible snapshot",
+      }),
+    );
 
-		const { container } = render(
-			<VersionHistoryUI
-				adapter={adapter}
-				currentIR={currentIR}
-				onRestore={vi.fn()}
-			/>,
-		);
+    const { container } = render(
+      <VersionHistoryUI
+        adapter={adapter}
+        currentIR={currentIR}
+        onRestore={vi.fn()}
+      />,
+    );
 
-		fireEvent.click(
-			await screen.findByRole("listitem", { name: /Accessible snapshot/i }),
-		);
-		await screen.findByRole("dialog");
+    fireEvent.click(
+      await screen.findByRole("listitem", { name: /Accessible snapshot/i }),
+    );
+    await screen.findByRole("dialog");
 
-		const results = await axe(container);
-		expect(results.violations).toHaveLength(0);
-	});
+    const results = await axe(container);
+    expect(results.violations).toHaveLength(0);
+  });
 });
