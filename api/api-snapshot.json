@@ -2154,9 +2154,21 @@
 						"target": {
 							"packageName": "@anvilkit/core",
 							"packagePath": "src/types/plugin.ts",
-							"qualifiedName": "StudioPlugin"
+							"qualifiedName": "StudioPluginContributing"
 						},
-						"name": "StudioPlugin",
+						"typeArguments": [
+							{
+								"type": "reference",
+								"target": {
+									"packageName": "@anvilkit/plugin-version-history",
+									"packagePath": "src/types.ts",
+									"qualifiedName": "VersionHistoryContribution"
+								},
+								"name": "VersionHistoryContribution",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						],
+						"name": "StudioPluginContributing",
 						"package": "@anvilkit/core"
 					}
 				}
@@ -2233,6 +2245,22 @@
 					"variant": "signature",
 					"kind": 4096,
 					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Ephemeral, in-process snapshot store. Uses the shared delta-chain so a\nlong history costs roughly one keyframe + N small diffs instead of N\nfull "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": " copies. Suitable for tests, demos, and transient sessions."
+							}
+						]
+					},
 					"type": {
 						"type": "reference",
 						"target": 98,
@@ -2255,6 +2283,38 @@
 					"variant": "signature",
 					"kind": 4096,
 					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Browser "
+							},
+							{
+								"kind": "code",
+								"text": "`localStorage`"
+							},
+							{
+								"kind": "text",
+								"text": "-backed snapshot store.\n\nRecords use the shared delta-chain format (keyframe + diffs) so a long\nhistory fits the ~5–10 MB quota far better than one full "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": " per\nversion. Records written by older versions are raw "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": " JSON and are\nread transparently as keyframes — no migration required. The snapshot\n**index** schema is unchanged."
+							}
+						]
+					},
 					"parameters": [
 						{
 							"id": 7,
@@ -2366,7 +2426,23 @@
 	"readme": [
 		{
 			"kind": "text",
-			"text": "# @anvilkit/plugin-version-history\n\nHeadless version-history plugin for Anvilkit Studio.\n\nSnapshot persistence is delegated to a host-provided "
+			"text": "# @anvilkit/plugin-version-history\n\n> **Alpha ("
+		},
+		{
+			"kind": "code",
+			"text": "`0.1.3`"
+		},
+		{
+			"kind": "text",
+			"text": ").** Header actions and the diff/apply engine are stable. The sidebar-panel slot contribution is deferred until "
+		},
+		{
+			"kind": "code",
+			"text": "`StudioPluginContext`"
+		},
+		{
+			"kind": "text",
+			"text": " exposes the sidebar registration API.\n\nHeadless version-history plugin for Anvilkit Studio. Snapshot persistence is delegated to a host-provided "
 		},
 		{
 			"kind": "code",
@@ -2374,27 +2450,19 @@
 		},
 		{
 			"kind": "text",
-			"text": ", so the\nplugin itself ships no I/O — only the diff/apply engine, header actions,\noptional UI primitives, and reference adapters for tests and demos.\n\n## Install\n\n"
+			"text": ", so the plugin itself ships no I/O — only the diff/apply engine, header actions, optional UI primitives, and reference adapters for tests and demos.\n\n## Installation\n\n"
 		},
 		{
 			"kind": "code",
-			"text": "```bash\npnpm add @anvilkit/plugin-version-history\n```"
+			"text": "```bash\npnpm add @anvilkit/plugin-version-history react react-dom @puckeditor/core\n```"
 		},
 		{
 			"kind": "text",
-			"text": "\n\nPeer deps: "
+			"text": "\n\nNon-optional peers: "
 		},
 		{
 			"kind": "code",
-			"text": "`react ^18 || ^19`"
-		},
-		{
-			"kind": "text",
-			"text": ", "
-		},
-		{
-			"kind": "code",
-			"text": "`react-dom ^18 || ^19`"
+			"text": "`react ^18.2.0 || ^19.0.0`"
 		},
 		{
 			"kind": "text",
@@ -2402,235 +2470,27 @@
 		},
 		{
 			"kind": "code",
-			"text": "`@puckeditor/core ^0.19`"
+			"text": "`react-dom ^18.2.0 || ^19.0.0`"
 		},
 		{
 			"kind": "text",
-			"text": ".\n\n## Usage\n\n"
+			"text": ", "
 		},
 		{
 			"kind": "code",
-			"text": "```ts\nimport { createVersionHistoryPlugin, inMemoryAdapter } from \"@anvilkit/plugin-version-history\";\n\nconst plugin = createVersionHistoryPlugin({\n\tadapter: inMemoryAdapter(),\n\tmaxSnapshots: 50, // optional FIFO cap\n});\n```"
+			"text": "`@puckeditor/core ^0.21.2`"
 		},
 		{
 			"kind": "text",
-			"text": "\n\n"
+			"text": ". No transport or storage dependencies — the host owns persistence end-to-end.\n\nSubpath imports:\n\n- "
 		},
 		{
 			"kind": "code",
-			"text": "`createVersionHistoryPlugin`"
+			"text": "`@anvilkit/plugin-version-history`"
 		},
 		{
 			"kind": "text",
-			"text": " returns a "
-		},
-		{
-			"kind": "code",
-			"text": "`StudioPlugin`"
-		},
-		{
-			"kind": "text",
-			"text": ". Pass the result to\n"
-		},
-		{
-			"kind": "code",
-			"text": "`compilePlugins(...)`"
-		},
-		{
-			"kind": "text",
-			"text": " (or whichever Studio composition you use). The plugin\ncontributes two header actions today ("
-		},
-		{
-			"kind": "code",
-			"text": "`version-history:save`"
-		},
-		{
-			"kind": "text",
-			"text": " and\n"
-		},
-		{
-			"kind": "code",
-			"text": "`version-history:open`"
-		},
-		{
-			"kind": "text",
-			"text": ") and emits "
-		},
-		{
-			"kind": "code",
-			"text": "`version-history:save-requested`"
-		},
-		{
-			"kind": "text",
-			"text": " /\n"
-		},
-		{
-			"kind": "code",
-			"text": "`version-history:open-requested`"
-		},
-		{
-			"kind": "text",
-			"text": " on the Studio event bus.\n\n## Adapter contract\n\nA "
-		},
-		{
-			"kind": "code",
-			"text": "`SnapshotAdapter`"
-		},
-		{
-			"kind": "text",
-			"text": " implements:\n\n| Method | Purpose |\n| --- | --- |\n| "
-		},
-		{
-			"kind": "code",
-			"text": "`save(ir, meta) → string`"
-		},
-		{
-			"kind": "text",
-			"text": " | Persist a "
-		},
-		{
-			"kind": "code",
-			"text": "`PageIR`"
-		},
-		{
-			"kind": "text",
-			"text": ", return the snapshot id |\n| "
-		},
-		{
-			"kind": "code",
-			"text": "`list() → SnapshotMeta[]`"
-		},
-		{
-			"kind": "text",
-			"text": " | Return all known snapshots (order-preserving) |\n| "
-		},
-		{
-			"kind": "code",
-			"text": "`load(id) → PageIR`"
-		},
-		{
-			"kind": "text",
-			"text": " | Hydrate a snapshot by id (throws "
-		},
-		{
-			"kind": "code",
-			"text": "`VersionHistoryError(\"SNAPSHOT_NOT_FOUND\")`"
-		},
-		{
-			"kind": "text",
-			"text": ") |\n| "
-		},
-		{
-			"kind": "code",
-			"text": "`delete?(id) → void`"
-		},
-		{
-			"kind": "text",
-			"text": " | Optional — required for "
-		},
-		{
-			"kind": "code",
-			"text": "`maxSnapshots`"
-		},
-		{
-			"kind": "text",
-			"text": " eviction |\n\nAll methods may be sync or async ("
-		},
-		{
-			"kind": "code",
-			"text": "`MaybePromise<T>`"
-		},
-		{
-			"kind": "text",
-			"text": "). Frozen, structurally-equal\nresults are recommended.\n\n## Reference adapters\n\n- "
-		},
-		{
-			"kind": "code",
-			"text": "`inMemoryAdapter()`"
-		},
-		{
-			"kind": "text",
-			"text": " — for tests; deep-freezes stored IRs.\n- "
-		},
-		{
-			"kind": "code",
-			"text": "`localStorageAdapter({ namespace })`"
-		},
-		{
-			"kind": "text",
-			"text": " — for demos; persists each snapshot under\n  "
-		},
-		{
-			"kind": "code",
-			"text": "`<namespace>:snapshots:<id>`"
-		},
-		{
-			"kind": "text",
-			"text": " plus a "
-		},
-		{
-			"kind": "code",
-			"text": "`<namespace>:snapshots:index`"
-		},
-		{
-			"kind": "text",
-			"text": " array.\n  Throws "
-		},
-		{
-			"kind": "code",
-			"text": "`VersionHistoryError`"
-		},
-		{
-			"kind": "text",
-			"text": " with codes "
-		},
-		{
-			"kind": "code",
-			"text": "`STORAGE_UNAVAILABLE`"
-		},
-		{
-			"kind": "text",
-			"text": ",\n  "
-		},
-		{
-			"kind": "code",
-			"text": "`STORAGE_CORRUPT`"
-		},
-		{
-			"kind": "text",
-			"text": ", or "
-		},
-		{
-			"kind": "code",
-			"text": "`STORAGE_QUOTA_EXCEEDED`"
-		},
-		{
-			"kind": "text",
-			"text": " on the relevant failure modes.\n\n## Testing your own adapter\n\nThe "
-		},
-		{
-			"kind": "code",
-			"text": "`@anvilkit/plugin-version-history/testing`"
-		},
-		{
-			"kind": "text",
-			"text": " subpath exports\n"
-		},
-		{
-			"kind": "code",
-			"text": "`runAdapterContract`"
-		},
-		{
-			"kind": "text",
-			"text": ", the same suite the reference adapters use:\n\n"
-		},
-		{
-			"kind": "code",
-			"text": "```ts\nimport { runAdapterContract } from \"@anvilkit/plugin-version-history/testing\";\nimport { describe, expect, it } from \"vitest\";\n\nimport { myAdapter } from \"./my-adapter.js\";\n\nrunAdapterContract(() => myAdapter(), { describe, expect, it });\n```"
-		},
-		{
-			"kind": "text",
-			"text": "\n\n## Optional UI\n\nThe "
+			"text": " — main entry: plugin factory, reference adapters, diff/apply engine, types.\n- "
 		},
 		{
 			"kind": "code",
@@ -2638,7 +2498,7 @@
 		},
 		{
 			"kind": "text",
-			"text": " subpath ships React components\n("
+			"text": " — optional React components ("
 		},
 		{
 			"kind": "code",
@@ -2670,7 +2530,7 @@
 		},
 		{
 			"kind": "text",
-			"text": ",\n"
+			"text": ", "
 		},
 		{
 			"kind": "code",
@@ -2678,7 +2538,111 @@
 		},
 		{
 			"kind": "text",
-			"text": ") that consume an adapter directly. They are entirely optional — the\ndefault plugin export does not import them, so consumers who only need the\nheader actions and adapter wiring pay no UI rendering cost.\n\n## Diff / apply engine\n\n"
+			"text": ").\n- "
+		},
+		{
+			"kind": "code",
+			"text": "`@anvilkit/plugin-version-history/testing`"
+		},
+		{
+			"kind": "text",
+			"text": " — "
+		},
+		{
+			"kind": "code",
+			"text": "`runAdapterContract`"
+		},
+		{
+			"kind": "text",
+			"text": " shared test suite.\n\n## Quickstart\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nimport {\n  createVersionHistoryPlugin,\n  localStorageAdapter,\n} from \"@anvilkit/plugin-version-history\";\n\nconst plugin = createVersionHistoryPlugin({\n  adapter: localStorageAdapter({ namespace: \"my-app-history\" }),\n  maxSnapshots: 50,\n});\n\n// Pass `plugin` alongside other Studio plugins.\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nThe plugin contributes two header actions ("
+		},
+		{
+			"kind": "code",
+			"text": "`version-history:save`"
+		},
+		{
+			"kind": "text",
+			"text": " and "
+		},
+		{
+			"kind": "code",
+			"text": "`version-history:open`"
+		},
+		{
+			"kind": "text",
+			"text": ") and emits "
+		},
+		{
+			"kind": "code",
+			"text": "`version-history:save-requested`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`version-history:open-requested`"
+		},
+		{
+			"kind": "text",
+			"text": " on the Studio event bus. Hosts handle the open event by mounting a UI surface (e.g., "
+		},
+		{
+			"kind": "code",
+			"text": "`<SnapshotHistoryModal>`"
+		},
+		{
+			"kind": "text",
+			"text": " from the "
+		},
+		{
+			"kind": "code",
+			"text": "`/ui`"
+		},
+		{
+			"kind": "text",
+			"text": " subpath).\n\n## Core features\n\n- **Adapter-driven persistence** — the plugin defines the contract; the host implements "
+		},
+		{
+			"kind": "code",
+			"text": "`save`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`list`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`load`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`delete?`"
+		},
+		{
+			"kind": "text",
+			"text": " and gets full control over storage (in-memory, localStorage, Firestore, S3, …).\n- **Deterministic diff/apply engine** — "
 		},
 		{
 			"kind": "code",
@@ -2686,7 +2650,7 @@
 		},
 		{
 			"kind": "text",
-			"text": " produces a deterministic, frozen "
+			"text": " produces a frozen "
 		},
 		{
 			"kind": "code",
@@ -2694,7 +2658,7 @@
 		},
 		{
 			"kind": "text",
-			"text": ". "
+			"text": "; "
 		},
 		{
 			"kind": "code",
@@ -2702,7 +2666,279 @@
 		},
 		{
 			"kind": "text",
-			"text": "\nround-trips: "
+			"text": " round-trips.\n- **Optional UI** — five components on "
+		},
+		{
+			"kind": "code",
+			"text": "`/ui`"
+		},
+		{
+			"kind": "text",
+			"text": " for hosts that want batteries-included version history. The default export imports none of them, so headless consumers pay no UI rendering cost.\n- **FIFO eviction** — "
+		},
+		{
+			"kind": "code",
+			"text": "`maxSnapshots`"
+		},
+		{
+			"kind": "text",
+			"text": " automatically deletes the oldest snapshot when capacity is reached (requires "
+		},
+		{
+			"kind": "code",
+			"text": "`adapter.delete`"
+		},
+		{
+			"kind": "text",
+			"text": ").\n- **Reference adapters** — "
+		},
+		{
+			"kind": "code",
+			"text": "`inMemoryAdapter()`"
+		},
+		{
+			"kind": "text",
+			"text": " for tests, "
+		},
+		{
+			"kind": "code",
+			"text": "`localStorageAdapter({ namespace })`"
+		},
+		{
+			"kind": "text",
+			"text": " for demos.\n- **Adapter test suite** — "
+		},
+		{
+			"kind": "code",
+			"text": "`runAdapterContract`"
+		},
+		{
+			"kind": "text",
+			"text": " is the same contract the reference adapters use; consumers can validate their own implementation against it.\n- **Bundle budget** — 8 KB gzipped enforced in CI via "
+		},
+		{
+			"kind": "code",
+			"text": "`scripts/check-bundle-budget.mjs`"
+		},
+		{
+			"kind": "text",
+			"text": ".\n\n## API reference\n\n### Factory\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nfunction createVersionHistoryPlugin(\n  options: CreateVersionHistoryPluginOptions,\n): StudioPlugin;\n\ninterface CreateVersionHistoryPluginOptions {\n  readonly adapter: SnapshotAdapter;\n  readonly maxSnapshots?: number;\n}\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nReturns a typed "
+		},
+		{
+			"kind": "code",
+			"text": "`StudioPlugin`"
+		},
+		{
+			"kind": "text",
+			"text": " carrying the "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryContribution`"
+		},
+		{
+			"kind": "text",
+			"text": " capability (so downstream consumers can recover "
+		},
+		{
+			"kind": "code",
+			"text": "`adapter`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`snapshots`"
+		},
+		{
+			"kind": "text",
+			"text": " via "
+		},
+		{
+			"kind": "code",
+			"text": "`InferPluginContributions`"
+		},
+		{
+			"kind": "text",
+			"text": ").\n\n### "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotAdapter`"
+		},
+		{
+			"kind": "text",
+			"text": " contract\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\ninterface SnapshotAdapter {\n  save(\n    ir: PageIR,\n    meta: Partial<Omit<SnapshotMeta, \"id\" | \"savedAt\">>,\n  ): MaybePromise<string>;\n  list(): MaybePromise<readonly SnapshotMeta[]>;\n  load(id: string): MaybePromise<PageIR>;\n  delete?(id: string): MaybePromise<void>;\n  subscribe?(onUpdate: (ir: PageIR, peer?: PeerInfo) => void): Unsubscribe;\n  presence?: SnapshotAdapterPresence;\n}\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n| Method           | Required? | Purpose                                                                   |\n| ---------------- | --------- | ------------------------------------------------------------------------- |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`save(ir, meta)`"
+		},
+		{
+			"kind": "text",
+			"text": " | yes       | Persist a "
+		},
+		{
+			"kind": "code",
+			"text": "`PageIR`"
+		},
+		{
+			"kind": "text",
+			"text": ". Returns a unique snapshot id.                         |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`list()`"
+		},
+		{
+			"kind": "text",
+			"text": "         | yes       | Return all snapshots in order (newest-first by convention).               |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`load(id)`"
+		},
+		{
+			"kind": "text",
+			"text": "       | yes       | Hydrate by id. Throw "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryError(\"SNAPSHOT_NOT_FOUND\")`"
+		},
+		{
+			"kind": "text",
+			"text": " on miss. |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`delete(id)`"
+		},
+		{
+			"kind": "text",
+			"text": "     | optional  | Required when "
+		},
+		{
+			"kind": "code",
+			"text": "`maxSnapshots`"
+		},
+		{
+			"kind": "text",
+			"text": " is set.                                      |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`subscribe(cb)`"
+		},
+		{
+			"kind": "text",
+			"text": "  | optional  | Push updates from collaborative adapters (e.g., "
+		},
+		{
+			"kind": "code",
+			"text": "`createYjsAdapter`"
+		},
+		{
+			"kind": "text",
+			"text": ").      |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`presence`"
+		},
+		{
+			"kind": "text",
+			"text": "       | optional  | Multi-user cursor / selection channel. Implemented by the Yjs adapter.    |\n\nAll methods may be sync or async ("
+		},
+		{
+			"kind": "code",
+			"text": "`MaybePromise<T>`"
+		},
+		{
+			"kind": "text",
+			"text": "). Frozen, structurally-equal results are recommended.\n\n### "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotMeta`"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\ninterface SnapshotMeta {\n  readonly id: string;\n  readonly label?: string;\n  readonly savedAt: string;\n  readonly pageIRHash: string;\n  readonly delta?: IRDiff;\n}\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "`delta`"
+		},
+		{
+			"kind": "text",
+			"text": " is optional. Adapters that opt in ("
+		},
+		{
+			"kind": "code",
+			"text": "`createYjsAdapter({ computeDelta: true })`"
+		},
+		{
+			"kind": "text",
+			"text": ") populate it with the structural diff from the previous snapshot; older or simpler adapters omit it.\n\n### Diff engine\n\n| Export           | Signature                             | Purpose                                                                  |\n| ---------------- | ------------------------------------- | ------------------------------------------------------------------------ |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`diffIR`"
+		},
+		{
+			"kind": "text",
+			"text": "         | "
+		},
+		{
+			"kind": "code",
+			"text": "`(a: PageIR, b: PageIR) => IRDiff`"
+		},
+		{
+			"kind": "text",
+			"text": "    | Compute a deterministic, frozen diff.                                    |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`applyDiff`"
+		},
+		{
+			"kind": "text",
+			"text": "      | "
+		},
+		{
+			"kind": "code",
+			"text": "`(a: PageIR, diff: IRDiff) => PageIR`"
+		},
+		{
+			"kind": "text",
+			"text": " | Apply a diff. "
 		},
 		{
 			"kind": "code",
@@ -2718,39 +2954,47 @@
 		},
 		{
 			"kind": "text",
-			"text": ".\n"
+			"text": ". |\n| "
 		},
 		{
 			"kind": "code",
-			"text": "`summarizeDiff(diff)`"
+			"text": "`summarizeDiff`"
 		},
 		{
 			"kind": "text",
-			"text": " returns a small "
+			"text": "  | "
 		},
 		{
 			"kind": "code",
-			"text": "`{ added, removed, moved, changed,\ndescription }`"
+			"text": "`(diff: IRDiff) => IRDiffSummary`"
 		},
 		{
 			"kind": "text",
-			"text": " summary suitable for UI labels.\n\n"
+			"text": "     | "
 		},
 		{
 			"kind": "code",
-			"text": "`move-node`"
+			"text": "`{ added, removed, moved, changed, metaChanged?, description }`"
 		},
 		{
 			"kind": "text",
-			"text": " ops are informational hints. "
+			"text": ".         |\n| "
 		},
 		{
 			"kind": "code",
-			"text": "`change-children`"
+			"text": "`DiffApplyError`"
 		},
 		{
 			"kind": "text",
-			"text": " on the affected\nparent(s) is the authoritative reparenting/reorder signal — "
+			"text": " | "
+		},
+		{
+			"kind": "code",
+			"text": "`class extends Error`"
+		},
+		{
+			"kind": "text",
+			"text": "                 | Thrown when "
 		},
 		{
 			"kind": "code",
@@ -2758,7 +3002,247 @@
 		},
 		{
 			"kind": "text",
-			"text": "\ndoes not reparent on "
+			"text": " cannot reconcile the diff against the input IR.  |\n\n### "
+		},
+		{
+			"kind": "code",
+			"text": "`IRDiffOp`"
+		},
+		{
+			"kind": "text",
+			"text": " (discriminated union)\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\ntype IRDiffOp =\n  | { kind: \"add-node\"; path: string; node: PageIRNode }\n  | { kind: \"remove-node\"; path: string; nodeId: string }\n  | { kind: \"move-node\"; from: string; to: string; nodeId: string }\n  | {\n      kind: \"change-prop\";\n      path: string;\n      key: string;\n      before: unknown;\n      after: unknown;\n    }\n  | {\n      kind: \"change-children\";\n      path: string;\n      before: readonly string[];\n      after: readonly string[];\n    }\n  | {\n      kind: \"meta-changed\";\n      path: string;\n      key: \"locked\" | \"owner\" | \"version\" | \"notes\";\n      before: unknown;\n      after: unknown;\n    };\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n### Reference adapters\n\n| Adapter                              | Use case                | Notes                                                                                                                                                                                                                                                                          |\n| ------------------------------------ | ----------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`inMemoryAdapter()`"
+		},
+		{
+			"kind": "text",
+			"text": "                  | Tests                   | Deep-freezes stored IRs; loses data on reload.                                                                                                                                                                                                                                 |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`localStorageAdapter({ namespace })`"
+		},
+		{
+			"kind": "text",
+			"text": " | Demos, single-user SPAs | Storage keys: "
+		},
+		{
+			"kind": "code",
+			"text": "`<namespace>:snapshots:<id>`"
+		},
+		{
+			"kind": "text",
+			"text": " (payload), "
+		},
+		{
+			"kind": "code",
+			"text": "`<namespace>:snapshots:index`"
+		},
+		{
+			"kind": "text",
+			"text": " (metadata array). Uses delta-chain encoding to fit within the ~5–10 MB quota. Throws "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryError`"
+		},
+		{
+			"kind": "text",
+			"text": " with one of "
+		},
+		{
+			"kind": "code",
+			"text": "`STORAGE_UNAVAILABLE`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`STORAGE_CORRUPT`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`STORAGE_QUOTA_EXCEEDED`"
+		},
+		{
+			"kind": "text",
+			"text": ". |\n\n### Errors\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nclass VersionHistoryError extends Error {\n  readonly code: VersionHistoryErrorCode;\n}\n\ntype VersionHistoryErrorCode =\n  | \"SNAPSHOT_NOT_FOUND\"\n  | \"STORAGE_CORRUPT\"\n  | \"STORAGE_QUOTA_EXCEEDED\"\n  | \"STORAGE_UNAVAILABLE\";\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n### Optional UI ("
+		},
+		{
+			"kind": "code",
+			"text": "`./ui`"
+		},
+		{
+			"kind": "text",
+			"text": ")\n\n| Component              | Key props                                               |\n| ---------------------- | ------------------------------------------------------- |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryUI`"
+		},
+		{
+			"kind": "text",
+			"text": "     | "
+		},
+		{
+			"kind": "code",
+			"text": "`{ adapter, currentIR, onRestore }`"
+		},
+		{
+			"kind": "text",
+			"text": "                     |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`SaveSnapshotButton`"
+		},
+		{
+			"kind": "text",
+			"text": "   | "
+		},
+		{
+			"kind": "code",
+			"text": "`{ adapter, currentIR, getLabel? }`"
+		},
+		{
+			"kind": "text",
+			"text": "                     |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotList`"
+		},
+		{
+			"kind": "text",
+			"text": "         | "
+		},
+		{
+			"kind": "code",
+			"text": "`{ snapshots, onSelect, currentId? }`"
+		},
+		{
+			"kind": "text",
+			"text": "                   |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotHistoryModal`"
+		},
+		{
+			"kind": "text",
+			"text": " | "
+		},
+		{
+			"kind": "code",
+			"text": "`{ open, onOpenChange, adapter, currentIR, onRestore }`"
+		},
+		{
+			"kind": "text",
+			"text": " |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`DiffView`"
+		},
+		{
+			"kind": "text",
+			"text": "             | "
+		},
+		{
+			"kind": "code",
+			"text": "`{ diff, before?, after? }`"
+		},
+		{
+			"kind": "text",
+			"text": "                             |\n\nThe "
+		},
+		{
+			"kind": "code",
+			"text": "`/ui`"
+		},
+		{
+			"kind": "text",
+			"text": " subpath is a separate entry point — importing from it does not trigger the rest of the package. The default plugin export does not reference these components.\n\n### Testing ("
+		},
+		{
+			"kind": "code",
+			"text": "`./testing`"
+		},
+		{
+			"kind": "text",
+			"text": ")\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nrunAdapterContract(\n  adapterFactory: () => SnapshotAdapter,\n  hooks: { describe; expect; it },\n): void;\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nPass your test runner's primitives to inject the suite without coupling the package to a specific framework.\n\n## Usage examples\n\n### LocalStorage adapter for a single-user SPA\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nimport {\n  createVersionHistoryPlugin,\n  localStorageAdapter,\n} from \"@anvilkit/plugin-version-history\";\n\nconst versionHistory = createVersionHistoryPlugin({\n  adapter: localStorageAdapter({ namespace: \"marketing-cms\" }),\n  maxSnapshots: 100,\n});\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n### Custom Firestore adapter\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nimport type {\n  PageIR,\n  SnapshotAdapter,\n  SnapshotMeta,\n} from \"@anvilkit/plugin-version-history\";\nimport { VersionHistoryError } from \"@anvilkit/plugin-version-history\";\nimport {\n  doc,\n  getDoc,\n  setDoc,\n  deleteDoc,\n  getDocs,\n  collection,\n  query,\n  orderBy,\n} from \"firebase/firestore\";\n\nexport function firestoreAdapter(roomId: string): SnapshotAdapter {\n  const col = collection(db, \"rooms\", roomId, \"snapshots\");\n  return {\n    async save(ir, meta) {\n      const id = crypto.randomUUID();\n      const savedAt = new Date().toISOString();\n      await setDoc(doc(col, id), { ir, meta: { ...meta, id, savedAt } });\n      return id;\n    },\n    async list() {\n      const snaps = await getDocs(query(col, orderBy(\"meta.savedAt\", \"desc\")));\n      return snaps.docs.map((d) => d.data().meta as SnapshotMeta);\n    },\n    async load(id) {\n      const snap = await getDoc(doc(col, id));\n      if (!snap.exists()) {\n        throw new VersionHistoryError(\n          \"SNAPSHOT_NOT_FOUND\",\n          `snapshot ${id} not found`,\n        );\n      }\n      return snap.data().ir as PageIR;\n    },\n    async delete(id) {\n      await deleteDoc(doc(col, id));\n    },\n  };\n}\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n### Validating a custom adapter\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nimport { runAdapterContract } from \"@anvilkit/plugin-version-history/testing\";\nimport { describe, expect, it } from \"vitest\";\n\nimport { firestoreAdapter } from \"./firestore-adapter.js\";\n\nrunAdapterContract(() => firestoreAdapter(\"test-room\"), {\n  describe,\n  expect,\n  it,\n});\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n### Rendering a diff view\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```tsx\nimport { useEffect, useState } from \"react\";\nimport {\n  diffIR,\n  summarizeDiff,\n  type IRDiff,\n  type PageIR,\n  type SnapshotAdapter,\n} from \"@anvilkit/plugin-version-history\";\nimport { DiffView } from \"@anvilkit/plugin-version-history/ui\";\n\nfunction HistoryEntry({\n  adapter,\n  fromId,\n  toId,\n}: {\n  adapter: SnapshotAdapter;\n  fromId: string;\n  toId: string;\n}) {\n  const [diff, setDiff] = useState<IRDiff | null>(null);\n\n  useEffect(() => {\n    Promise.all([adapter.load(fromId), adapter.load(toId)]).then(([a, b]) => {\n      setDiff(diffIR(a, b));\n    });\n  }, [adapter, fromId, toId]);\n\n  if (!diff) return null;\n  const summary = summarizeDiff(diff);\n  return (\n    <div>\n      <p>{summary.description}</p>\n      <DiffView diff={diff} />\n    </div>\n  );\n}\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n## Notes & FAQ\n\n### Storage is intentionally pluggable\n\nThe plugin never reads from "
+		},
+		{
+			"kind": "code",
+			"text": "`localStorage`"
+		},
+		{
+			"kind": "text",
+			"text": ", IndexedDB, or any backend directly. Adapters are the only persistence boundary — if you need session-shared, multi-tenant, or audit-compliant storage, write an adapter and stay inside the typed contract.\n\n### "
 		},
 		{
 			"kind": "code",
@@ -2766,7 +3250,103 @@
 		},
 		{
 			"kind": "text",
-			"text": " alone.\n\n## Bundle budget\n\nThe published entry has an 8 KB gzipped budget enforced in CI by\n"
+			"text": " is informational\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "`applyDiff`"
+		},
+		{
+			"kind": "text",
+			"text": " validates "
+		},
+		{
+			"kind": "code",
+			"text": "`move-node`"
+		},
+		{
+			"kind": "text",
+			"text": " ops but does **not** perform reparenting on them alone. "
+		},
+		{
+			"kind": "code",
+			"text": "`change-children`"
+		},
+		{
+			"kind": "text",
+			"text": " on the affected parent is the authoritative reparenting/reorder signal. Consumers that inspect an "
+		},
+		{
+			"kind": "code",
+			"text": "`IRDiff`"
+		},
+		{
+			"kind": "text",
+			"text": " for display or logging may use "
+		},
+		{
+			"kind": "code",
+			"text": "`move-node`"
+		},
+		{
+			"kind": "text",
+			"text": " for presentation; do not rely on it for replay correctness.\n\n### "
+		},
+		{
+			"kind": "code",
+			"text": "`maxSnapshots`"
+		},
+		{
+			"kind": "text",
+			"text": " requires "
+		},
+		{
+			"kind": "code",
+			"text": "`delete`"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nThe FIFO eviction loop calls "
+		},
+		{
+			"kind": "code",
+			"text": "`adapter.delete(oldestId)`"
+		},
+		{
+			"kind": "text",
+			"text": " when the snapshot count would exceed the cap. Adapters that omit "
+		},
+		{
+			"kind": "code",
+			"text": "`delete`"
+		},
+		{
+			"kind": "text",
+			"text": " cannot satisfy "
+		},
+		{
+			"kind": "code",
+			"text": "`maxSnapshots`"
+		},
+		{
+			"kind": "text",
+			"text": "; either implement "
+		},
+		{
+			"kind": "code",
+			"text": "`delete`"
+		},
+		{
+			"kind": "text",
+			"text": " or omit "
+		},
+		{
+			"kind": "code",
+			"text": "`maxSnapshots`"
+		},
+		{
+			"kind": "text",
+			"text": ".\n\n### Bundle budget\n\nThe published entry has an 8 KB gzipped budget enforced in CI by "
 		},
 		{
 			"kind": "code",
@@ -2774,7 +3354,7 @@
 		},
 		{
 			"kind": "text",
-			"text": " (and "
+			"text": " and "
 		},
 		{
 			"kind": "code",
@@ -2782,7 +3362,7 @@
 		},
 		{
 			"kind": "text",
-			"text": "). Workspace deps\n("
+			"text": ". Workspace deps ("
 		},
 		{
 			"kind": "code",
@@ -2814,23 +3394,71 @@
 		},
 		{
 			"kind": "text",
-			"text": ") are\ntreated as external.\n\n## Status\n\nAlpha ("
+			"text": ") are treated as external.\n\n### Optional UI is opt-in by design\n\nImporting from "
 		},
 		{
 			"kind": "code",
-			"text": "`0.1.0-alpha.0`"
+			"text": "`@anvilkit/plugin-version-history`"
 		},
 		{
 			"kind": "text",
-			"text": "). Header actions and the diff/apply engine are\nwired today. A sidebar-panel slot contribution is deferred until\n"
+			"text": " never pulls the "
 		},
 		{
 			"kind": "code",
-			"text": "`StudioPluginContext`"
+			"text": "`/ui`"
 		},
 		{
 			"kind": "text",
-			"text": " exposes the sidebar registration API."
+			"text": " components — they live in a separate entry. This keeps the headless consumer (a CMS that only wants snapshots and audit history but ships its own UI) at the published bundle budget.\n\n### Adapter freezing recommended\n\nReference adapters deep-freeze stored IRs to catch accidental mutation early. Custom adapters are not required to freeze, but doing so eliminates a class of \"history snapshot mutated after save\" bugs that are otherwise easy to miss.\n\n### Cross-plugin types\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotAdapter`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`PeerInfo`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`PresenceState`"
+		},
+		{
+			"kind": "text",
+			"text": ", etc. are re-exported here as the source of truth — "
+		},
+		{
+			"kind": "code",
+			"text": "`@anvilkit/plugin-collab-yjs`"
+		},
+		{
+			"kind": "text",
+			"text": " extends "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotAdapter`"
+		},
+		{
+			"kind": "text",
+			"text": " with "
+		},
+		{
+			"kind": "code",
+			"text": "`YjsSnapshotAdapter`"
+		},
+		{
+			"kind": "text",
+			"text": " to add conflict / status / metrics surfaces. Use this package's types when authoring shared abstractions across both plugins."
 		}
 	],
 	"symbolIdMap": {
