@@ -182,6 +182,28 @@ describe("diffIR fixtures", () => {
 
 		expect(applyDiff(a, diffIR(a, b))).toEqual(b);
 	});
+
+	it("detects and round-trips a change to a deeply nested object/array prop", () => {
+		// The other fixtures only mutate scalar props, so the structural
+		// `deepEqual` recursion (into nested objects and array elements) is
+		// otherwise unexercised. A single top-level prop whose value is a
+		// nested object containing a differing array + nested object must
+		// produce exactly one `change-prop` and round-trip losslessly.
+		const a = page([
+			leaf("hero", {
+				settings: { theme: { color: "red" }, tags: ["a", "b"] },
+			}),
+		]);
+		const b = page([
+			leaf("hero", {
+				settings: { theme: { color: "blue" }, tags: ["a", "c"] },
+			}),
+		]);
+
+		const diff = diffIR(a, b);
+		expect(countOps(diff).changeProp).toBe(1);
+		expect(applyDiff(a, diff)).toEqual(b);
+	});
 });
 
 describe("applyDiff errors", () => {
