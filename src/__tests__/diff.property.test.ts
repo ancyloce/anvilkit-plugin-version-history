@@ -2,7 +2,7 @@ import type { PageIR, PageIRNode, PageIRNodeMeta } from "@anvilkit/core/types";
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 
-import { applyDiff, diffIR } from "../diff.js";
+import { applyDiff, diffIR } from "../utils/diff.js";
 
 const SEED = 20_260_422;
 const PROP_KEYS = ["title", "count", "flag", "items", "config"] as const;

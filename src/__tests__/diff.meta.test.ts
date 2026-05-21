@@ -8,7 +8,7 @@
 import type { PageIR, PageIRNode, PageIRNodeMeta } from "@anvilkit/core/types";
 import { describe, expect, it } from "vitest";
 
-import { applyDiff, diffIR, summarizeDiff } from "../diff.js";
+import { applyDiff, diffIR, summarizeDiff } from "../utils/diff.js";
 
 function leaf(id: string, meta?: PageIRNodeMeta): PageIRNode {
 	return meta === undefined

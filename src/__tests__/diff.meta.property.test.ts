@@ -13,7 +13,7 @@ import type { PageIR, PageIRNode, PageIRNodeMeta } from "@anvilkit/core/types";
 import fc from "fast-check";
 import { describe, expect, it } from "vitest";
 
-import { applyDiff, diffIR, summarizeDiff } from "../diff.js";
+import { applyDiff, diffIR, summarizeDiff } from "../utils/diff.js";
 
 const SEED = 20_260_429;
 const NUM_RUNS = 200;

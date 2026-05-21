@@ -7,7 +7,7 @@ import {
 	diffIR,
 	type IRDiff,
 	summarizeDiff,
-} from "../diff.js";
+} from "../utils/diff.js";
 
 interface FixtureCase {
 	readonly name: string;
