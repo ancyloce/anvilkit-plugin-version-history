@@ -6,62 +6,62 @@ import { runAdapterContract } from "../testing/run-adapter-contract.js";
 import { localStorageAdapter } from "./local-storage.js";
 
 class MemoryStorage implements Storage {
-  #items = new Map<string, string>();
+	#items = new Map<string, string>();
 
-  get length(): number {
-    return this.#items.size;
-  }
+	get length(): number {
+		return this.#items.size;
+	}
 
-  clear(): void {
-    this.#items.clear();
-  }
+	clear(): void {
+		this.#items.clear();
+	}
 
-  getItem(key: string): string | null {
-    return this.#items.get(key) ?? null;
-  }
+	getItem(key: string): string | null {
+		return this.#items.get(key) ?? null;
+	}
 
-  key(index: number): string | null {
-    return [...this.#items.keys()][index] ?? null;
-  }
+	key(index: number): string | null {
+		return [...this.#items.keys()][index] ?? null;
+	}
 
-  removeItem(key: string): void {
-    this.#items.delete(key);
-  }
+	removeItem(key: string): void {
+		this.#items.delete(key);
+	}
 
-  setItem(key: string, value: string): void {
-    this.#items.set(key, value);
-  }
+	setItem(key: string, value: string): void {
+		this.#items.set(key, value);
+	}
 }
 
 beforeEach(() => {
-  vi.stubGlobal("localStorage", new MemoryStorage());
+	vi.stubGlobal("localStorage", new MemoryStorage());
 });
 
 afterEach(() => {
-  vi.unstubAllGlobals();
+	vi.unstubAllGlobals();
 });
 
 runAdapterContract(() => localStorageAdapter({ namespace: "test" }), {
-  describe,
-  expect,
-  it,
+	describe,
+	expect,
+	it,
 });
 
 describe("localStorageAdapter", () => {
-  it("round-trips through globalThis.localStorage", async () => {
-    const adapter = localStorageAdapter({ namespace: "test" });
-    const ir = createFakePageIR();
+	it("round-trips through globalThis.localStorage", async () => {
+		const adapter = localStorageAdapter({ namespace: "test" });
+		const ir = createFakePageIR();
 
-    const id = await Promise.resolve(adapter.save(ir, {}));
+		const id = await Promise.resolve(adapter.save(ir, {}));
 
-    expect(globalThis.localStorage.getItem("test:snapshots:index")).toContain(
-      id,
-    );
-    expect(
-      globalThis.localStorage.getItem(`test:snapshots:${id}`),
-    ).not.toBeNull();
+		expect(globalThis.localStorage.getItem("test:snapshots:index")).toContain(
+			id,
+		);
+		expect(
+			globalThis.localStorage.getItem(`test:snapshots:${id}`),
+		).not.toBeNull();
 
-    const loaded = await Promise.resolve(adapter.load(id));
-    expect(loaded).toEqual(ir);
-  });
+		const loaded = await Promise.resolve(adapter.load(id));
+		expect(loaded).toEqual(ir);
+	});
 });

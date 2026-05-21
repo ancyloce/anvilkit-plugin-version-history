@@ -1,21 +1,24 @@
-import { defineStudioPlugin } from "@anvilkit/core/types";
 import type {
 	StudioPluginContributing,
 	StudioPluginRegistration,
 } from "@anvilkit/core/types";
+import { defineStudioPlugin } from "@anvilkit/core/types";
 
 import config from "../meta/config.json";
 import packageJson from "../package.json";
-import { openHistoryAction, saveSnapshotAction } from "./actions/header-actions";
+import {
+	openHistoryAction,
+	saveSnapshotAction,
+} from "./actions/header-actions";
+import type {
+	SnapshotAdapter,
+	VersionHistoryContribution,
+} from "./types/types.js";
 import {
 	bindVersionHistoryState,
 	setVersionHistorySnapshots,
 	unbindVersionHistoryState,
 } from "./utils/state.js";
-import type {
-	SnapshotAdapter,
-	VersionHistoryContribution,
-} from "./types/types.js";
 
 // `version` is derived from package.json so a Changesets bump can never drift
 // the runtime metadata; `plugin.metadata-drift.test.ts` guards regressions.

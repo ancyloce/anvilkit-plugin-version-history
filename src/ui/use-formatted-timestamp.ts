@@ -16,19 +16,19 @@ import * as React from "react";
  * unconditionally so it stays on a stable hook path.
  */
 export function useFormattedTimestamp(iso: string): string {
-  const [state, setState] = React.useState<{
-    readonly iso: string;
-    readonly formatted: string;
-  }>({ iso, formatted: iso });
+	const [state, setState] = React.useState<{
+		readonly iso: string;
+		readonly formatted: string;
+	}>({ iso, formatted: iso });
 
-  React.useEffect(() => {
-    if (!iso) {
-      setState({ iso, formatted: "" });
-      return;
-    }
+	React.useEffect(() => {
+		if (!iso) {
+			setState({ iso, formatted: "" });
+			return;
+		}
 
-    setState({ iso, formatted: new Date(iso).toLocaleString() });
-  }, [iso]);
+		setState({ iso, formatted: new Date(iso).toLocaleString() });
+	}, [iso]);
 
-  return state.iso === iso ? state.formatted : iso;
+	return state.iso === iso ? state.formatted : iso;
 }
