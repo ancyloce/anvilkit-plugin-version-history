@@ -8,7 +8,7 @@ export default mergeConfig(
 			coverage: {
 				enabled: true,
 				provider: "v8",
-				include: ["src/diff.ts"],
+				include: ["src/utils/diff.ts"],
 				reporter: ["text"],
 				thresholds: {
 					lines: 95,
