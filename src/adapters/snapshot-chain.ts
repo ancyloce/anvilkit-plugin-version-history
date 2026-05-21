@@ -1,8 +1,8 @@
 import type { PageIR } from "@anvilkit/core/types";
 
-import { type IRDiff, applyDiff, diffIR } from "../diff.js";
-import { VersionHistoryError } from "../errors.js";
-import { clonePageIR, deepFreeze } from "../internal.js";
+import { type IRDiff, applyDiff, diffIR } from "../utils/diff.js";
+import { VersionHistoryError } from "../utils/errors.js";
+import { clonePageIR, deepFreeze } from "../utils/internal.js";
 
 /**
  * Differential snapshot storage ("delta-chain").

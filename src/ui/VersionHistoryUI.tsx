@@ -3,8 +3,8 @@ import * as React from "react";
 import type { PageIR } from "@anvilkit/core/types";
 import { Card, CardContent } from "@anvilkit/ui";
 
-import { hashPageIR } from "../hash.js";
-import type { SnapshotAdapter, SnapshotMeta } from "../types.js";
+import { hashPageIR } from "../utils/hash.js";
+import type { SnapshotAdapter, SnapshotMeta } from "../types/types.js";
 import { SaveSnapshotButton } from "./SaveSnapshotButton.js";
 import { SnapshotHistoryModal } from "./SnapshotHistoryModal.js";
 import { SnapshotList } from "./SnapshotList.js";

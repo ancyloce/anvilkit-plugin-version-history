@@ -9,7 +9,7 @@ import type {
   SnapshotAdapter,
   SnapshotAdapterPresence,
   Unsubscribe,
-} from "../types.js";
+} from "../types/types.js";
 
 describe("SnapshotAdapter v2 contract (additive)", () => {
   it("accepts existing inMemoryAdapter without subscribe/presence", () => {

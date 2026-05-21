@@ -1,7 +1,7 @@
 import type { StudioPluginContext } from "@anvilkit/core/types";
 
 import { freezeSnapshotList } from "./internal.js";
-import type { SnapshotAdapter, SnapshotMeta } from "./types.js";
+import type { SnapshotAdapter, SnapshotMeta } from "../types/types.js";
 
 export interface VersionHistoryRuntimeState {
   readonly adapter: SnapshotAdapter;

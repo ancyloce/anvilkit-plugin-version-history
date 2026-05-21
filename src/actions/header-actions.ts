@@ -1,8 +1,8 @@
 import type { PageIR, StudioHeaderAction } from "@anvilkit/core/types";
 
-import { evictOldest } from "./eviction.js";
-import { hashPageIR } from "./hash.js";
-import { getVersionHistoryState, setVersionHistorySnapshots } from "./state.js";
+import { evictOldest } from "../utils/eviction.js";
+import { hashPageIR } from "../utils/hash.js";
+import { getVersionHistoryState, setVersionHistorySnapshots } from "../utils/state.js";
 
 export const saveSnapshotAction: StudioHeaderAction = {
   id: "version-history:save",

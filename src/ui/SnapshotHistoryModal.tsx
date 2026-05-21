@@ -9,7 +9,7 @@ import {
   DialogTitle,
 } from "@anvilkit/ui";
 
-import type { SnapshotMeta } from "../types.js";
+import type { SnapshotMeta } from "../types/types.js";
 import { DiffView } from "./DiffView.js";
 import { useFormattedTimestamp } from "./use-formatted-timestamp.js";
 

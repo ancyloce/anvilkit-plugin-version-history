@@ -3,8 +3,8 @@ import * as React from "react";
 import type { PageIR, PageIRNode } from "@anvilkit/core/types";
 import { Card, CardContent, CardHeader, CardTitle, cn } from "@anvilkit/ui";
 
-import { diffIR, summarizeDiff } from "../diff.js";
-import type { SnapshotMeta } from "../types.js";
+import { diffIR, summarizeDiff } from "../utils/diff.js";
+import type { SnapshotMeta } from "../types/types.js";
 import { useFormattedTimestamp } from "./use-formatted-timestamp.js";
 
 function hasLockedNode(node: PageIRNode): boolean {

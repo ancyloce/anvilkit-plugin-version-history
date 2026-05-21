@@ -1,4 +1,4 @@
-import type { SnapshotMeta } from "./types.js";
+import type { SnapshotMeta } from "../types/types.js";
 
 export function evictOldest(
   metas: readonly SnapshotMeta[],

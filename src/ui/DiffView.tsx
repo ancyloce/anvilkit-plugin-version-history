@@ -10,8 +10,8 @@ import {
   cn,
 } from "@anvilkit/ui";
 
-import type { IRDiff, IRDiffOp } from "../diff.js";
-import { diffIR, summarizeDiff } from "../diff.js";
+import type { IRDiff, IRDiffOp } from "../utils/diff.js";
+import { diffIR, summarizeDiff } from "../utils/diff.js";
 
 export interface DiffViewProps {
   readonly after: PageIR;

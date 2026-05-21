@@ -1,12 +1,12 @@
-import type { IRDiff } from "../diff.js";
-import { VersionHistoryError } from "../errors.js";
+import type { IRDiff } from "../utils/diff.js";
+import { VersionHistoryError } from "../utils/errors.js";
 import {
   clonePageIR,
   createSnapshotMeta,
   deepFreeze,
   freezeSnapshotList,
-} from "../internal.js";
-import type { SnapshotAdapter, SnapshotMeta } from "../types.js";
+} from "../utils/internal.js";
+import type { SnapshotAdapter, SnapshotMeta } from "../types/types.js";
 import {
   type RecordBackend,
   type StoredRecord,

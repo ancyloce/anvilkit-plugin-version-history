@@ -1,6 +1,6 @@
 import { createFakePageIR } from "@anvilkit/core/testing";
 
-import type { SnapshotAdapter } from "../types.js";
+import type { SnapshotAdapter } from "../types/types.js";
 
 type DescribeLike = (name: string, fn: () => void) => void;
 type ItLike = (name: string, fn: () => void | Promise<void>) => void;

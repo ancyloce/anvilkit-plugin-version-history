@@ -2,7 +2,7 @@ import type { PageIR } from "@anvilkit/core/types";
 
 import { VersionHistoryError } from "./errors.js";
 import { hashPageIR } from "./hash.js";
-import type { SnapshotMeta } from "./types.js";
+import type { SnapshotMeta } from "../types/types.js";
 
 export function clonePageIR(ir: PageIR): PageIR {
   return globalThis.structuredClone(ir);

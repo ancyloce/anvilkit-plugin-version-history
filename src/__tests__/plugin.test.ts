@@ -9,7 +9,7 @@ import { describe, expect, it, vi } from "vitest";
 
 import { inMemoryAdapter } from "../adapters/in-memory.js";
 import { createVersionHistoryPlugin } from "../plugin.js";
-import type { SnapshotAdapter } from "../types.js";
+import type { SnapshotAdapter } from "../types/types.js";
 
 describe("createVersionHistoryPlugin", () => {
   it("compiles through compilePlugins and contributes the expected header actions", async () => {
