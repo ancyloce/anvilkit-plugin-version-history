@@ -3,6 +3,8 @@ import type {
 	StudioPluginRegistration,
 } from "@anvilkit/core/types";
 import { defineStudioPlugin } from "@anvilkit/core/types";
+import { History } from "lucide-react";
+import { createElement } from "react";
 
 import config from "../meta/config.json";
 import packageJson from "../package.json";
@@ -25,6 +27,7 @@ import {
 const META = {
 	...config,
 	version: packageJson.version,
+	icon: createElement(History),
 } as const;
 
 export interface CreateVersionHistoryPluginOptions {
