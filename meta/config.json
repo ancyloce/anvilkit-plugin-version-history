@@ -1,7 +1,7 @@
 {
 	"id": "anvilkit-plugin-version-history",
 	"name": "Version History",
-	"version": "0.1.3",
+	"version": "0.1.4",
 	"coreVersion": "^0.1.0-alpha",
 	"description": "Headless version history plugin with host-provided snapshot persistence.",
 	"capabilities": { "header": true }
