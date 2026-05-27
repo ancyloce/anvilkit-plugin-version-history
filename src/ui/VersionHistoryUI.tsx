@@ -4,7 +4,15 @@ import type { PageIR } from "@anvilkit/core/types";
 import { Card, CardContent } from "@anvilkit/ui";
 
 import { hashPageIR } from "../utils/hash.js";
+import { LruCache } from "../utils/lru.js";
 import type { SnapshotAdapter, SnapshotMeta } from "../types/types.js";
+
+/**
+ * Cap on fully materialized `PageIR`s held in memory by the panel.
+ * Mirrors the storage-side `maxSnapshots` intent (default 50) so the
+ * in-memory load cache can never outgrow the retained history.
+ */
+const SNAPSHOT_CACHE_CAPACITY = 50;
 import { SaveSnapshotButton } from "./SaveSnapshotButton.js";
 import { SnapshotHistoryModal } from "./SnapshotHistoryModal.js";
 import { SnapshotList } from "./SnapshotList.js";
@@ -32,7 +40,9 @@ export function VersionHistoryUI({
   currentIR,
   onRestore,
 }: VersionHistoryUIProps) {
-  const snapshotCacheRef = React.useRef(new Map<string, PageIR>());
+  const snapshotCacheRef = React.useRef(
+    new LruCache<string, PageIR>(SNAPSHOT_CACHE_CAPACITY),
+  );
   const isMountedRef = React.useRef(true);
   const [snapshots, setSnapshots] = React.useState<readonly SnapshotMeta[]>([]);
   const [listError, setListError] = React.useState<string | null>(null);
