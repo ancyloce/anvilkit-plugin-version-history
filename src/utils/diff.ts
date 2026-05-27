@@ -554,16 +554,24 @@ function buildReconstructedNode(
 		throw new DiffApplyError(`Missing node content for ${id}`);
 	}
 
+	// Single clone, not two: `collectContent` / `collectAddedContent`
+	// already deep-cloned props/assets/meta into a fresh, mutable `content`
+	// at collect time, and every op handler (`change-prop`, `meta-changed`)
+	// replaces those fields copy-on-write — it never mutates the stored
+	// object in place — so the reconstructed node can take ownership of
+	// them directly. The whole tree is `deepFreeze`d at the end of
+	// `applyDiff`. Re-cloning here was a redundant second deep copy of
+	// every node on every apply.
 	const node: MutablePageIRNode = {
 		id: content.id,
 		type: content.type,
-		props: structuredClone(content.props) as Record<string, unknown>,
+		props: content.props,
 	};
 	if (content.assets !== undefined) {
-		node.assets = structuredClone(content.assets) as unknown[];
+		node.assets = content.assets;
 	}
 	if (content.meta !== undefined) {
-		node.meta = structuredClone(content.meta) as Record<string, unknown>;
+		node.meta = content.meta;
 	}
 
 	const childIds = childrenMap.get(id);
