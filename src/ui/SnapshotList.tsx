@@ -102,8 +102,55 @@ const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
   ) {
     const [snapshotIR, setSnapshotIR] = React.useState<PageIR | null>(null);
     const [loadFailed, setLoadFailed] = React.useState(false);
+    const rowRef = React.useRef<HTMLDivElement | null>(null);
+
+    // Merge our local ref (needed for the IntersectionObserver below) with
+    // the parent's forwarded ref (used for roving-focus keyboard nav).
+    const setRowRef = React.useCallback(
+      (node: HTMLDivElement | null) => {
+        rowRef.current = node;
+        if (typeof forwardedRef === "function") {
+          forwardedRef(node);
+        } else if (forwardedRef) {
+          forwardedRef.current = node;
+        }
+      },
+      [forwardedRef],
+    );
+
+    // Defer the snapshot load + `O(node-count)` diff until the row is
+    // actually scrolled into view. Opening the panel with K snapshots
+    // previously deserialized K full PageIRs and ran K diffs eagerly on
+    // mount (O(K·N), the whole list up front). When IntersectionObserver
+    // is unavailable (jsdom / SSR / legacy) we fall back to loading
+    // immediately, preserving the old eager behavior.
+    const [shouldLoad, setShouldLoad] = React.useState(
+      () => typeof IntersectionObserver === "undefined",
+    );
 
     React.useEffect(() => {
+      if (shouldLoad || typeof IntersectionObserver === "undefined") {
+        return undefined;
+      }
+      const node = rowRef.current;
+      if (!node) {
+        return undefined;
+      }
+      const observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setShouldLoad(true);
+        }
+      });
+      observer.observe(node);
+      return () => {
+        observer.disconnect();
+      };
+    }, [shouldLoad]);
+
+    React.useEffect(() => {
+      if (!shouldLoad) {
+        return undefined;
+      }
       let isActive = true;
 
       void loadSnapshot(snapshot.id)
@@ -126,7 +173,7 @@ const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
       return () => {
         isActive = false;
       };
-    }, [loadSnapshot, snapshot.id]);
+    }, [shouldLoad, loadSnapshot, snapshot.id]);
 
     const summary = React.useMemo(() => {
       if (loadFailed) {
@@ -179,7 +226,7 @@ const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
             onOpen(snapshot.id);
           }
         }}
-        ref={forwardedRef}
+        ref={setRowRef}
         role="listitem"
         tabIndex={0}
       >
