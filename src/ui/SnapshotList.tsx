@@ -95,11 +95,14 @@ interface SnapshotRowProps {
   readonly snapshot: SnapshotMeta;
 }
 
-const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
-  function SnapshotRow(
-    { currentIR, focusRelative, loadSnapshot, onOpen, snapshot },
-    forwardedRef,
-  ) {
+function SnapshotRow({
+  currentIR,
+  focusRelative,
+  loadSnapshot,
+  onOpen,
+  snapshot,
+  ref: forwardedRef,
+}: SnapshotRowProps & { ref?: React.Ref<HTMLDivElement> }) {
     const [snapshotIR, setSnapshotIR] = React.useState<PageIR | null>(null);
     const [loadFailed, setLoadFailed] = React.useState(false);
     const rowRef = React.useRef<HTMLDivElement | null>(null);
@@ -253,5 +256,4 @@ const SnapshotRow = React.forwardRef<HTMLDivElement, SnapshotRowProps>(
         <p className="mt-2 text-sm text-muted-foreground">{summary}</p>
       </div>
     );
-  },
-);
+}
