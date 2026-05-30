@@ -10,7 +10,7 @@ Headless version-history plugin for Anvilkit Studio. Snapshot persistence is del
 pnpm add @anvilkit/plugin-version-history react react-dom @puckeditor/core
 ```
 
-Non-optional peers: `react ^18.2.0 || ^19.0.0`, `react-dom ^18.2.0 || ^19.0.0`, `@puckeditor/core ^0.21.2`. No transport or storage dependencies — the host owns persistence end-to-end.
+Non-optional peers: `react >=19.0.0`, `react-dom >=19.0.0`, `@puckeditor/core ^0.21.2`. No transport or storage dependencies — the host owns persistence end-to-end.
 
 Subpath imports:
 
