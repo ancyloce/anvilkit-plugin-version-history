@@ -40,7 +40,9 @@ describe("createVersionHistoryPlugin RTL", () => {
 			}),
 		);
 
-		fireEvent.click(screen.getByRole("button", { name: "Save snapshot" }));
+		fireEvent.click(
+			screen.getByRole("button", { name: "versionHistory.action.save" }),
+		);
 
 		await waitFor(async () => {
 			expect(await Promise.resolve(adapter.list())).toHaveLength(1);
@@ -71,7 +73,11 @@ function ActionHarness({ actions, ctx }: ActionHarnessProps) {
 					},
 					type: "button",
 				},
-				action.label,
+				// The raw `label` was removed in P8; the chrome resolves the
+				// visible text from `labelKey` via `useMsg`. This bare harness
+				// has no resolver, so it renders the key as the button's
+				// accessible name — enough to locate + click the action.
+				action.labelKey,
 			),
 		),
 	);

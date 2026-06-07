@@ -10,7 +10,6 @@ import {
 export const saveSnapshotAction: StudioHeaderAction = {
 	id: "version-history:save",
 	labelKey: "versionHistory.action.save",
-	label: "Save snapshot",
 	icon: "camera",
 	group: "secondary",
 	order: 120,
@@ -88,7 +87,6 @@ export const saveSnapshotAction: StudioHeaderAction = {
 export const openHistoryAction: StudioHeaderAction = {
 	id: "version-history:open",
 	labelKey: "versionHistory.action.open",
-	label: "Open history",
 	icon: "history",
 	group: "secondary",
 	order: 121,
