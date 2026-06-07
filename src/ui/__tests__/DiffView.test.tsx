@@ -1,7 +1,7 @@
 /** @vitest-environment jsdom */
 
 import { createFakePageIR } from "@anvilkit/core/testing";
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "./test-utils.js";
 import { describe, expect, it } from "vitest";
 
 import { DiffView } from "../DiffView.js";

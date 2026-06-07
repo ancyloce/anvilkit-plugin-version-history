@@ -8,7 +8,7 @@ import {
   render,
   screen,
   waitFor,
-} from "@testing-library/react";
+} from "./test-utils.js";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 import type { SnapshotMeta } from "../../types.js";

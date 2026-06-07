@@ -12,6 +12,7 @@ import {
 	openHistoryAction,
 	saveSnapshotAction,
 } from "./actions/header-actions";
+import { VERSION_HISTORY_ENTRY } from "./i18n/entry.js";
 import type {
 	SnapshotAdapter,
 	VersionHistoryContribution,
@@ -47,7 +48,8 @@ export function createVersionHistoryPlugin(
 
 	return defineStudioPlugin<VersionHistoryContribution>({
 		meta: META,
-		register(_ctx) {
+		register(ctx) {
+			ctx.registerMessages(VERSION_HISTORY_ENTRY);
 			const token = {};
 			const headerActions: StudioPluginRegistration["headerActions"] = [
 				{

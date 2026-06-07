@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { useMsg } from "@anvilkit/core/i18n";
 import type { PageIR } from "@anvilkit/core/types";
 import {
   Button,
@@ -44,9 +45,10 @@ export function SnapshotHistoryModal({
   restoreDisabled = false,
   snapshot,
 }: SnapshotHistoryModalProps) {
+  const msg = useMsg();
   const displayLabel = snapshot?.label?.trim().length
     ? snapshot.label.trim()
-    : "Snapshot details";
+    : msg("versionHistory.modal.details");
   const savedAt = useFormattedTimestamp(snapshot?.savedAt ?? "");
 
   return (
@@ -62,13 +64,17 @@ export function SnapshotHistoryModal({
         <DialogHeader>
           <DialogTitle>{displayLabel}</DialogTitle>
           <DialogDescription>
-            {savedAt ? `Saved ${savedAt}` : "Snapshot history"}
+            {savedAt
+              ? msg("versionHistory.modal.savedAt").replace("{time}", savedAt)
+              : msg("versionHistory.modal.title")}
           </DialogDescription>
         </DialogHeader>
         {before ? (
           <DiffView after={after} before={before} />
         ) : (
-          <p className="text-sm text-muted-foreground">Loading snapshot...</p>
+          <p className="text-sm text-muted-foreground">
+            {msg("versionHistory.modal.loading")}
+          </p>
         )}
         {error ? (
           <p className="text-sm text-destructive" role="alert">
@@ -77,7 +83,7 @@ export function SnapshotHistoryModal({
         ) : null}
         <DialogFooter>
           <Button onClick={onClose} type="button" variant="outline">
-            Close
+            {msg("versionHistory.button.close")}
           </Button>
           <Button
             disabled={restoreDisabled || before === null}
@@ -86,7 +92,7 @@ export function SnapshotHistoryModal({
             }}
             type="button"
           >
-            Restore
+            {msg("versionHistory.button.restore")}
           </Button>
         </DialogFooter>
       </DialogContent>

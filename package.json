@@ -50,7 +50,8 @@
 	},
 	"files": [
 		"dist",
-		"meta"
+		"meta",
+		"i18n"
 	],
 	"license": "MIT",
 	"sideEffects": false,

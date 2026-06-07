@@ -1,7 +1,7 @@
 /** @vitest-environment jsdom */
 
 import { createFakePageIR } from "@anvilkit/core/testing";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen } from "./test-utils.js";
 import { axe } from "vitest-axe";
 import { describe, expect, it, vi } from "vitest";
 

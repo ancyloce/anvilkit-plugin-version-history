@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { useMsg } from "@anvilkit/core/i18n";
 import { Button, Input, cn } from "@anvilkit/ui";
 
 export interface SaveSnapshotButtonProps {
@@ -11,6 +12,7 @@ export function SaveSnapshotButton({
   className,
   onSave,
 }: SaveSnapshotButtonProps) {
+  const msg = useMsg();
   const inputId = React.useId();
   const [isFormOpen, setIsFormOpen] = React.useState(false);
   const [isSaving, setIsSaving] = React.useState(false);
@@ -35,13 +37,15 @@ export function SaveSnapshotButton({
         closeForm();
       } catch (error) {
         setErrorMessage(
-          error instanceof Error ? error.message : "Unable to save snapshot.",
+          error instanceof Error
+            ? error.message
+            : msg("versionHistory.save.error"),
         );
       } finally {
         setIsSaving(false);
       }
     },
-    [closeForm, label, onSave],
+    [closeForm, label, msg, onSave],
   );
 
   if (!isFormOpen) {
@@ -54,7 +58,7 @@ export function SaveSnapshotButton({
           }}
           type="button"
         >
-          Save snapshot
+          {msg("versionHistory.action.save")}
         </Button>
       </div>
     );
@@ -71,7 +75,7 @@ export function SaveSnapshotButton({
       }}
     >
       <label className="text-sm font-medium" htmlFor={inputId}>
-        Label
+        {msg("versionHistory.save.label")}
       </label>
       <Input
         autoFocus
@@ -79,12 +83,12 @@ export function SaveSnapshotButton({
         onChange={(event) => {
           setLabel(event.currentTarget.value);
         }}
-        placeholder="Optional label"
+        placeholder={msg("versionHistory.save.placeholder")}
         value={label}
       />
       <div className="flex flex-wrap gap-2">
         <Button disabled={isSaving} type="submit">
-          Save
+          {msg("versionHistory.button.save")}
         </Button>
         <Button
           disabled={isSaving}
@@ -92,7 +96,7 @@ export function SaveSnapshotButton({
           type="button"
           variant="outline"
         >
-          Cancel
+          {msg("versionHistory.button.cancel")}
         </Button>
       </div>
       {errorMessage ? (

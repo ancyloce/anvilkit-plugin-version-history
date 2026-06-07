@@ -1,6 +1,6 @@
 /** @vitest-environment jsdom */
 
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "./test-utils.js";
 import { describe, expect, it, vi } from "vitest";
 
 import { SaveSnapshotButton } from "../SaveSnapshotButton.js";

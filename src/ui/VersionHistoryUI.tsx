@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { useMsg } from "@anvilkit/core/i18n";
 import type { PageIR } from "@anvilkit/core/types";
 import { Card, CardContent } from "@anvilkit/ui";
 
@@ -40,6 +41,7 @@ export function VersionHistoryUI({
   currentIR,
   onRestore,
 }: VersionHistoryUIProps) {
+  const msg = useMsg();
   const snapshotCacheRef = React.useRef(
     new LruCache<string, PageIR>(SNAPSHOT_CACHE_CAPACITY),
   );
@@ -78,11 +80,13 @@ export function VersionHistoryUI({
       return nextSnapshots;
     } catch (error) {
       const message =
-        error instanceof Error ? error.message : "Unable to load snapshots.";
+        error instanceof Error
+          ? error.message
+          : msg("versionHistory.error.loadList");
       setListError(message);
       throw error;
     }
-  }, [adapter]);
+  }, [adapter, msg]);
 
   React.useEffect(() => {
     isMountedRef.current = true;
@@ -117,14 +121,16 @@ export function VersionHistoryUI({
       }
 
       setListError(
-        error instanceof Error ? error.message : "Unable to load snapshots.",
+        error instanceof Error
+          ? error.message
+          : msg("versionHistory.error.loadList"),
       );
     });
 
     return () => {
       isActive = false;
     };
-  }, [refreshSnapshots]);
+  }, [msg, refreshSnapshots]);
 
   React.useEffect(() => {
     if (!selectedSnapshotId) {
@@ -149,14 +155,16 @@ export function VersionHistoryUI({
         }
 
         setModalError(
-          error instanceof Error ? error.message : "Unable to open snapshot.",
+          error instanceof Error
+            ? error.message
+            : msg("versionHistory.error.open"),
         );
       });
 
     return () => {
       isActive = false;
     };
-  }, [loadSnapshot, selectedSnapshotId]);
+  }, [loadSnapshot, msg, selectedSnapshotId]);
 
   const selectedSnapshotMeta = React.useMemo(
     () =>
@@ -205,7 +213,7 @@ export function VersionHistoryUI({
         setModalError(
           error instanceof Error
             ? error.message
-            : "Unable to restore snapshot.",
+            : msg("versionHistory.error.restore"),
         );
       }
     } finally {
@@ -216,6 +224,7 @@ export function VersionHistoryUI({
   }, [
     handleCloseModal,
     loadSnapshot,
+    msg,
     onRestore,
     selectedSnapshotIR,
     selectedSnapshotId,

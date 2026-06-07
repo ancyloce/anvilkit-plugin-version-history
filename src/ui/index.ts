@@ -1,3 +1,4 @@
+export { VersionHistoryI18nProvider } from "../i18n/provider.js";
 export type { DiffViewProps } from "./DiffView.js";
 export { DiffView } from "./DiffView.js";
 export type { SaveSnapshotButtonProps } from "./SaveSnapshotButton.js";

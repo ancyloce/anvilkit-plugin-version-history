@@ -1,7 +1,7 @@
 /** @vitest-environment jsdom */
 
 import { createFakePageIR } from "@anvilkit/core/testing";
-import { fireEvent, render, screen, waitFor } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "./test-utils.js";
 import { describe, expect, it, vi } from "vitest";
 
 import { inMemoryAdapter } from "../../adapters/in-memory.js";

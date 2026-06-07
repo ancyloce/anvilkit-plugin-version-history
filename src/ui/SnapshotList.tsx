@@ -1,10 +1,12 @@
 import * as React from "react";
 
+import { useMsg } from "@anvilkit/core/i18n";
 import type { PageIR, PageIRNode } from "@anvilkit/core/types";
 import { Card, CardContent, CardHeader, CardTitle, cn } from "@anvilkit/ui";
 
 import { diffIR, summarizeDiff } from "../utils/diff.js";
 import type { SnapshotMeta } from "../types/types.js";
+import { formatSummaryDescription } from "./format-summary.js";
 import { useFormattedTimestamp } from "./use-formatted-timestamp.js";
 
 function hasLockedNode(node: PageIRNode): boolean {
@@ -32,6 +34,7 @@ export function SnapshotList({
   onOpen,
   snapshots,
 }: SnapshotListProps) {
+  const msg = useMsg();
   const itemRefs = React.useRef(new Map<string, HTMLDivElement>());
 
   const focusRelative = React.useCallback(
@@ -56,12 +59,18 @@ export function SnapshotList({
   return (
     <Card className="border border-border/70">
       <CardHeader className="border-b border-border/70">
-        <CardTitle>Snapshots</CardTitle>
+        <CardTitle>{msg("versionHistory.list.title")}</CardTitle>
       </CardHeader>
       <CardContent className="pt-4">
-        <div aria-label="Snapshots" className="flex flex-col gap-2" role="list">
+        <div
+          aria-label={msg("versionHistory.list.title")}
+          className="flex flex-col gap-2"
+          role="list"
+        >
           {snapshots.length === 0 ? (
-            <p className="text-sm text-muted-foreground">No snapshots yet.</p>
+            <p className="text-sm text-muted-foreground">
+              {msg("versionHistory.list.empty")}
+            </p>
           ) : null}
           {snapshots.map((snapshot) => (
             <SnapshotRow
@@ -103,6 +112,7 @@ function SnapshotRow({
   snapshot,
   ref: forwardedRef,
 }: SnapshotRowProps & { ref?: React.Ref<HTMLDivElement> }) {
+    const msg = useMsg();
     const [snapshotIR, setSnapshotIR] = React.useState<PageIR | null>(null);
     const [loadFailed, setLoadFailed] = React.useState(false);
     const rowRef = React.useRef<HTMLDivElement | null>(null);
@@ -180,15 +190,18 @@ function SnapshotRow({
 
     const summary = React.useMemo(() => {
       if (loadFailed) {
-        return "Unable to load snapshot.";
+        return msg("versionHistory.list.loadError");
       }
 
       if (!snapshotIR) {
-        return "Loading...";
+        return msg("versionHistory.list.loading");
       }
 
-      return summarizeDiff(diffIR(currentIR, snapshotIR)).description;
-    }, [currentIR, loadFailed, snapshotIR]);
+      return formatSummaryDescription(
+        summarizeDiff(diffIR(currentIR, snapshotIR)),
+        msg,
+      );
+    }, [currentIR, loadFailed, msg, snapshotIR]);
 
     const isLocked = React.useMemo(
       () => (snapshotIR ? hasLockedNode(snapshotIR.root) : false),
@@ -197,12 +210,14 @@ function SnapshotRow({
 
     const displayLabel = snapshot.label?.trim().length
       ? snapshot.label.trim()
-      : "Untitled snapshot";
+      : msg("versionHistory.list.untitled");
     const savedAt = useFormattedTimestamp(snapshot.savedAt);
 
     return (
       <div
-        aria-label={`${displayLabel}, saved ${savedAt}`}
+        aria-label={msg("versionHistory.list.rowAria")
+          .replace("{label}", displayLabel)
+          .replace("{time}", savedAt)}
         className={cn(
           "cursor-pointer rounded-xl border border-border bg-background px-3 py-3 outline-none transition-colors",
           "hover:border-foreground/20 hover:bg-muted/40",
@@ -238,11 +253,11 @@ function SnapshotRow({
             {displayLabel}
             {isLocked ? (
               <span
-                aria-label="Snapshot contains locked nodes"
+                aria-label={msg("versionHistory.list.lockedAria")}
                 className="inline-flex items-center rounded-full border border-amber-200 bg-amber-50 px-2 py-0.5 text-xs font-medium text-amber-900"
-                title="Contains locked nodes"
+                title={msg("versionHistory.list.lockedTitle")}
               >
-                🔒 locked
+                {msg("versionHistory.list.lockedBadge")}
               </span>
             ) : null}
           </div>

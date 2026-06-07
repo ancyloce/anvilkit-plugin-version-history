@@ -1,5 +1,6 @@
 import * as React from "react";
 
+import { useMsg } from "@anvilkit/core/i18n";
 import type { PageIR } from "@anvilkit/core/types";
 import {
   Card,
@@ -12,6 +13,10 @@ import {
 
 import type { IRDiff, IRDiffOp } from "../utils/diff.js";
 import { diffIR, summarizeDiff } from "../utils/diff.js";
+import { formatSummaryDescription } from "./format-summary.js";
+
+/** The `useMsg()` resolver shape, threaded into the pure column builders. */
+type Msg = (key: string, fallback?: string) => string;
 
 export interface DiffViewProps {
   readonly after: PageIR;
@@ -26,19 +31,30 @@ interface DiffEntry {
 }
 
 export function DiffView({ after, before }: DiffViewProps) {
+  const msg = useMsg();
   const diff = React.useMemo(() => diffIR(before, after), [after, before]);
   const summary = React.useMemo(() => summarizeDiff(diff), [diff]);
-  const columns = React.useMemo(() => buildColumns(diff), [diff]);
+  const columns = React.useMemo(() => buildColumns(diff, msg), [diff, msg]);
 
   return (
     <div className="flex flex-col gap-4">
       <div className="space-y-1">
-        <h3 className="text-base font-medium">Diff</h3>
-        <p className="text-sm text-muted-foreground">{summary.description}</p>
+        <h3 className="text-base font-medium">
+          {msg("versionHistory.diff.title")}
+        </h3>
+        <p className="text-sm text-muted-foreground">
+          {formatSummaryDescription(summary, msg)}
+        </p>
       </div>
       <div className="grid gap-4 lg:grid-cols-2">
-        <DiffColumn entries={columns.before} title="Before" />
-        <DiffColumn entries={columns.after} title="After" />
+        <DiffColumn
+          entries={columns.before}
+          title={msg("versionHistory.diff.before")}
+        />
+        <DiffColumn
+          entries={columns.after}
+          title={msg("versionHistory.diff.after")}
+        />
       </div>
     </div>
   );
@@ -50,12 +66,18 @@ interface DiffColumnProps {
 }
 
 function DiffColumn({ entries, title }: DiffColumnProps) {
+  const msg = useMsg();
   return (
     <section aria-label={title}>
       <Card className="h-full border border-border/70">
         <CardHeader className="border-b border-border/70">
           <CardTitle>{title}</CardTitle>
-          <CardDescription>{entries.length} item(s)</CardDescription>
+          <CardDescription>
+            {msg("versionHistory.diff.items").replace(
+              "{count}",
+              String(entries.length),
+            )}
+          </CardDescription>
         </CardHeader>
         <CardContent className="pt-4">
           <ul className="flex flex-col gap-3">
@@ -86,15 +108,19 @@ function DiffColumn({ entries, title }: DiffColumnProps) {
   );
 }
 
-function buildColumns(diff: IRDiff): {
+function buildColumns(
+  diff: IRDiff,
+  msg: Msg,
+): {
   readonly after: readonly DiffEntry[];
   readonly before: readonly DiffEntry[];
 } {
   if (diff.length === 0) {
+    const noDiffLabel = msg("versionHistory.diff.noDiffLabel");
     const entry = {
-      detail: "Before and after match.",
-      label: "No differences",
-      title: "No differences",
+      detail: msg("versionHistory.diff.noDiffDetail"),
+      label: noDiffLabel,
+      title: noDiffLabel,
       tone: "neutral",
     } satisfies DiffEntry;
 
@@ -108,7 +134,7 @@ function buildColumns(diff: IRDiff): {
   const afterEntries: DiffEntry[] = [];
 
   for (const op of diff) {
-    appendEntries(op, beforeEntries, afterEntries);
+    appendEntries(op, beforeEntries, afterEntries, msg);
   }
 
   return {
@@ -121,12 +147,16 @@ function appendEntries(
   op: IRDiffOp,
   beforeEntries: DiffEntry[],
   afterEntries: DiffEntry[],
+  msg: Msg,
 ) {
+  const changedLabel = msg("versionHistory.diff.changed");
   switch (op.kind) {
     case "add-node": {
       afterEntries.push({
-        detail: `Added ${formatNode(op.node)} at ${op.path}.`,
-        label: "+ Added",
+        detail: msg("versionHistory.diff.detailAdded")
+          .replace("{node}", formatNode(op.node))
+          .replace("{path}", op.path),
+        label: msg("versionHistory.diff.added"),
         title: op.path,
         tone: "added",
       });
@@ -134,8 +164,10 @@ function appendEntries(
     }
     case "remove-node": {
       beforeEntries.push({
-        detail: `Removed node ${op.nodeId} from ${op.path}.`,
-        label: "− Removed",
+        detail: msg("versionHistory.diff.detailRemoved")
+          .replace("{nodeId}", op.nodeId)
+          .replace("{path}", op.path),
+        label: msg("versionHistory.diff.removed"),
         title: op.path,
         tone: "removed",
       });
@@ -143,14 +175,18 @@ function appendEntries(
     }
     case "move-node": {
       beforeEntries.push({
-        detail: `Node ${op.nodeId} moved from ${op.from}.`,
-        label: "~ Changed",
+        detail: msg("versionHistory.diff.detailMovedFrom")
+          .replace("{nodeId}", op.nodeId)
+          .replace("{from}", op.from),
+        label: changedLabel,
         title: op.nodeId,
         tone: "changed",
       });
       afterEntries.push({
-        detail: `Node ${op.nodeId} moved to ${op.to}.`,
-        label: "~ Changed",
+        detail: msg("versionHistory.diff.detailMovedTo")
+          .replace("{nodeId}", op.nodeId)
+          .replace("{to}", op.to),
+        label: changedLabel,
         title: op.nodeId,
         tone: "changed",
       });
@@ -159,13 +195,13 @@ function appendEntries(
     case "change-prop": {
       beforeEntries.push({
         detail: formatValue(op.before),
-        label: "~ Changed",
+        label: changedLabel,
         title: `${op.path}/${op.key}`,
         tone: "changed",
       });
       afterEntries.push({
         detail: formatValue(op.after),
-        label: "~ Changed",
+        label: changedLabel,
         title: `${op.path}/${op.key}`,
         tone: "changed",
       });
@@ -174,13 +210,13 @@ function appendEntries(
     case "change-children": {
       beforeEntries.push({
         detail: formatValue(op.before),
-        label: "~ Changed",
+        label: changedLabel,
         title: op.path,
         tone: "changed",
       });
       afterEntries.push({
         detail: formatValue(op.after),
-        label: "~ Changed",
+        label: changedLabel,
         title: op.path,
         tone: "changed",
       });
@@ -188,7 +224,8 @@ function appendEntries(
     }
     case "meta-changed": {
       const lockGlyph = op.key === "locked" ? "🔒 " : "";
-      const label = `~ Meta ${lockGlyph}${op.key}`.trimEnd();
+      const label =
+        `${msg("versionHistory.diff.metaPrefix")} ${lockGlyph}${op.key}`.trimEnd();
       beforeEntries.push({
         detail: formatValue(op.before),
         label,

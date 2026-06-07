@@ -10,7 +10,7 @@
  */
 
 import type { PageIR } from "@anvilkit/core/types";
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, render, screen, waitFor } from "../ui/__tests__/test-utils.js";
 import * as React from "react";
 import { afterEach, describe, expect, it } from "vitest";
 
