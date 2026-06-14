@@ -60,7 +60,7 @@
 		"access": "public"
 	},
 	"peerDependencies": {
-		"@puckeditor/core": "^0.21.2",
+		"@puckeditor/core": "^0.21.3",
 		"react": ">=19.0.0",
 		"react-dom": ">=19.0.0"
 	},
@@ -103,7 +103,7 @@
 		"@anvilkit/biome-config": "workspace:*",
 		"@anvilkit/typescript-config": "workspace:*",
 		"@anvilkit/vitest-config": "workspace:*",
-		"@puckeditor/core": "^0.21.2",
+		"@puckeditor/core": "^0.21.3",
 		"@rslib/core": "^0.22.0",
 		"@types/node": "^25.9.1",
 		"@types/react": "^19.2.14",
