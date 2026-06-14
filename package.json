@@ -1,6 +1,6 @@
 {
 	"name": "@anvilkit/plugin-version-history",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "Headless version history plugin for Anvilkit Studio — snapshot storage via host-provided adapters.",
 	"type": "module",
 	"main": "./dist/index.cjs",
