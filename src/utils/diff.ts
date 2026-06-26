@@ -51,6 +51,74 @@ export interface IRDiffSummary {
 const META_KEYS = ["locked", "owner", "version", "notes"] as const;
 type MetaKey = (typeof META_KEYS)[number];
 
+function isStringArray(value: unknown): value is readonly string[] {
+	return (
+		Array.isArray(value) && value.every((entry) => typeof entry === "string")
+	);
+}
+
+/**
+ * Structural guard for a single {@link IRDiffOp}: the `kind` discriminant must
+ * be a known variant and every field {@link applyDiff} reads for that variant
+ * must be present and well-typed. `before`/`after` on `change-prop`/
+ * `meta-changed` are intentionally **not** required — they are `unknown` and
+ * `JSON.stringify` drops `undefined` values, so a legitimately stored
+ * prop/meta *deletion* round-trips without them.
+ */
+function isIRDiffOp(value: unknown): value is IRDiffOp {
+	if (value === null || typeof value !== "object" || Array.isArray(value)) {
+		return false;
+	}
+	const op = value as Record<string, unknown>;
+	switch (op.kind) {
+		case "add-node": {
+			const node = op.node as Record<string, unknown> | null;
+			return (
+				typeof op.path === "string" &&
+				node !== null &&
+				typeof node === "object" &&
+				typeof node.id === "string" &&
+				typeof node.type === "string"
+			);
+		}
+		case "remove-node":
+			return typeof op.path === "string" && typeof op.nodeId === "string";
+		case "move-node":
+			return (
+				typeof op.from === "string" &&
+				typeof op.to === "string" &&
+				typeof op.nodeId === "string"
+			);
+		case "change-prop":
+			return typeof op.path === "string" && typeof op.key === "string";
+		case "change-children":
+			return (
+				typeof op.path === "string" &&
+				isStringArray(op.before) &&
+				isStringArray(op.after)
+			);
+		case "meta-changed":
+			return (
+				typeof op.path === "string" &&
+				(META_KEYS as readonly string[]).includes(op.key as string)
+			);
+		default:
+			return false;
+	}
+}
+
+/**
+ * Structural guard for a persisted {@link IRDiff} — a (possibly empty) array of
+ * well-formed {@link IRDiffOp}s. Apply it at the storage trust boundary before
+ * casting an untrusted/parsed payload to `IRDiff` and feeding it to
+ * {@link applyDiff}: a malformed op is rejected here instead of throwing an
+ * opaque `DiffApplyError` (or silently misapplying) deep inside replay. An
+ * empty array (no changes) is valid.
+ */
+export function isIRDiff(value: unknown): value is IRDiff {
+	return Array.isArray(value) && value.every(isIRDiffOp);
+}
+
 interface IndexedNode {
 	readonly path: string;
 	readonly node: PageIRNode;

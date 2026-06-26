@@ -1,7 +1,35 @@
 import type { PageIR } from "@anvilkit/core/types";
-import type { SnapshotMeta } from "../types/types.js";
+import type { SnapshotMeta, SnapshotMetaPatch } from "../types/types.js";
 import { VersionHistoryError } from "./errors.js";
 import { hashPageIR } from "./hash.js";
+
+/**
+ * The mutable, host-curated metadata fields — every {@link SnapshotMeta} field
+ * except the identity/provenance `id`/`savedAt`/`pageIRHash`/`delta`. Kept in
+ * one place so snapshot construction, cloning, and `updateMeta` all agree on
+ * which fields are user-editable (and which survive a round-trip).
+ */
+const MUTABLE_META_KEYS = [
+	"label",
+	"tags",
+	"milestone",
+	"protected",
+	"author",
+	"notes",
+] as const;
+
+/** Copy each present (non-`undefined`) mutable meta field from `source` onto `target`. */
+function copyPresentMutableMeta(
+	source: Partial<SnapshotMeta> | SnapshotMetaPatch,
+	target: Record<string, unknown>,
+): void {
+	for (const key of MUTABLE_META_KEYS) {
+		const value = (source as Record<string, unknown>)[key];
+		if (value !== undefined) {
+			target[key] = value;
+		}
+	}
+}
 
 export function clonePageIR(ir: PageIR): PageIR {
 	return globalThis.structuredClone(ir);
@@ -38,23 +66,47 @@ export function createSnapshotMeta(
 	ir: PageIR,
 	meta: Partial<Omit<SnapshotMeta, "id" | "savedAt">>,
 ): SnapshotMeta {
-	return Object.freeze({
-		id: createSnapshotId(),
-		...(meta.label !== undefined ? { label: meta.label } : {}),
-		savedAt: new Date().toISOString(),
-		pageIRHash: meta.pageIRHash ?? hashPageIR(ir),
-		...(meta.delta !== undefined ? { delta: meta.delta } : {}),
-	});
+	const result: Record<string, unknown> = { id: createSnapshotId() };
+	copyPresentMutableMeta(meta, result);
+	result.savedAt = new Date().toISOString();
+	result.pageIRHash = meta.pageIRHash ?? hashPageIR(ir);
+	if (meta.delta !== undefined) {
+		result.delta = meta.delta;
+	}
+	return Object.freeze(result) as unknown as SnapshotMeta;
 }
 
 export function cloneSnapshotMeta(meta: SnapshotMeta): SnapshotMeta {
-	return Object.freeze({
-		id: meta.id,
-		...(meta.label !== undefined ? { label: meta.label } : {}),
-		savedAt: meta.savedAt,
-		pageIRHash: meta.pageIRHash,
-		...(meta.delta !== undefined ? { delta: meta.delta } : {}),
-	});
+	const result: Record<string, unknown> = { id: meta.id };
+	copyPresentMutableMeta(meta, result);
+	result.savedAt = meta.savedAt;
+	result.pageIRHash = meta.pageIRHash;
+	if (meta.delta !== undefined) {
+		result.delta = meta.delta;
+	}
+	return Object.freeze(result) as unknown as SnapshotMeta;
+}
+
+/**
+ * Produce a new frozen {@link SnapshotMeta} with the mutable fields of `patch`
+ * applied over `existing`. Identity/provenance fields (`id`/`savedAt`/
+ * `pageIRHash`/`delta`) are always carried from `existing`; only present patch
+ * fields override their counterparts, so omitted fields are left unchanged.
+ * Shared by every adapter's `updateMeta` so the merge rule stays consistent.
+ */
+export function applyMetaPatch(
+	existing: SnapshotMeta,
+	patch: SnapshotMetaPatch,
+): SnapshotMeta {
+	const result: Record<string, unknown> = { id: existing.id };
+	copyPresentMutableMeta(existing, result);
+	copyPresentMutableMeta(patch, result);
+	result.savedAt = existing.savedAt;
+	result.pageIRHash = existing.pageIRHash;
+	if (existing.delta !== undefined) {
+		result.delta = existing.delta;
+	}
+	return Object.freeze(result) as unknown as SnapshotMeta;
 }
 
 export function freezeSnapshotList(

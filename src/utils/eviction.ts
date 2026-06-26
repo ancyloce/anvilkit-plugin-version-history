@@ -20,7 +20,14 @@ export function evictOldest(
 		.map((meta) => meta.id);
 }
 
-function compareBySavedAtAscending(
+/**
+ * Canonical oldest-first ordering for snapshot metadata: ascending `savedAt`
+ * with an ascending `id` tie-break (and a lexicographic `savedAt` fallback for
+ * non-ISO strings). Exported for reuse by the retention planner so the two
+ * eviction paths order deletions identically. Not part of the public package
+ * surface (not re-exported from `index.ts`).
+ */
+export function compareBySavedAtAscending(
 	left: SnapshotMeta,
 	right: SnapshotMeta,
 ): number {

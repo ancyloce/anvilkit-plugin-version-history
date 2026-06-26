@@ -1,9 +1,14 @@
 import type { StudioPluginContext } from "@anvilkit/core/types";
-import type { SnapshotAdapter, SnapshotMeta } from "../types/types.js";
+import type {
+	BuildPageIR,
+	SnapshotAdapter,
+	SnapshotMeta,
+} from "../types/types.js";
 import { freezeSnapshotList } from "./internal.js";
 
 export interface VersionHistoryRuntimeState {
 	readonly adapter: SnapshotAdapter;
+	readonly buildIR?: BuildPageIR;
 	readonly maxSnapshots?: number;
 	snapshots: readonly SnapshotMeta[];
 	saveInFlight: boolean;
