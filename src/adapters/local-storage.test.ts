@@ -65,3 +65,48 @@ describe("localStorageAdapter", () => {
 		expect(loaded).toEqual(ir);
 	});
 });
+
+describe("localStorageAdapter namespace validation", () => {
+	it("throws for an empty namespace", () => {
+		expect(() => localStorageAdapter({ namespace: "" })).toThrow(TypeError);
+	});
+
+	it("throws for a whitespace-only namespace", () => {
+		expect(() => localStorageAdapter({ namespace: "   " })).toThrow(TypeError);
+		expect(() => localStorageAdapter({ namespace: "\t\n" })).toThrow(TypeError);
+	});
+
+	it("rejects a non-string namespace passed from untyped JS", () => {
+		expect(() =>
+			// biome-ignore lint/suspicious/noExplicitAny: simulate an untyped JS caller
+			localStorageAdapter({ namespace: undefined as any }),
+		).toThrow(TypeError);
+	});
+
+	it("accepts a valid namespace and derives keys verbatim (no trimming)", async () => {
+		const adapter = localStorageAdapter({ namespace: "fixed" });
+		const ir = createFakePageIR();
+
+		const id = await Promise.resolve(adapter.save(ir, {}));
+
+		// Key derivation for valid namespaces must stay byte-for-byte identical.
+		expect(globalThis.localStorage.getItem("fixed:snapshots:index")).toContain(
+			id,
+		);
+		expect(
+			globalThis.localStorage.getItem(`fixed:snapshots:${id}`),
+		).not.toBeNull();
+		expect(await Promise.resolve(adapter.list())).toHaveLength(1);
+	});
+
+	it("treats a non-empty-after-trim namespace as valid and keeps surrounding whitespace in keys", async () => {
+		const adapter = localStorageAdapter({ namespace: " spaced " });
+		const ir = createFakePageIR();
+
+		const id = await Promise.resolve(adapter.save(ir, {}));
+
+		expect(
+			globalThis.localStorage.getItem(" spaced :snapshots:index"),
+		).toContain(id);
+	});
+});

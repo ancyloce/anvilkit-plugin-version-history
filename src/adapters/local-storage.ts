@@ -1,12 +1,21 @@
-import type { SnapshotAdapter, SnapshotMeta } from "../types/types.js";
-import type { IRDiff } from "../utils/diff.js";
+import type {
+	SnapshotAdapter,
+	SnapshotMeta,
+	VersionHistoryExport,
+} from "../types/types.js";
+import { normalizeVersionHistoryExport } from "../utils/archive.js";
+import { isIRDiff } from "../utils/diff.js";
 import { VersionHistoryError } from "../utils/errors.js";
 import {
+	applyMetaPatch,
 	clonePageIR,
+	cloneSnapshotMeta,
 	createSnapshotMeta,
+	createSnapshotNotFoundError,
 	deepFreeze,
 	freezeSnapshotList,
 } from "../utils/internal.js";
+import { querySnapshots } from "../utils/query.js";
 import {
 	buildStoredRecord,
 	loadFromChain,
@@ -17,6 +26,22 @@ import {
 } from "./snapshot-chain.js";
 
 export interface LocalStorageAdapterOptions {
+	/**
+	 * Key prefix isolating this adapter's data within a single `localStorage`
+	 * origin. Every key is derived from it verbatim — `` `${namespace}:snapshots:index` ``
+	 * for the index and `` `${namespace}:snapshots:${id}` `` for each record — so
+	 * the namespace is what keeps one host's (or document's) history from
+	 * colliding with another's that shares the same origin.
+	 *
+	 * Must be a non-empty string once surrounding whitespace is trimmed. An
+	 * empty or whitespace-only value would yield malformed, prefix-less keys
+	 * (e.g. `":snapshots:index"`) that silently collide across hosts, so
+	 * {@link localStorageAdapter} throws a `TypeError` at construction rather
+	 * than corrupt data later. The value is validated but **not** trimmed
+	 * for key derivation: a namespace with surrounding whitespace is accepted and
+	 * used exactly as given, so callers should pass a stable, whitespace-free
+	 * prefix per host.
+	 */
 	readonly namespace: string;
 }
 
@@ -32,6 +57,7 @@ export interface LocalStorageAdapterOptions {
 export function localStorageAdapter(
 	options: LocalStorageAdapterOptions,
 ): SnapshotAdapter {
+	assertValidNamespace(options.namespace);
 	const indexKey = `${options.namespace}:snapshots:index`;
 
 	const backend: RecordBackend = {
@@ -108,6 +134,27 @@ export function localStorageAdapter(
 			const storage = getStorage();
 			return freezeSnapshotList(readIndex(storage, indexKey));
 		},
+		updateMeta(id, patch) {
+			const storage = getStorage();
+			const snapshots = readIndex(storage, indexKey);
+			const target = snapshots.find((meta) => meta.id === id);
+			if (target === undefined) {
+				throw createSnapshotNotFoundError(id);
+			}
+			// Patch only the index entry; the snapshot's record (IR/delta chain)
+			// is a separate key and stays untouched.
+			const next = snapshots.map((meta) =>
+				meta.id === id ? applyMetaPatch(meta, patch) : meta,
+			);
+			setItemOrThrow(storage, indexKey, JSON.stringify(next));
+		},
+		query(options) {
+			const storage = getStorage();
+			return querySnapshots(
+				freezeSnapshotList(readIndex(storage, indexKey)),
+				options,
+			);
+		},
 		load(id) {
 			return loadFromChain(backend, id);
 		},
@@ -148,7 +195,114 @@ export function localStorageAdapter(
 				throw error;
 			}
 		},
+		deleteMany(ids) {
+			if (ids.length === 0) {
+				return;
+			}
+			const storage = getStorage();
+			const toDelete = new Set(ids);
+
+			// Free each target's bytes (after re-rooting its dependents) BEFORE
+			// the single index write at the end — mirroring `delete`'s ordering
+			// so eviction never trips the quota.
+			for (const id of toDelete) {
+				const targetRecordKey = recordKey(options.namespace, id);
+				const targetRaw = storage.getItem(targetRecordKey);
+				if (targetRaw === null) {
+					// Unknown id — nothing to free or re-root.
+					continue;
+				}
+
+				const plans = planReRootedDependents(backend, id);
+				storage.removeItem(targetRecordKey);
+				try {
+					for (const { id: depId, record } of plans) {
+						backend.write(depId, record);
+					}
+				} catch (error) {
+					try {
+						storage.setItem(targetRecordKey, targetRaw);
+					} catch {
+						/* rollback best-effort — re-throw the original */
+					}
+					throw error;
+				}
+			}
+
+			const snapshots = readIndex(storage, indexKey).filter(
+				(snapshot) => !toDelete.has(snapshot.id),
+			);
+			setItemOrThrow(storage, indexKey, JSON.stringify(snapshots));
+		},
+		exportAll() {
+			const storage = getStorage();
+			const snapshots = readIndex(storage, indexKey).map((meta) => ({
+				meta: cloneSnapshotMeta(meta),
+				ir: loadFromChain(backend, meta.id),
+			}));
+			const archive: VersionHistoryExport = { version: 1, snapshots };
+			return archive;
+		},
+		importAll(data, importOptions) {
+			const archive = normalizeVersionHistoryExport(data);
+			const storage = getStorage();
+			const mode = importOptions?.mode ?? "merge";
+
+			if (mode === "replace") {
+				for (const meta of readIndex(storage, indexKey)) {
+					backend.remove(meta.id);
+				}
+				const metas: SnapshotMeta[] = [];
+				for (const { meta, ir } of archive.snapshots) {
+					// `backend.write` JSON-serializes, detaching the archive's `ir`.
+					backend.write(meta.id, { kind: "full", ir });
+					metas.push(cloneSnapshotMeta(meta));
+				}
+				setItemOrThrow(storage, indexKey, JSON.stringify(metas));
+				return;
+			}
+
+			// Merge: add/overwrite by id, preserving existing order for
+			// overwrites and appending new ids.
+			const indexById = new Map<string, SnapshotMeta>(
+				readIndex(storage, indexKey).map((meta) => [meta.id, meta]),
+			);
+			for (const { meta, ir } of archive.snapshots) {
+				if (indexById.has(meta.id)) {
+					// Re-root existing deltas that chain onto this id before its
+					// record is overwritten, so they stay loadable.
+					const plans = planReRootedDependents(backend, meta.id);
+					for (const { id: depId, record } of plans) {
+						backend.write(depId, record);
+					}
+				}
+				backend.write(meta.id, { kind: "full", ir });
+				indexById.set(meta.id, cloneSnapshotMeta(meta));
+			}
+			setItemOrThrow(
+				storage,
+				indexKey,
+				JSON.stringify([...indexById.values()]),
+			);
+		},
 	};
+}
+
+/**
+ * Guard `namespace` at construction so a bad value fails loudly here instead of
+ * silently producing colliding, prefix-less keys on the first write. This is a
+ * caller misconfiguration (an invalid argument), not a recoverable storage
+ * condition, so it throws a {@link TypeError} rather than a typed
+ * `VersionHistoryError` — consumers should fix the call, not catch and branch.
+ */
+function assertValidNamespace(namespace: string): void {
+	if (typeof namespace !== "string" || namespace.trim().length === 0) {
+		throw new TypeError(
+			`localStorageAdapter requires a non-empty "namespace" (received ${JSON.stringify(
+				namespace,
+			)}). It prefixes every storage key (\`<namespace>:snapshots:*\`); an empty or whitespace-only value would produce malformed keys that collide across hosts.`,
+		);
+	}
 }
 
 function getStorage(): Storage {
@@ -204,7 +358,7 @@ function assertSnapshotMeta(
 		);
 	}
 
-	const { id, savedAt, pageIRHash, label, delta } = value;
+	const { id, savedAt, pageIRHash } = value;
 	if (typeof id !== "string" || id.length === 0) {
 		throw new VersionHistoryError(
 			"STORAGE_CORRUPT",
@@ -223,24 +377,51 @@ function assertSnapshotMeta(
 			`Version history index entry "${id}" is missing a string "pageIRHash".`,
 		);
 	}
-	if (label !== undefined && typeof label !== "string") {
+
+	const corrupt = (detail: string): never => {
 		throw new VersionHistoryError(
 			"STORAGE_CORRUPT",
-			`Version history index entry "${id}" has a non-string "label".`,
+			`Version history index entry "${id}" ${detail}.`,
 		);
+	};
+
+	// Reconstruct the entry, carrying only the optional fields that are present
+	// and well-typed. Records written before tags/milestone/protected/author/
+	// notes existed simply omit them — they are never required.
+	const result: Record<string, unknown> = { id, savedAt, pageIRHash };
+	for (const key of ["label", "author", "notes"] as const) {
+		const field = value[key];
+		if (field !== undefined) {
+			if (typeof field !== "string") {
+				corrupt(`has a non-string "${key}"`);
+			}
+			result[key] = field;
+		}
 	}
-	if (delta !== undefined && !Array.isArray(delta)) {
-		throw new VersionHistoryError(
-			"STORAGE_CORRUPT",
-			`Version history index entry "${id}" has a non-array "delta".`,
-		);
+	for (const key of ["milestone", "protected"] as const) {
+		const field = value[key];
+		if (field !== undefined) {
+			if (typeof field !== "boolean") {
+				corrupt(`has a non-boolean "${key}"`);
+			}
+			result[key] = field;
+		}
+	}
+	const { tags, delta } = value;
+	if (tags !== undefined) {
+		if (!Array.isArray(tags) || tags.some((tag) => typeof tag !== "string")) {
+			corrupt('has a non-string-array "tags"');
+		}
+		result.tags = tags;
+	}
+	if (delta !== undefined) {
+		if (!isIRDiff(delta)) {
+			corrupt('has a malformed "delta"');
+		}
+		result.delta = delta;
 	}
 
-	const base = { id, savedAt, pageIRHash } as const;
-	const withLabel = label === undefined ? base : { ...base, label };
-	return delta === undefined
-		? withLabel
-		: { ...withLabel, delta: delta as IRDiff };
+	return result as unknown as SnapshotMeta;
 }
 
 function isPlainObject(value: unknown): value is Record<string, unknown> {

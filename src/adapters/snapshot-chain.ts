@@ -1,6 +1,6 @@
 import type { PageIR } from "@anvilkit/core/types";
 
-import { applyDiff, diffIR, type IRDiff } from "../utils/diff.js";
+import { applyDiff, diffIR, type IRDiff, isIRDiff } from "../utils/diff.js";
 import { VersionHistoryError } from "../utils/errors.js";
 import { clonePageIR, deepFreeze } from "../utils/internal.js";
 
@@ -136,7 +136,7 @@ export function normalizeStoredRecord(parsed: unknown): StoredRecord {
 			);
 		}
 		if (
-			!Array.isArray(parsed.diff) ||
+			!isIRDiff(parsed.diff) ||
 			!Array.isArray(parsed.assets) ||
 			!isPlainObject(parsed.metadata)
 		) {
@@ -148,7 +148,7 @@ export function normalizeStoredRecord(parsed: unknown): StoredRecord {
 		return {
 			kind: "delta",
 			base: parsed.base,
-			diff: parsed.diff as IRDiff,
+			diff: parsed.diff,
 			assets: parsed.assets as PageIR["assets"],
 			metadata: parsed.metadata as PageIR["metadata"],
 		};
