@@ -156,14 +156,39 @@ export function VersionHistoryUI({
       return undefined;
     }
 
-    // Collaborative adapters push remote updates; drop the cache and
-    // re-list so the diff view never renders a stale snapshot.
-    return adapter.subscribe(() => {
+    // Collaborative adapters push one remote-update notification per Yjs
+    // transaction, so a sync burst (initial load, paste, multi-op undo)
+    // fires this callback dozens of times within a single frame. Each
+    // notification re-lists and calls `setSnapshots` inside `startTransition`
+    // (see `refreshSnapshots`), so an uncoalesced burst schedules a large
+    // number of updates inside one transition — tripping React 19's "large
+    // number of updates inside startTransition" warning and forfeiting
+    // concurrent-mode guarantees. Coalesce to one re-list per animation frame
+    // (mirrors `ToolInteractionLayer`'s pointermove rAF); the trailing frame
+    // always reflects the latest list, and dropped intermediate frames are
+    // invisible. Falls back to a synchronous refresh where rAF is unavailable.
+    let refreshRaf = 0;
+    const hasRaf =
+      typeof requestAnimationFrame === "function" &&
+      typeof cancelAnimationFrame === "function";
+    const runRefresh = () => {
+      refreshRaf = 0;
       snapshotCacheRef.current.clear();
       void refreshSnapshots().catch(() => {
         /* refreshSnapshots already surfaces listError */
       });
+    };
+    const unsubscribe = adapter.subscribe(() => {
+      if (!hasRaf) {
+        runRefresh();
+        return;
+      }
+      if (!refreshRaf) refreshRaf = requestAnimationFrame(runRefresh);
     });
+    return () => {
+      if (refreshRaf && hasRaf) cancelAnimationFrame(refreshRaf);
+      unsubscribe();
+    };
   }, [adapter, refreshSnapshots]);
 
   React.useEffect(() => {
