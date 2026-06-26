@@ -2,7 +2,7 @@
 	{
 		"name": "@anvilkit/plugin-version-history",
 		"path": "dist/index.js",
-		"limit": "12 KB",
+		"limit": "13.5 KB",
 		"gzip": true,
 		"ignore": [
 			"react",

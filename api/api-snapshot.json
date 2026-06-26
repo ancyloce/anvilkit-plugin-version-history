@@ -393,6 +393,24 @@
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Options for "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "createVersionHistoryPlugin",
+						"target": 15
+					},
+					{
+						"kind": "text",
+						"text": "."
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 9,
@@ -401,6 +419,30 @@
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Storage backend the plugin persists snapshots to and pre-loads the\nhistory from (via "
+							},
+							{
+								"kind": "code",
+								"text": "`adapter.list()`"
+							},
+							{
+								"kind": "text",
+								"text": " during "
+							},
+							{
+								"kind": "code",
+								"text": "`onInit`"
+							},
+							{
+								"kind": "text",
+								"text": "). Required."
+							}
+						]
 					},
 					"type": {
 						"type": "reference",
@@ -515,6 +557,14 @@
 					"flags": {
 						"isOptional": true,
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Soft cap on retained snapshots, threaded into the bound plugin state for\nthe host's eviction logic. A non-finite or non-positive value (and\nomission) means \"unbounded\"; otherwise it is truncated to an integer."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -929,6 +979,14 @@
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Identity of a collaborator in a multiplayer session."
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 27,
@@ -938,6 +996,14 @@
 					"flags": {
 						"isOptional": true,
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional display color (e.g. for the peer's cursor/selection)."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -953,6 +1019,14 @@
 						"isOptional": true,
 						"isReadonly": true
 					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional human-readable name for presence UIs."
+							}
+						]
+					},
 					"type": {
 						"type": "intrinsic",
 						"name": "string"
@@ -965,6 +1039,14 @@
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Stable per-session peer id."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -1147,6 +1229,14 @@
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A peer's pointer position, in canvas/document coordinates."
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 29,
@@ -1155,6 +1245,14 @@
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Horizontal coordinate."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -1168,6 +1266,14 @@
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Vertical coordinate."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -1191,6 +1297,14 @@
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A peer's current selection, as the ids of the selected IR nodes."
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 32,
@@ -1199,6 +1313,14 @@
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Ids of the nodes the peer has selected."
+							}
+						]
 					},
 					"type": {
 						"type": "typeOperator",
@@ -1228,6 +1350,14 @@
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A single peer's full presence snapshot (identity + cursor + selection)."
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 35,
@@ -1237,6 +1367,14 @@
 					"flags": {
 						"isOptional": true,
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "The peer's pointer position, if broadcasting one."
+							}
+						]
 					},
 					"type": {
 						"type": "reference",
@@ -1253,6 +1391,14 @@
 					"flags": {
 						"isReadonly": true
 					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Who this presence belongs to."
+							}
+						]
+					},
 					"type": {
 						"type": "reference",
 						"target": 24,
@@ -1268,6 +1414,14 @@
 					"flags": {
 						"isOptional": true,
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "The peer's current selection, if broadcasting one."
+							}
+						]
 					},
 					"type": {
 						"type": "reference",
@@ -2102,6 +2256,38 @@
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Host-provided storage backend for snapshots — the single integration seam\nbetween this plugin and a persistence layer (in-memory, localStorage, Yjs,\na REST API, …). "
+					},
+					{
+						"kind": "code",
+						"text": "`save`"
+					},
+					{
+						"kind": "text",
+						"text": "/"
+					},
+					{
+						"kind": "code",
+						"text": "`list`"
+					},
+					{
+						"kind": "text",
+						"text": "/"
+					},
+					{
+						"kind": "code",
+						"text": "`load`"
+					},
+					{
+						"kind": "text",
+						"text": " are the required core; everything else\nis optional and must be feature-detected by callers, so older adapters keep\nworking unchanged. Methods may be sync or async."
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 54,
@@ -2111,6 +2297,22 @@
 					"flags": {
 						"isOptional": true,
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional single delete. Removes the snapshot "
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": " while keeping the rest\nloadable (adapters re-root any deltas that chained onto it). Additive and\nbackward compatible — feature-detect it."
+							}
+						]
 					},
 					"type": {
 						"type": "reflection",
@@ -2478,6 +2680,14 @@
 					"flags": {
 						"isReadonly": true
 					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Return every snapshot's metadata in canonical save order."
+							}
+						]
+					},
 					"type": {
 						"type": "reflection",
 						"declaration": {
@@ -2526,6 +2736,40 @@
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Materialize and return a snapshot's full "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": " by id, reconstructing\nit from the internal delta chain if needed. Throws a "
+							},
+							{
+								"kind": "code",
+								"text": "`SNAPSHOT_NOT_FOUND`"
+							},
+							{
+								"kind": "text",
+								"text": "\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryError",
+								"target": 204
+							},
+							{
+								"kind": "text",
+								"text": " for an unknown id."
+							}
+						]
 					},
 					"type": {
 						"type": "reflection",
@@ -2586,6 +2830,14 @@
 					"flags": {
 						"isOptional": true,
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional presence channel for live cursors/selections in collaborative\nsessions. Omitted by adapters without multiplayer awareness."
+							}
+						]
 					},
 					"type": {
 						"type": "reference",
@@ -2691,6 +2943,38 @@
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Persist "
+							},
+							{
+								"kind": "code",
+								"text": "`ir`"
+							},
+							{
+								"kind": "text",
+								"text": " as a new snapshot and resolve to its newly assigned id.\nThe adapter owns "
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": "/"
+							},
+							{
+								"kind": "code",
+								"text": "`savedAt`"
+							},
+							{
+								"kind": "text",
+								"text": " (hence they are omitted from the meta\nargument) and may store the IR as a delta against earlier snapshots."
+							}
+						]
 					},
 					"type": {
 						"type": "reflection",
@@ -2801,6 +3085,48 @@
 					"flags": {
 						"isOptional": true,
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional change subscription for collaborative adapters. Invokes\n"
+							},
+							{
+								"kind": "code",
+								"text": "`onUpdate`"
+							},
+							{
+								"kind": "text",
+								"text": " whenever a remote peer mutates the shared document (with the\nnew "
+							},
+							{
+								"kind": "code",
+								"text": "`ir`"
+							},
+							{
+								"kind": "text",
+								"text": " and the originating "
+							},
+							{
+								"kind": "code",
+								"text": "`peer`"
+							},
+							{
+								"kind": "text",
+								"text": " when known); the panel drops its load\ncache and re-lists so the diff view never shows a stale snapshot. Returns\nan "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "Unsubscribe",
+								"target": 125
+							},
+							{
+								"kind": "text",
+								"text": ". Omitted by local/single-user adapters."
+							}
+						]
 					},
 					"type": {
 						"type": "reflection",
@@ -3063,6 +3389,14 @@
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Presence channel an adapter exposes for live cursors/selections."
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 88,
@@ -3077,6 +3411,32 @@
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Subscribe to the roster of remote peers' presence; "
+									},
+									{
+										"kind": "code",
+										"text": "`callback`"
+									},
+									{
+										"kind": "text",
+										"text": " fires with\nthe full set whenever it changes. Returns an "
+									},
+									{
+										"kind": "inline-tag",
+										"tag": "@link",
+										"text": "Unsubscribe",
+										"target": 125
+									},
+									{
+										"kind": "text",
+										"text": "."
+									}
+								]
+							},
 							"parameters": [
 								{
 									"id": 90,
@@ -3153,6 +3513,14 @@
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Publish the local peer's presence to other collaborators."
+									}
+								]
+							},
 							"parameters": [
 								{
 									"id": 87,
@@ -3192,6 +3560,64 @@
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Lightweight, listable descriptor of a stored snapshot — everything the UI\nneeds without materializing the full "
+					},
+					{
+						"kind": "code",
+						"text": "`PageIR`"
+					},
+					{
+						"kind": "text",
+						"text": ". Identity/provenance fields\n("
+					},
+					{
+						"kind": "code",
+						"text": "`id`"
+					},
+					{
+						"kind": "text",
+						"text": ", "
+					},
+					{
+						"kind": "code",
+						"text": "`savedAt`"
+					},
+					{
+						"kind": "text",
+						"text": ", "
+					},
+					{
+						"kind": "code",
+						"text": "`pageIRHash`"
+					},
+					{
+						"kind": "text",
+						"text": ", "
+					},
+					{
+						"kind": "code",
+						"text": "`delta`"
+					},
+					{
+						"kind": "text",
+						"text": ") are immutable; the rest is the\nhost-curated, patchable "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotMetaPatch",
+						"target": 105
+					},
+					{
+						"kind": "text",
+						"text": " subset."
+					}
+				]
+			},
 			"children": [
 				{
 					"id": 103,
@@ -3271,6 +3697,38 @@
 					"flags": {
 						"isReadonly": true
 					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Adapter-assigned unique id; the key for "
+							},
+							{
+								"kind": "code",
+								"text": "`load`"
+							},
+							{
+								"kind": "text",
+								"text": "/"
+							},
+							{
+								"kind": "code",
+								"text": "`delete`"
+							},
+							{
+								"kind": "text",
+								"text": "/"
+							},
+							{
+								"kind": "code",
+								"text": "`updateMeta`"
+							},
+							{
+								"kind": "text",
+								"text": "."
+							}
+						]
+					},
 					"type": {
 						"type": "intrinsic",
 						"name": "string"
@@ -3284,6 +3742,14 @@
 					"flags": {
 						"isOptional": true,
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional short, human-readable name shown in the history list."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -3360,6 +3826,22 @@
 					"flags": {
 						"isReadonly": true
 					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Content hash of the captured "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": "; powers the optimistic-restore guard."
+							}
+						]
+					},
 					"type": {
 						"type": "intrinsic",
 						"name": "string"
@@ -3410,6 +3892,14 @@
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "ISO-8601 timestamp of when the snapshot was captured."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -4948,6 +5438,14 @@
 			"variant": "declaration",
 			"kind": 2097152,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A value that may be returned directly or as a promise."
+					}
+				]
+			},
 			"typeParameters": [
 				{
 					"id": 23,
@@ -5097,6 +5595,14 @@
 			"variant": "declaration",
 			"kind": 2097152,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Teardown handle returned by a subscription; call it to stop receiving updates."
+					}
+				]
+			},
 			"type": {
 				"type": "reflection",
 				"declaration": {

@@ -36,16 +36,6 @@
 				"types": "./dist/ui/index.d.cts",
 				"default": "./dist/ui/index.cjs"
 			}
-		},
-		"./*": {
-			"import": {
-				"types": "./dist/*.d.ts",
-				"default": "./dist/*.js"
-			},
-			"require": {
-				"types": "./dist/*.d.cts",
-				"default": "./dist/*.cjs"
-			}
 		}
 	},
 	"files": [

@@ -1,6 +1,6 @@
 # @anvilkit/plugin-version-history
 
-> **Alpha (`0.1.7`).** Header actions and the diff/apply engine are stable. The sidebar-panel slot contribution is deferred until `StudioPluginContext` exposes the sidebar registration API.
+> **Alpha (`0.1.7`).** Header actions and the diff/apply engine are stable. The plugin can also contribute the StudioSidebar `history` panel through the supported `ctx.registerHistoryPanel` slot — pass the `renderPanel` option (see [Sidebar history panel](#sidebar-history-panel)).
 
 Headless version-history plugin for Anvilkit Studio. Snapshot persistence is delegated to a host-provided `SnapshotAdapter`, so the plugin itself ships no I/O — only the diff/apply engine, header actions, optional UI primitives, and reference adapters for tests and demos.
 
@@ -38,13 +38,13 @@ The plugin contributes two header actions (`version-history:save` and `version-h
 
 ## Core features
 
-- **Adapter-driven persistence** — the plugin defines the contract; the host implements `save` / `list` / `load` / `delete?` and gets full control over storage (in-memory, localStorage, Firestore, S3, …).
+- **Adapter-driven persistence** — the plugin defines the contract; the host implements `save` / `list` / `load` / `delete?` (plus optional `deleteMany?` / `exportAll?` / `importAll?` for batch cleanup and portability) and gets full control over storage (in-memory, localStorage, Firestore, S3, …).
 - **Deterministic diff/apply engine** — `diffIR(a, b)` produces a frozen `IRDiff`; `applyDiff(a, diff)` round-trips.
 - **Optional UI** — five components on `/ui` for hosts that want batteries-included version history. The default export imports none of them, so headless consumers pay no UI rendering cost.
 - **FIFO eviction** — `maxSnapshots` automatically deletes the oldest snapshot when capacity is reached (requires `adapter.delete`).
 - **Reference adapters** — `inMemoryAdapter()` for tests, `localStorageAdapter({ namespace })` for demos.
 - **Adapter test suite** — `runAdapterContract` is the same contract the reference adapters use; consumers can validate their own implementation against it.
-- **Bundle budget** — 8 KB gzipped enforced in CI via `scripts/check-bundle-budget.mjs`.
+- **Bundle budget** — ~10 KB gzipped entry chunk enforced in CI via `scripts/check-bundle-budget.mjs`.
 
 ## API reference
 
@@ -58,10 +58,36 @@ function createVersionHistoryPlugin(
 interface CreateVersionHistoryPluginOptions {
   readonly adapter: SnapshotAdapter;
   readonly maxSnapshots?: number;
+  /** Puck `Data` → `PageIR` bridge so "Save snapshot" works in a real `<Studio>` session. */
+  readonly buildIR?: (data: unknown) => PageIR | null | Promise<PageIR | null>;
+  /** Render the StudioSidebar `history` panel body — see below. */
+  readonly renderPanel?: () => ReactNode;
 }
 ```
 
 Returns a typed `StudioPlugin` carrying the `VersionHistoryContribution` capability (so downstream consumers can recover `adapter` / `snapshots` via `InferPluginContributions`).
+
+### Sidebar history panel
+
+Pass `renderPanel` to contribute the StudioSidebar `history` module body. The plugin registers a `StudioHistoryPanel` through core's supported, rendered `ctx.registerHistoryPanel` slot during `register()`; this makes the `history` rail tab appear (`SidebarRail` gates it on `historyPanel !== null`) and renders your thunk inside the panel via core's `HistoryModule`. The runtime auto-tears-down the registration on `<Studio>` unmount. Omitting `renderPanel` keeps the prior header-actions-only behavior — no sidebar panel, no rail tab.
+
+```tsx
+import { createVersionHistoryPlugin } from "@anvilkit/plugin-version-history";
+import { VersionHistoryUI } from "@anvilkit/plugin-version-history/ui";
+
+const plugin = createVersionHistoryPlugin({
+  adapter,
+  renderPanel: () => (
+    <VersionHistoryUI
+      adapter={adapter}
+      currentIR={currentIR}
+      onRestore={(ir) => puckApi.dispatch({ type: "setData", data: irToPuckData(ir) })}
+    />
+  ),
+});
+```
+
+The host owns the `currentIR` read and `onRestore` dispatch: a plugin submodule may resolve its own `@puckeditor/core` copy at runtime (the dual-puck hazard), so reading reactive Puck state must happen in the host's React/Puck context. `currentIR` typically comes from `puckDataToIR(data, puckConfig)` (`@anvilkit/ir`) against the host's reactive Puck data.
 
 ### `SnapshotAdapter` contract
 
@@ -74,21 +100,53 @@ interface SnapshotAdapter {
   list(): MaybePromise<readonly SnapshotMeta[]>;
   load(id: string): MaybePromise<PageIR>;
   delete?(id: string): MaybePromise<void>;
+  deleteMany?(ids: readonly string[]): MaybePromise<void>;
+  exportAll?(): MaybePromise<VersionHistoryExport>;
+  importAll?(
+    data: VersionHistoryExport,
+    options?: { mode?: "replace" | "merge" },
+  ): MaybePromise<void>;
   subscribe?(onUpdate: (ir: PageIR, peer?: PeerInfo) => void): Unsubscribe;
   presence?: SnapshotAdapterPresence;
 }
 ```
 
-| Method           | Required? | Purpose                                                                   |
-| ---------------- | --------- | ------------------------------------------------------------------------- |
-| `save(ir, meta)` | yes       | Persist a `PageIR`. Returns a unique snapshot id.                         |
-| `list()`         | yes       | Return all snapshots in order (newest-first by convention).               |
-| `load(id)`       | yes       | Hydrate by id. Throw `VersionHistoryError("SNAPSHOT_NOT_FOUND")` on miss. |
-| `delete(id)`     | optional  | Required when `maxSnapshots` is set.                                      |
-| `subscribe(cb)`  | optional  | Push updates from collaborative adapters (e.g., `createYjsAdapter`).      |
-| `presence`       | optional  | Multi-user cursor / selection channel. Implemented by the Yjs adapter.    |
+| Method            | Required? | Purpose                                                                   |
+| ----------------- | --------- | ------------------------------------------------------------------------- |
+| `save(ir, meta)`  | yes       | Persist a `PageIR`. Returns a unique snapshot id.                         |
+| `list()`          | yes       | Return all snapshots in order (newest-first by convention).               |
+| `load(id)`        | yes       | Hydrate by id. Throw `VersionHistoryError("SNAPSHOT_NOT_FOUND")` on miss. |
+| `delete(id)`      | optional  | Required when `maxSnapshots` is set.                                      |
+| `deleteMany(ids)` | optional  | Batch delete for admin cleanup; leaves the remaining snapshots loadable.  |
+| `exportAll()`     | optional  | Materialize all snapshots as a portable `VersionHistoryExport` archive.   |
+| `importAll(data)` | optional  | Restore from a `VersionHistoryExport` (`"merge"` default, or `"replace"`).|
+| `subscribe(cb)`   | optional  | Push updates from collaborative adapters (e.g., `createYjsAdapter`).      |
+| `presence`        | optional  | Multi-user cursor / selection channel. Implemented by the Yjs adapter.    |
 
 All methods may be sync or async (`MaybePromise<T>`). Frozen, structurally-equal results are recommended.
+
+#### Batch delete & portability
+
+`deleteMany`, `exportAll`, and `importAll` are additive, optional, and backward
+compatible — adapters that omit them are unaffected, and callers must
+feature-detect them. The in-memory and `localStorage` reference adapters
+implement all three; the header `maxSnapshots` retention path automatically
+prefers `deleteMany` when present.
+
+```ts
+const archive = await adapter.exportAll?.(); // { version: 1; snapshots: [{ meta, ir }] }
+
+// Round-trips into a fresh adapter: imported snapshots keep their original
+// ids/metadata and are stored as standalone keyframes, so each is loadable.
+await fresh.importAll?.(archive, { mode: "replace" }); // or "merge" (default)
+```
+
+`exportAll` reconstructs each snapshot's **full** `PageIR` from the internal
+delta chain, so the archive is self-contained and JSON-serializable (it is _not_
+the delta-chain wire format). `normalizeVersionHistoryExport(value)` is the
+exported, side-effect-free validator the adapters use to reject a malformed
+archive with a `STORAGE_CORRUPT` `VersionHistoryError` before any mutation —
+call it directly to validate hand-built or third-party archives.
 
 ### `SnapshotMeta`
 
@@ -157,10 +215,25 @@ class VersionHistoryError extends Error {
 }
 
 type VersionHistoryErrorCode =
+  | "CONFLICT" // optimistic-concurrency: doc changed under a planned restore
+  | "PERMISSION_DENIED" // host/adapter rejected the op on authorization grounds
   | "SNAPSHOT_NOT_FOUND"
   | "STORAGE_CORRUPT"
   | "STORAGE_QUOTA_EXCEEDED"
   | "STORAGE_UNAVAILABLE";
+```
+
+Remote and collaborative adapters reject unauthorized `save`/`load`/`list`/`delete`/`restore` calls by throwing a `PERMISSION_DENIED` error. Use the `createPermissionDeniedError(operation, detail?)` convenience constructor, or throw `new VersionHistoryError("PERMISSION_DENIED", message)` directly:
+
+```ts
+import { createPermissionDeniedError } from "@anvilkit/plugin-version-history";
+
+async function load(id: string) {
+  if (!viewer.canRead(roomId)) {
+    throw createPermissionDeniedError("load", `viewer ${viewer.id} lacks read access`);
+  }
+  // …
+}
 ```
 
 ### Optional UI (`./ui`)
@@ -320,11 +393,11 @@ The plugin never reads from `localStorage`, IndexedDB, or any backend directly. 
 
 ### `maxSnapshots` requires `delete`
 
-The FIFO eviction loop calls `adapter.delete(oldestId)` when the snapshot count would exceed the cap. Adapters that omit `delete` cannot satisfy `maxSnapshots`; either implement `delete` or omit `maxSnapshots`.
+The FIFO eviction path removes the oldest snapshots when the count would exceed the cap — preferring `adapter.deleteMany(ids)` (a single store mutation) and falling back to per-id `adapter.delete(oldestId)`. Adapters that omit both `deleteMany` and `delete` cannot satisfy `maxSnapshots`; either implement one of them or omit `maxSnapshots`.
 
 ### Bundle budget
 
-The published entry has an 8 KB gzipped budget enforced in CI by `scripts/check-bundle-budget.mjs` and `.size-limit.json`. Workspace deps (`@anvilkit/*`) and peers (`react`, `react-dom`, `@puckeditor/core`) are treated as external.
+The published entry chunk has a ~10 KB gzipped budget enforced in CI by `scripts/check-bundle-budget.mjs`, with a complementary `.size-limit.json` budget on `dist/index.js`. Workspace deps (`@anvilkit/*`) and peers (`react`, `react-dom`, `@puckeditor/core`) are treated as external.
 
 ### Optional UI is opt-in by design
 
