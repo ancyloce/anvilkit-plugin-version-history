@@ -2,7 +2,11 @@ import type { PageIR } from "@anvilkit/core/types";
 
 import { applyDiff, diffIR, type IRDiff, isIRDiff } from "../utils/diff.js";
 import { VersionHistoryError } from "../utils/errors.js";
-import { clonePageIR, deepFreeze } from "../utils/internal.js";
+import {
+	clonePageIR,
+	createSnapshotNotFoundError,
+	deepFreeze,
+} from "../utils/internal.js";
 
 /**
  * Differential snapshot storage ("delta-chain").
@@ -249,10 +253,7 @@ export function buildStoredRecord(
 /** Reconstruct the full `PageIR` for `id`, or throw if it does not exist. */
 export function loadFromChain(backend: RecordBackend, id: string): PageIR {
 	if (!backend.read(id)) {
-		throw new VersionHistoryError(
-			"SNAPSHOT_NOT_FOUND",
-			`Snapshot "${id}" was not found.`,
-		);
+		throw createSnapshotNotFoundError(id);
 	}
 	return reconstruct(backend, id, new Set());
 }
