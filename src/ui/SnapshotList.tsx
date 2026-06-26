@@ -2,7 +2,14 @@ import * as React from "react";
 
 import { useMsg } from "@anvilkit/core/i18n";
 import type { PageIR, PageIRNode } from "@anvilkit/core/types";
-import { Card, CardContent, CardHeader, CardTitle, cn } from "@anvilkit/ui";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  Windowed,
+  cn,
+} from "@anvilkit/ui";
 
 import { diffIR, summarizeDiff } from "../utils/diff.js";
 import type { SnapshotMeta } from "../types/types.js";
@@ -20,6 +27,13 @@ function hasLockedNode(node: PageIRNode): boolean {
   }
   return false;
 }
+
+/**
+ * Estimated rendered height of one {@link SnapshotRow} in px. Only used to
+ * seed the virtualizer's window math once the list crosses the windowing
+ * threshold; the live row height is measured after layout.
+ */
+const SNAPSHOT_ROW_ESTIMATE_PX = 84;
 
 /** Props for {@link SnapshotList}. */
 export interface SnapshotListProps {
@@ -48,6 +62,15 @@ export function SnapshotList({
 }: SnapshotListProps) {
   const msg = useMsg();
   const itemRefs = React.useRef(new Map<string, HTMLDivElement>());
+  // When a roving-focus move targets a row that the virtualizer has not
+  // mounted yet (it's outside the visible window), we bump `activeIndex` to
+  // scroll it into view via `Windowed` and stash its id here. The row's ref
+  // callback focuses it the instant it mounts, so arrow-key navigation can
+  // still reach every snapshot in a large, windowed history.
+  const pendingFocusId = React.useRef<string | null>(null);
+  const [activeIndex, setActiveIndex] = React.useState<number | undefined>(
+    undefined,
+  );
 
   const focusRelative = React.useCallback(
     (id: string, offset: number) => {
@@ -58,14 +81,55 @@ export function SnapshotList({
         return;
       }
 
-      const nextSnapshot = snapshots[currentIndex + offset];
+      const nextIndex = currentIndex + offset;
+      const nextSnapshot = snapshots[nextIndex];
       if (!nextSnapshot) {
         return;
       }
 
-      itemRefs.current.get(nextSnapshot.id)?.focus();
+      const mounted = itemRefs.current.get(nextSnapshot.id);
+      if (mounted) {
+        mounted.focus();
+        return;
+      }
+
+      // Off-window: scroll the target into view, then focus on mount.
+      pendingFocusId.current = nextSnapshot.id;
+      setActiveIndex(nextIndex);
     },
     [snapshots],
+  );
+
+  // Stable per the `Windowed` contract — an inline `renderItem` would
+  // re-render every row on each parent render and defeat windowing.
+  const renderRow = React.useCallback(
+    (snapshot: SnapshotMeta) => (
+      <SnapshotRow
+        currentIR={currentIR}
+        focusRelative={focusRelative}
+        loadSnapshot={loadSnapshot}
+        onOpen={onOpen}
+        ref={(node) => {
+          if (node) {
+            itemRefs.current.set(snapshot.id, node);
+            if (pendingFocusId.current === snapshot.id) {
+              pendingFocusId.current = null;
+              node.focus();
+            }
+            return;
+          }
+
+          itemRefs.current.delete(snapshot.id);
+        }}
+        snapshot={snapshot}
+      />
+    ),
+    [currentIR, focusRelative, loadSnapshot, onOpen],
+  );
+
+  const getRowKey = React.useCallback(
+    (snapshot: SnapshotMeta) => snapshot.id,
+    [],
   );
 
   return (
@@ -83,25 +147,18 @@ export function SnapshotList({
             <p className="text-sm text-muted-foreground">
               {msg("versionHistory.list.empty")}
             </p>
-          ) : null}
-          {snapshots.map((snapshot) => (
-            <SnapshotRow
-              currentIR={currentIR}
-              focusRelative={focusRelative}
-              key={snapshot.id}
-              loadSnapshot={loadSnapshot}
-              onOpen={onOpen}
-              ref={(node) => {
-                if (node) {
-                  itemRefs.current.set(snapshot.id, node);
-                  return;
-                }
-
-                itemRefs.current.delete(snapshot.id);
-              }}
-              snapshot={snapshot}
+          ) : (
+            // Below `Windowed`'s threshold this emits the rows directly
+            // (identical DOM to a `.map()`); above it, only the visible
+            // window + overscan mount, capping DOM cost for huge histories.
+            <Windowed
+              activeIndex={activeIndex}
+              estimateSize={SNAPSHOT_ROW_ESTIMATE_PX}
+              itemKey={getRowKey}
+              items={snapshots}
+              renderItem={renderRow}
             />
-          ))}
+          )}
         </div>
       </CardContent>
     </Card>
