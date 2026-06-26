@@ -7999,7 +7999,7 @@
 		},
 		{
 			"kind": "code",
-			"text": "```ts\ninterface SnapshotAdapter {\n  save(\n    ir: PageIR,\n    meta: Partial<Omit<SnapshotMeta, \"id\" | \"savedAt\">>,\n  ): MaybePromise<string>;\n  list(): MaybePromise<readonly SnapshotMeta[]>;\n  load(id: string): MaybePromise<PageIR>;\n  delete?(id: string): MaybePromise<void>;\n  deleteMany?(ids: readonly string[]): MaybePromise<void>;\n  exportAll?(): MaybePromise<VersionHistoryExport>;\n  importAll?(\n    data: VersionHistoryExport,\n    options?: { mode?: \"replace\" | \"merge\" },\n  ): MaybePromise<void>;\n  subscribe?(onUpdate: (ir: PageIR, peer?: PeerInfo) => void): Unsubscribe;\n  presence?: SnapshotAdapterPresence;\n}\n```"
+			"text": "```ts\ninterface SnapshotAdapter {\n  save(\n    ir: PageIR,\n    meta: Partial<Omit<SnapshotMeta, \"id\" | \"savedAt\">>,\n  ): MaybePromise<string>;\n  list(): MaybePromise<readonly SnapshotMeta[]>;\n  load(id: string): MaybePromise<PageIR>;\n  delete?(id: string): MaybePromise<void>;\n  deleteMany?(ids: readonly string[]): MaybePromise<void>;\n  exportAll?(): MaybePromise<VersionHistoryExport>;\n  importAll?(\n    data: VersionHistoryExport,\n    options?: { mode?: \"replace\" | \"merge\" },\n  ): MaybePromise<void>;\n  updateMeta?(id: string, patch: SnapshotMetaPatch): MaybePromise<void>;\n  subscribe?(onUpdate: (ir: PageIR, peer?: PeerInfo) => void): Unsubscribe;\n  presence?: SnapshotAdapterPresence;\n}\n```"
 		},
 		{
 			"kind": "text",
@@ -8116,6 +8116,30 @@
 		{
 			"kind": "text",
 			"text": ").|\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`updateMeta(id, patch)`"
+		},
+		{
+			"kind": "text",
+			"text": " | optional | Patch a snapshot's mutable metadata ("
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotMetaPatch`"
+		},
+		{
+			"kind": "text",
+			"text": ") in place; throws "
+		},
+		{
+			"kind": "code",
+			"text": "`SNAPSHOT_NOT_FOUND`"
+		},
+		{
+			"kind": "text",
+			"text": " on miss. |\n| "
 		},
 		{
 			"kind": "code",
@@ -8399,7 +8423,7 @@
 		},
 		{
 			"kind": "code",
-			"text": "```ts\ninterface SnapshotMeta {\n  readonly id: string;\n  readonly label?: string;\n  readonly savedAt: string;\n  readonly pageIRHash: string;\n  readonly delta?: IRDiff;\n}\n```"
+			"text": "```ts\ninterface SnapshotMeta {\n  // Identity / provenance — immutable:\n  readonly id: string;\n  readonly savedAt: string;\n  readonly pageIRHash: string;\n  readonly delta?: IRDiff;\n  // Host-curated, patchable metadata — all optional, backward compatible:\n  readonly label?: string;\n  readonly tags?: readonly string[];\n  readonly milestone?: boolean;\n  readonly protected?: boolean;\n  readonly author?: string;\n  readonly notes?: string;\n}\n```"
 		},
 		{
 			"kind": "text",
@@ -8419,7 +8443,183 @@
 		},
 		{
 			"kind": "text",
-			"text": ") populate it with the structural diff from the previous snapshot; older or simpler adapters omit it.\n\n### Diff engine\n\n| Export           | Signature                             | Purpose                                                                  |\n| ---------------- | ------------------------------------- | ------------------------------------------------------------------------ |\n| "
+			"text": ") populate it with the structural diff from the previous snapshot; older or simpler adapters omit it.\n\nThe identity / provenance fields ("
+		},
+		{
+			"kind": "code",
+			"text": "`id`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`savedAt`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`pageIRHash`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`delta`"
+		},
+		{
+			"kind": "text",
+			"text": ") are immutable — they describe _what_ was captured and _when_, and never change after a snapshot is written. The rest is host-curated metadata, every field optional and backward compatible (records written before a field existed simply omit it):\n\n- "
+		},
+		{
+			"kind": "code",
+			"text": "`label`"
+		},
+		{
+			"kind": "text",
+			"text": " — short, human-readable name shown in the history list.\n- "
+		},
+		{
+			"kind": "code",
+			"text": "`tags`"
+		},
+		{
+			"kind": "text",
+			"text": " — labels for grouping, filtering, and searching (e.g. "
+		},
+		{
+			"kind": "code",
+			"text": "`[\"release\", \"qa\"]`"
+		},
+		{
+			"kind": "text",
+			"text": ").\n- "
+		},
+		{
+			"kind": "code",
+			"text": "`milestone`"
+		},
+		{
+			"kind": "text",
+			"text": " — marks a named checkpoint to surface prominently in history UIs, vs. an ordinary autosave.\n- "
+		},
+		{
+			"kind": "code",
+			"text": "`protected`"
+		},
+		{
+			"kind": "text",
+			"text": " — exempts the snapshot from automatic retention: "
+		},
+		{
+			"kind": "code",
+			"text": "`planRetention`"
+		},
+		{
+			"kind": "text",
+			"text": " never places a protected snapshot in its delete plan, regardless of age or count pressure.\n- "
+		},
+		{
+			"kind": "code",
+			"text": "`author`"
+		},
+		{
+			"kind": "text",
+			"text": " — opaque actor attribution for audit trails (a user id, email, or display name); never parsed by the package.\n- "
+		},
+		{
+			"kind": "code",
+			"text": "`notes`"
+		},
+		{
+			"kind": "text",
+			"text": " — free-form, longer-form context than the short "
+		},
+		{
+			"kind": "code",
+			"text": "`label`"
+		},
+		{
+			"kind": "text",
+			"text": ".\n\nSet these at save time via "
+		},
+		{
+			"kind": "code",
+			"text": "`save(ir, meta)`"
+		},
+		{
+			"kind": "text",
+			"text": ", or amend them later with "
+		},
+		{
+			"kind": "code",
+			"text": "`adapter.updateMeta?.(id, patch)`"
+		},
+		{
+			"kind": "text",
+			"text": ". The patch type is "
+		},
+		{
+			"kind": "code",
+			"text": "`SnapshotMetaPatch`"
+		},
+		{
+			"kind": "text",
+			"text": " — exactly this mutable subset ("
+		},
+		{
+			"kind": "code",
+			"text": "`label`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`tags`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`milestone`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`protected`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`author`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`notes`"
+		},
+		{
+			"kind": "text",
+			"text": "); omitted fields are left unchanged, and the identity fields cannot be patched.\n\n### Diff engine\n\n| Export           | Signature                             | Purpose                                                                  |\n| ---------------- | ------------------------------------- | ------------------------------------------------------------------------ |\n| "
 		},
 		{
 			"kind": "code",
