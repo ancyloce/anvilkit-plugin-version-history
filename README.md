@@ -106,6 +106,7 @@ interface SnapshotAdapter {
     data: VersionHistoryExport,
     options?: { mode?: "replace" | "merge" },
   ): MaybePromise<void>;
+  updateMeta?(id: string, patch: SnapshotMetaPatch): MaybePromise<void>;
   subscribe?(onUpdate: (ir: PageIR, peer?: PeerInfo) => void): Unsubscribe;
   presence?: SnapshotAdapterPresence;
 }
@@ -120,6 +121,7 @@ interface SnapshotAdapter {
 | `deleteMany(ids)` | optional  | Batch delete for admin cleanup; leaves the remaining snapshots loadable.  |
 | `exportAll()`     | optional  | Materialize all snapshots as a portable `VersionHistoryExport` archive.   |
 | `importAll(data)` | optional  | Restore from a `VersionHistoryExport` (`"merge"` default, or `"replace"`).|
+| `updateMeta(id, patch)` | optional | Patch a snapshot's mutable metadata (`SnapshotMetaPatch`) in place; throws `SNAPSHOT_NOT_FOUND` on miss. |
 | `subscribe(cb)`   | optional  | Push updates from collaborative adapters (e.g., `createYjsAdapter`).      |
 | `presence`        | optional  | Multi-user cursor / selection channel. Implemented by the Yjs adapter.    |
 
@@ -176,15 +178,33 @@ header-action snapshots with no live sync.
 
 ```ts
 interface SnapshotMeta {
+  // Identity / provenance — immutable:
   readonly id: string;
-  readonly label?: string;
   readonly savedAt: string;
   readonly pageIRHash: string;
   readonly delta?: IRDiff;
+  // Host-curated, patchable metadata — all optional, backward compatible:
+  readonly label?: string;
+  readonly tags?: readonly string[];
+  readonly milestone?: boolean;
+  readonly protected?: boolean;
+  readonly author?: string;
+  readonly notes?: string;
 }
 ```
 
 `delta` is optional. Adapters that opt in (`createYjsAdapter({ computeDelta: true })`) populate it with the structural diff from the previous snapshot; older or simpler adapters omit it.
+
+The identity / provenance fields (`id`, `savedAt`, `pageIRHash`, `delta`) are immutable — they describe _what_ was captured and _when_, and never change after a snapshot is written. The rest is host-curated metadata, every field optional and backward compatible (records written before a field existed simply omit it):
+
+- `label` — short, human-readable name shown in the history list.
+- `tags` — labels for grouping, filtering, and searching (e.g. `["release", "qa"]`).
+- `milestone` — marks a named checkpoint to surface prominently in history UIs, vs. an ordinary autosave.
+- `protected` — exempts the snapshot from automatic retention: `planRetention` never places a protected snapshot in its delete plan, regardless of age or count pressure.
+- `author` — opaque actor attribution for audit trails (a user id, email, or display name); never parsed by the package.
+- `notes` — free-form, longer-form context than the short `label`.
+
+Set these at save time via `save(ir, meta)`, or amend them later with `adapter.updateMeta?.(id, patch)`. The patch type is `SnapshotMetaPatch` — exactly this mutable subset (`label` / `tags` / `milestone` / `protected` / `author` / `notes`); omitted fields are left unchanged, and the identity fields cannot be patched.
 
 ### Diff engine
 
