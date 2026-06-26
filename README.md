@@ -148,6 +148,30 @@ exported, side-effect-free validator the adapters use to reject a malformed
 archive with a `STORAGE_CORRUPT` `VersionHistoryError` before any mutation —
 call it directly to validate hand-built or third-party archives.
 
+#### Collaboration: `subscribe` & `presence` (host-owned)
+
+`subscribe` and `presence` are **optional and owned by the host / a
+collaborative adapter — they are not provided by the bundled reference
+adapters.** The in-memory and `localStorage` reference adapters are single-user
+and intentionally do not implement either one (the `types.contract.test.ts`
+suite asserts both are `undefined` on them), so callers must feature-detect
+them before use.
+
+A real implementation lives in a collaboration transport — e.g. the Yjs adapter
+`@anvilkit/plugin-collab-yjs` (`YjsSnapshotAdapter`), which layers `subscribe`
+(remote-change push) and `presence` (live cursors / selections) on top of this
+contract. When present:
+
+- `subscribe(onUpdate)` fires `onUpdate(ir, peer?)` whenever a remote peer
+  mutates the shared document and returns an `Unsubscribe` you call to stop
+  receiving updates (idempotent).
+- `presence` exposes `update(state)` to publish the local peer and
+  `onPeerChange(cb)` to observe the remote roster (see `SnapshotAdapterPresence`).
+
+If you are writing your own collaborative adapter, implement these two members;
+if you only need single-user persistence, omit them and the plugin degrades to
+header-action snapshots with no live sync.
+
 ### `SnapshotMeta`
 
 ```ts
