@@ -16,14 +16,33 @@ import type { SnapshotMeta } from "../types/types.js";
 import { DiffView } from "./DiffView.js";
 import { useFormattedTimestamp } from "./use-formatted-timestamp.js";
 
+/** Props for {@link SnapshotHistoryModal}. */
 export interface SnapshotHistoryModalProps {
+  /** The live document — the "after" side of the diff. */
   readonly after: PageIR;
+  /**
+   * The opened snapshot's IR — the "before" side. `null` while it is still
+   * loading, which renders a loading placeholder and disables restore.
+   */
   readonly before: PageIR | null;
+  /** Inline error to surface in the dialog (e.g. a failed load or restore). */
   readonly error?: string | null;
+  /** Close the dialog (also fired on Escape / overlay dismiss). */
   readonly onClose: () => void;
+  /** Confirm restoring the opened snapshot. May be async. */
   readonly onRestore: () => Promise<void> | void;
+  /** Controls the dialog's open state. */
   readonly open: boolean;
+  /**
+   * Disables the restore button independently of `before` (e.g. while a
+   * restore is already in flight). Restore is also disabled whenever
+   * `before` is `null`.
+   */
   readonly restoreDisabled?: boolean;
+  /**
+   * Metadata of the opened snapshot, used for the dialog's title and saved-at
+   * timestamp. `null`/omitted falls back to generic labels.
+   */
   readonly snapshot?: SnapshotMeta | null;
 }
 

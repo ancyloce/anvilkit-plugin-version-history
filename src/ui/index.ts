@@ -7,5 +7,8 @@ export type { SnapshotHistoryModalProps } from "./SnapshotHistoryModal.js";
 export { SnapshotHistoryModal } from "./SnapshotHistoryModal.js";
 export type { SnapshotListProps } from "./SnapshotList.js";
 export { SnapshotList } from "./SnapshotList.js";
-export type { VersionHistoryUIProps } from "./VersionHistoryUI.js";
+export type {
+	RestoreConflictEvent,
+	VersionHistoryUIProps,
+} from "./VersionHistoryUI.js";
 export { VersionHistoryUI } from "./VersionHistoryUI.js";

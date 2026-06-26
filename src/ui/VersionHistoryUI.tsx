@@ -6,6 +6,7 @@ import { Card, CardContent } from "@anvilkit/ui";
 
 import { hashPageIR } from "../utils/hash.js";
 import { LruCache } from "../utils/lru.js";
+import { checkRestoreConflict } from "../utils/restore.js";
 import type { SnapshotAdapter, SnapshotMeta } from "../types/types.js";
 
 /**
@@ -18,10 +19,56 @@ import { SaveSnapshotButton } from "./SaveSnapshotButton.js";
 import { SnapshotHistoryModal } from "./SnapshotHistoryModal.js";
 import { SnapshotList } from "./SnapshotList.js";
 
+/**
+ * Payload handed to {@link VersionHistoryUIProps.onConflict} when a restore
+ * is blocked because the live document drifted from the version it was
+ * planned against.
+ */
+export interface RestoreConflictEvent {
+  /** The snapshot the user tried to restore (metadata, may be `null`). */
+  readonly snapshot: SnapshotMeta | null;
+  /** The fully loaded snapshot IR, so the host can re-apply it to force. */
+  readonly snapshotIR: PageIR;
+  /** Hash of the live `currentIR` at the moment restore was attempted. */
+  readonly currentHash: string;
+  /** Hash captured when the snapshot was opened (the optimistic token). */
+  readonly expectedBaseHash: string;
+}
+
+/**
+ * Props for {@link VersionHistoryUI} — the self-contained panel that lists,
+ * diffs, saves, and restores snapshots against the live document.
+ */
 export interface VersionHistoryUIProps {
+  /**
+   * Storage backend. The panel reads through it (`list`/`load`, plus
+   * `subscribe` when present for collaborative refresh) and writes through it
+   * (`save`); the host owns the adapter's lifecycle.
+   */
   readonly adapter: SnapshotAdapter;
+  /**
+   * The live editor document. Saved as the new snapshot and used as the
+   * "after" side of every diff. The host must keep this reactive to Puck
+   * state (reading Puck in the host avoids the dual-`@puckeditor/core` hazard).
+   */
   readonly currentIR: PageIR;
+  /**
+   * Apply a restored snapshot back to the editor (typically by dispatching
+   * `setData(irToPuckData(ir))`). Invoked when the user confirms a restore
+   * and no conflict is detected.
+   */
   readonly onRestore: (ir: PageIR) => void;
+  /**
+   * Optional optimistic-concurrency guard. When supplied, the panel captures
+   * the `currentIR` hash the moment a snapshot is opened and, on restore,
+   * re-checks it against the live `currentIR`. If the document changed
+   * underneath (a CONFLICT — e.g. a remote collaborator edited it), this is
+   * invoked with the {@link RestoreConflictEvent} *instead of* `onRestore`,
+   * letting the host warn the user or force the restore by calling
+   * `onRestore(event.snapshotIR)` itself. Omitting it preserves the prior
+   * restore-always behavior.
+   */
+  readonly onConflict?: (event: RestoreConflictEvent) => void;
 }
 
 /**
@@ -40,11 +87,18 @@ export function VersionHistoryUI({
   adapter,
   currentIR,
   onRestore,
+  onConflict,
 }: VersionHistoryUIProps) {
   const msg = useMsg();
   const snapshotCacheRef = React.useRef(
     new LruCache<string, PageIR>(SNAPSHOT_CACHE_CAPACITY),
   );
+  // Optimistic-concurrency token: the `currentIR` hash captured when a
+  // snapshot is opened. Re-checked at restore time so a document that
+  // drifted underneath (collab/local edit) routes through `onConflict`
+  // instead of silently clobbering the live work. Only populated when an
+  // `onConflict` handler is wired — otherwise the restore path is untouched.
+  const restoreBaseHashRef = React.useRef<string | null>(null);
   const isMountedRef = React.useRef(true);
   const [snapshots, setSnapshots] = React.useState<readonly SnapshotMeta[]>([]);
   const [listError, setListError] = React.useState<string | null>(null);
@@ -190,6 +244,7 @@ export function VersionHistoryUI({
   );
 
   const handleCloseModal = React.useCallback(() => {
+    restoreBaseHashRef.current = null;
     setIsRestoring(false);
     setModalError(null);
     setSelectedSnapshotIR(null);
@@ -206,6 +261,29 @@ export function VersionHistoryUI({
     try {
       const snapshot =
         selectedSnapshotIR ?? (await loadSnapshot(selectedSnapshotId));
+
+      // Optimistic-concurrency guard (opt-in). If the live document drifted
+      // from the hash captured when the snapshot was opened, route to the
+      // host's `onConflict` instead of clobbering it; the host can force by
+      // calling `onRestore(event.snapshotIR)`.
+      const expectedBaseHash = restoreBaseHashRef.current;
+      if (onConflict && expectedBaseHash !== null) {
+        const { hasConflict, currentHash } = checkRestoreConflict({
+          currentIR,
+          expectedBaseHash,
+        });
+        if (hasConflict) {
+          onConflict({
+            snapshot: selectedSnapshotMeta,
+            snapshotIR: snapshot,
+            currentHash,
+            expectedBaseHash,
+          });
+          handleCloseModal();
+          return;
+        }
+      }
+
       onRestore(snapshot);
       handleCloseModal();
     } catch (error) {
@@ -222,12 +300,15 @@ export function VersionHistoryUI({
       }
     }
   }, [
+    currentIR,
     handleCloseModal,
     loadSnapshot,
     msg,
+    onConflict,
     onRestore,
     selectedSnapshotIR,
     selectedSnapshotId,
+    selectedSnapshotMeta,
   ]);
 
   return (
@@ -249,6 +330,11 @@ export function VersionHistoryUI({
         currentIR={currentIR}
         loadSnapshot={loadSnapshot}
         onOpen={(id) => {
+          // Capture the optimistic-concurrency token at open time (only
+          // when a conflict handler is wired, to skip the hash otherwise).
+          restoreBaseHashRef.current = onConflict
+            ? hashPageIR(currentIR)
+            : null;
           setSelectedSnapshotId(id);
         }}
         snapshots={snapshots}

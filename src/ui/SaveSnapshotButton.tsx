@@ -3,8 +3,16 @@ import * as React from "react";
 import { useMsg } from "@anvilkit/core/i18n";
 import { Button, Input, cn } from "@anvilkit/ui";
 
+/** Props for {@link SaveSnapshotButton}. */
 export interface SaveSnapshotButtonProps {
+  /** Optional class applied to the button's (or expanded form's) wrapper. */
   readonly className?: string;
+  /**
+   * Persist a new snapshot. Receives the trimmed label, or `undefined` when
+   * the field was left blank. May be async; a rejection is surfaced inline as
+   * the form's error message and keeps the form open. The button manages its
+   * own open/saving state — the host only persists.
+   */
   readonly onSave: (label?: string) => Promise<void> | void;
 }
 

@@ -21,10 +21,22 @@ function hasLockedNode(node: PageIRNode): boolean {
   return false;
 }
 
+/** Props for {@link SnapshotList}. */
 export interface SnapshotListProps {
+  /**
+   * The live document each row diffs against to compute its lazy change
+   * summary (e.g. "3 changes: 2 added, 1 removed").
+   */
   readonly currentIR: PageIR;
+  /**
+   * Resolve a snapshot's full `PageIR` by id. Called lazily — only once a row
+   * scrolls into view (or immediately when `IntersectionObserver` is absent,
+   * e.g. SSR/jsdom).
+   */
   readonly loadSnapshot: (id: string) => Promise<PageIR>;
+  /** Invoked with a snapshot's id when its row is activated (click/Enter). */
   readonly onOpen: (id: string) => void;
+  /** Snapshot metadata to render, in display order (newest-first by host). */
   readonly snapshots: readonly SnapshotMeta[];
 }
 

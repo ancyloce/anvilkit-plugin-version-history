@@ -18,8 +18,11 @@ import { formatSummaryDescription } from "./format-summary.js";
 /** The `useMsg()` resolver shape, threaded into the pure column builders. */
 type Msg = (key: string, fallback?: string) => string;
 
+/** Props for {@link DiffView}. */
 export interface DiffViewProps {
+  /** The newer document — the live editor IR (right / "after" column). */
   readonly after: PageIR;
+  /** The older document — the opened snapshot's IR (left / "before" column). */
   readonly before: PageIR;
 }
 
