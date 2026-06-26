@@ -7,28 +7,28 @@
 	"flags": {},
 	"children": [
 		{
-			"id": 117,
+			"id": 182,
 			"name": "DiffApplyError",
 			"variant": "declaration",
 			"kind": 128,
 			"flags": {},
 			"children": [
 				{
-					"id": 118,
+					"id": 183,
 					"name": "constructor",
 					"variant": "declaration",
 					"kind": 512,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 119,
+							"id": 184,
 							"name": "DiffApplyError",
 							"variant": "signature",
 							"kind": 16384,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 120,
+									"id": 185,
 									"name": "message",
 									"variant": "param",
 									"kind": 32768,
@@ -41,7 +41,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 117,
+								"target": 182,
 								"name": "DiffApplyError",
 								"package": "@anvilkit/plugin-version-history"
 							},
@@ -61,7 +61,7 @@
 					}
 				},
 				{
-					"id": 124,
+					"id": 189,
 					"name": "cause",
 					"variant": "declaration",
 					"kind": 1024,
@@ -81,7 +81,7 @@
 					}
 				},
 				{
-					"id": 122,
+					"id": 187,
 					"name": "message",
 					"variant": "declaration",
 					"kind": 1024,
@@ -100,7 +100,7 @@
 					}
 				},
 				{
-					"id": 121,
+					"id": 186,
 					"name": "name",
 					"variant": "declaration",
 					"kind": 1024,
@@ -119,7 +119,7 @@
 					}
 				},
 				{
-					"id": 123,
+					"id": 188,
 					"name": "stack",
 					"variant": "declaration",
 					"kind": 1024,
@@ -143,16 +143,16 @@
 				{
 					"title": "Constructors",
 					"children": [
-						118
+						183
 					]
 				},
 				{
 					"title": "Properties",
 					"children": [
-						124,
-						122,
-						121,
-						123
+						189,
+						187,
+						186,
+						188
 					]
 				}
 			],
@@ -170,41 +170,67 @@
 			]
 		},
 		{
-			"id": 132,
+			"id": 204,
 			"name": "VersionHistoryError",
 			"variant": "declaration",
 			"kind": 128,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Typed error thrown across the version-history surface (adapters, the restore\r\nguard, host integrations). The "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "VersionHistoryError.code",
+						"target": 209
+					},
+					{
+						"kind": "text",
+						"text": " discriminant\r\nlets callers branch on the failure category instead of parsing "
+					},
+					{
+						"kind": "code",
+						"text": "`message`"
+					},
+					{
+						"kind": "text",
+						"text": "."
+					}
+				]
+			},
 			"children": [
 				{
-					"id": 133,
+					"id": 205,
 					"name": "constructor",
 					"variant": "declaration",
 					"kind": 512,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 134,
+							"id": 206,
 							"name": "VersionHistoryError",
 							"variant": "signature",
 							"kind": 16384,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 135,
+									"id": 207,
 									"name": "code",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 142,
+										"target": 214,
 										"name": "VersionHistoryErrorCode",
 										"package": "@anvilkit/plugin-version-history"
 									}
 								},
 								{
-									"id": 136,
+									"id": 208,
 									"name": "message",
 									"variant": "param",
 									"kind": 32768,
@@ -217,7 +243,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 132,
+								"target": 204,
 								"name": "VersionHistoryError",
 								"package": "@anvilkit/plugin-version-history"
 							},
@@ -237,7 +263,7 @@
 					}
 				},
 				{
-					"id": 141,
+					"id": 213,
 					"name": "cause",
 					"variant": "declaration",
 					"kind": 1024,
@@ -257,7 +283,7 @@
 					}
 				},
 				{
-					"id": 137,
+					"id": 209,
 					"name": "code",
 					"variant": "declaration",
 					"kind": 1024,
@@ -266,13 +292,13 @@
 					},
 					"type": {
 						"type": "reference",
-						"target": 142,
+						"target": 214,
 						"name": "VersionHistoryErrorCode",
 						"package": "@anvilkit/plugin-version-history"
 					}
 				},
 				{
-					"id": 139,
+					"id": 211,
 					"name": "message",
 					"variant": "declaration",
 					"kind": 1024,
@@ -291,7 +317,7 @@
 					}
 				},
 				{
-					"id": 138,
+					"id": 210,
 					"name": "name",
 					"variant": "declaration",
 					"kind": 1024,
@@ -310,7 +336,7 @@
 					}
 				},
 				{
-					"id": 140,
+					"id": 212,
 					"name": "stack",
 					"variant": "declaration",
 					"kind": 1024,
@@ -334,17 +360,17 @@
 				{
 					"title": "Constructors",
 					"children": [
-						133
+						205
 					]
 				},
 				{
 					"title": "Properties",
 					"children": [
-						141,
-						137,
-						139,
-						138,
-						140
+						213,
+						209,
+						211,
+						210,
+						212
 					]
 				}
 			],
@@ -378,8 +404,106 @@
 					},
 					"type": {
 						"type": "reference",
-						"target": 29,
+						"target": 37,
 						"name": "SnapshotAdapter",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				},
+				{
+					"id": 11,
+					"name": "buildIR",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Convert the live editor document ("
+							},
+							{
+								"kind": "code",
+								"text": "`ctx.getData()`"
+							},
+							{
+								"kind": "text",
+								"text": ") into the "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": "\nthe adapter persists. In a real "
+							},
+							{
+								"kind": "code",
+								"text": "`<Studio>`"
+							},
+							{
+								"kind": "text",
+								"text": " session "
+							},
+							{
+								"kind": "code",
+								"text": "`ctx.getData()`"
+							},
+							{
+								"kind": "text",
+								"text": "\nreturns Puck "
+							},
+							{
+								"kind": "code",
+								"text": "`Data`"
+							},
+							{
+								"kind": "text",
+								"text": ", which the header save action cannot persist on\nits own — supply this bridge so \"Save snapshot\" works in production.\n\nThe save action keeps a fast-path for data that is already a "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": "\n(e.g. headless hosts) and only calls "
+							},
+							{
+								"kind": "code",
+								"text": "`buildIR`"
+							},
+							{
+								"kind": "text",
+								"text": " when that fast-path\nrejects the data. Omitting it preserves the prior behavior: saves of\nnon-"
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": " data are skipped. See "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "BuildPageIR",
+								"target": 18
+							},
+							{
+								"kind": "text",
+								"text": "."
+							}
+						]
+					},
+					"type": {
+						"type": "reference",
+						"target": 18,
+						"name": "BuildPageIR",
 						"package": "@anvilkit/plugin-version-history"
 					}
 				},
@@ -396,6 +520,174 @@
 						"type": "intrinsic",
 						"name": "number"
 					}
+				},
+				{
+					"id": 12,
+					"name": "renderPanel",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Render the body of the StudioSidebar "
+							},
+							{
+								"kind": "code",
+								"text": "`history`"
+							},
+							{
+								"kind": "text",
+								"text": " module. When supplied,\nthe plugin registers a "
+							},
+							{
+								"kind": "code",
+								"text": "`StudioHistoryPanel`"
+							},
+							{
+								"kind": "text",
+								"text": " through the supported,\nrendered "
+							},
+							{
+								"kind": "code",
+								"text": "`ctx.registerHistoryPanel`"
+							},
+							{
+								"kind": "text",
+								"text": " core slot during "
+							},
+							{
+								"kind": "code",
+								"text": "`register()`"
+							},
+							{
+								"kind": "text",
+								"text": " —\nwhich makes the "
+							},
+							{
+								"kind": "code",
+								"text": "`history`"
+							},
+							{
+								"kind": "text",
+								"text": " rail tab appear ("
+							},
+							{
+								"kind": "code",
+								"text": "`SidebarRail`"
+							},
+							{
+								"kind": "text",
+								"text": " gates it on\n"
+							},
+							{
+								"kind": "code",
+								"text": "`historyPanel !== null`"
+							},
+							{
+								"kind": "text",
+								"text": ") and renders this thunk inside the panel body\nvia core's "
+							},
+							{
+								"kind": "code",
+								"text": "`HistoryModule`"
+							},
+							{
+								"kind": "text",
+								"text": ". The runtime auto-tears-down the\nregistration on "
+							},
+							{
+								"kind": "code",
+								"text": "`<Studio>`"
+							},
+							{
+								"kind": "text",
+								"text": " unmount, so no manual cleanup is needed.\n\nTypically returns "
+							},
+							{
+								"kind": "code",
+								"text": "`<VersionHistoryUI adapter currentIR onRestore />`"
+							},
+							{
+								"kind": "text",
+								"text": "\n(importable from "
+							},
+							{
+								"kind": "code",
+								"text": "`@anvilkit/plugin-version-history/ui`"
+							},
+							{
+								"kind": "text",
+								"text": "). The host owns\nthe reactive Puck-data read (→ "
+							},
+							{
+								"kind": "code",
+								"text": "`currentIR`"
+							},
+							{
+								"kind": "text",
+								"text": ") and the restore dispatch\n("
+							},
+							{
+								"kind": "code",
+								"text": "`onRestore`"
+							},
+							{
+								"kind": "text",
+								"text": ") because a plugin submodule may resolve its own\n"
+							},
+							{
+								"kind": "code",
+								"text": "`@puckeditor/core`"
+							},
+							{
+								"kind": "text",
+								"text": " copy at runtime (the dual-puck hazard); reading\nPuck state must therefore happen in the host's React/Puck context.\n\nOmitting it preserves the prior header-actions-only behavior — the\nplugin contributes no sidebar panel and the "
+							},
+							{
+								"kind": "code",
+								"text": "`history`"
+							},
+							{
+								"kind": "text",
+								"text": " rail tab stays\nhidden."
+							}
+						]
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 13,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 14,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"target": {
+											"packageName": "@types/react",
+											"packagePath": "index.d.ts",
+											"qualifiedName": "React.ReactNode"
+										},
+										"name": "ReactNode",
+										"package": "@types/react",
+										"qualifiedName": "React.ReactNode"
+									}
+								}
+							]
+						}
+					}
 				}
 			],
 			"groups": [
@@ -403,20 +695,22 @@
 					"title": "Properties",
 					"children": [
 						9,
-						10
+						11,
+						10,
+						12
 					]
 				}
 			]
 		},
 		{
-			"id": 106,
+			"id": 171,
 			"name": "IRDiffSummary",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 107,
+					"id": 172,
 					"name": "added",
 					"variant": "declaration",
 					"kind": 1024,
@@ -429,7 +723,7 @@
 					}
 				},
 				{
-					"id": 110,
+					"id": 175,
 					"name": "changed",
 					"variant": "declaration",
 					"kind": 1024,
@@ -442,7 +736,7 @@
 					}
 				},
 				{
-					"id": 112,
+					"id": 177,
 					"name": "description",
 					"variant": "declaration",
 					"kind": 1024,
@@ -455,7 +749,7 @@
 					}
 				},
 				{
-					"id": 111,
+					"id": 176,
 					"name": "metaChanged",
 					"variant": "declaration",
 					"kind": 1024,
@@ -501,7 +795,7 @@
 					}
 				},
 				{
-					"id": 109,
+					"id": 174,
 					"name": "moved",
 					"variant": "declaration",
 					"kind": 1024,
@@ -514,7 +808,7 @@
 					}
 				},
 				{
-					"id": 108,
+					"id": 173,
 					"name": "removed",
 					"variant": "declaration",
 					"kind": 1024,
@@ -531,12 +825,12 @@
 				{
 					"title": "Properties",
 					"children": [
-						107,
-						110,
-						112,
-						111,
-						109,
-						108
+						172,
+						175,
+						177,
+						176,
+						174,
+						173
 					]
 				}
 			]
@@ -556,6 +850,64 @@
 					"flags": {
 						"isReadonly": true
 					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Key prefix isolating this adapter's data within a single "
+							},
+							{
+								"kind": "code",
+								"text": "`localStorage`"
+							},
+							{
+								"kind": "text",
+								"text": "\norigin. Every key is derived from it verbatim — "
+							},
+							{
+								"kind": "code",
+								"text": "`` `${namespace}:snapshots:index` ``"
+							},
+							{
+								"kind": "text",
+								"text": "\nfor the index and "
+							},
+							{
+								"kind": "code",
+								"text": "`` `${namespace}:snapshots:${id}` ``"
+							},
+							{
+								"kind": "text",
+								"text": " for each record — so\nthe namespace is what keeps one host's (or document's) history from\ncolliding with another's that shares the same origin.\n\nMust be a non-empty string once surrounding whitespace is trimmed. An\nempty or whitespace-only value would yield malformed, prefix-less keys\n(e.g. "
+							},
+							{
+								"kind": "code",
+								"text": "`\":snapshots:index\"`"
+							},
+							{
+								"kind": "text",
+								"text": ") that silently collide across hosts, so\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "localStorageAdapter",
+								"target": 5
+							},
+							{
+								"kind": "text",
+								"text": " throws a "
+							},
+							{
+								"kind": "code",
+								"text": "`TypeError`"
+							},
+							{
+								"kind": "text",
+								"text": " at construction rather\nthan corrupt data later. The value is validated but **not** trimmed\nfor key derivation: a namespace with surrounding whitespace is accepted and\nused exactly as given, so callers should pass a stable, whitespace-free\nprefix per host."
+							}
+						]
+					},
 					"type": {
 						"type": "intrinsic",
 						"name": "string"
@@ -572,14 +924,14 @@
 			]
 		},
 		{
-			"id": 16,
+			"id": 24,
 			"name": "PeerInfo",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 19,
+					"id": 27,
 					"name": "color",
 					"variant": "declaration",
 					"kind": 1024,
@@ -593,7 +945,7 @@
 					}
 				},
 				{
-					"id": 18,
+					"id": 26,
 					"name": "displayName",
 					"variant": "declaration",
 					"kind": 1024,
@@ -607,7 +959,7 @@
 					}
 				},
 				{
-					"id": 17,
+					"id": 25,
 					"name": "id",
 					"variant": "declaration",
 					"kind": 1024,
@@ -624,22 +976,180 @@
 				{
 					"title": "Properties",
 					"children": [
-						19,
-						18,
-						17
+						27,
+						26,
+						25
 					]
 				}
 			]
 		},
 		{
-			"id": 20,
+			"id": 223,
+			"name": "PrepareRestoreInput",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Inputs to "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "prepareRestore",
+						"target": 228
+					},
+					{
+						"kind": "text",
+						"text": ": a "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "RestoreConflictInput",
+						"target": 235
+					},
+					{
+						"kind": "text",
+						"text": " plus the\n"
+					},
+					{
+						"kind": "code",
+						"text": "`snapshotIR`"
+					},
+					{
+						"kind": "text",
+						"text": " to restore and a "
+					},
+					{
+						"kind": "code",
+						"text": "`force`"
+					},
+					{
+						"kind": "text",
+						"text": " escape hatch."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 226,
+					"name": "currentIR",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true,
+						"isInherited": true
+					},
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "@anvilkit/core",
+							"packagePath": "src/types/ir.ts",
+							"qualifiedName": "PageIR"
+						},
+						"name": "PageIR",
+						"package": "@anvilkit/core"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"target": 236,
+						"name": "RestoreConflictInput.currentIR"
+					}
+				},
+				{
+					"id": 227,
+					"name": "expectedBaseHash",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true,
+						"isInherited": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"target": 237,
+						"name": "RestoreConflictInput.expectedBaseHash"
+					}
+				},
+				{
+					"id": 225,
+					"name": "force",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Bypass the conflict check and restore anyway."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 224,
+					"name": "snapshotIR",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "@anvilkit/core",
+							"packagePath": "src/types/ir.ts",
+							"qualifiedName": "PageIR"
+						},
+						"name": "PageIR",
+						"package": "@anvilkit/core"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						226,
+						227,
+						225,
+						224
+					]
+				}
+			],
+			"extendedTypes": [
+				{
+					"type": "reference",
+					"target": 235,
+					"name": "RestoreConflictInput",
+					"package": "@anvilkit/plugin-version-history"
+				}
+			]
+		},
+		{
+			"id": 28,
 			"name": "PresenceCursor",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 21,
+					"id": 29,
 					"name": "x",
 					"variant": "declaration",
 					"kind": 1024,
@@ -652,7 +1162,7 @@
 					}
 				},
 				{
-					"id": 22,
+					"id": 30,
 					"name": "y",
 					"variant": "declaration",
 					"kind": 1024,
@@ -669,21 +1179,21 @@
 				{
 					"title": "Properties",
 					"children": [
-						21,
-						22
+						29,
+						30
 					]
 				}
 			]
 		},
 		{
-			"id": 23,
+			"id": 31,
 			"name": "PresenceSelection",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 24,
+					"id": 32,
 					"name": "nodeIds",
 					"variant": "declaration",
 					"kind": 1024,
@@ -707,20 +1217,20 @@
 				{
 					"title": "Properties",
 					"children": [
-						24
+						32
 					]
 				}
 			]
 		},
 		{
-			"id": 25,
+			"id": 33,
 			"name": "PresenceState",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 27,
+					"id": 35,
 					"name": "cursor",
 					"variant": "declaration",
 					"kind": 1024,
@@ -730,13 +1240,13 @@
 					},
 					"type": {
 						"type": "reference",
-						"target": 20,
+						"target": 28,
 						"name": "PresenceCursor",
 						"package": "@anvilkit/plugin-version-history"
 					}
 				},
 				{
-					"id": 26,
+					"id": 34,
 					"name": "peer",
 					"variant": "declaration",
 					"kind": 1024,
@@ -745,13 +1255,13 @@
 					},
 					"type": {
 						"type": "reference",
-						"target": 16,
+						"target": 24,
 						"name": "PeerInfo",
 						"package": "@anvilkit/plugin-version-history"
 					}
 				},
 				{
-					"id": 28,
+					"id": 36,
 					"name": "selection",
 					"variant": "declaration",
 					"kind": 1024,
@@ -761,7 +1271,7 @@
 					},
 					"type": {
 						"type": "reference",
-						"target": 23,
+						"target": 31,
 						"name": "PresenceSelection",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -771,22 +1281,830 @@
 				{
 					"title": "Properties",
 					"children": [
-						27,
-						26,
-						28
+						35,
+						34,
+						36
 					]
 				}
 			]
 		},
 		{
-			"id": 29,
+			"id": 231,
+			"name": "RestoreConflict",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Result of comparing the live document hash against an expected base.\n\n"
+					},
+					{
+						"kind": "code",
+						"text": "`currentHash`"
+					},
+					{
+						"kind": "text",
+						"text": " is the freshly computed "
+					},
+					{
+						"kind": "code",
+						"text": "`hashPageIR`"
+					},
+					{
+						"kind": "text",
+						"text": " of "
+					},
+					{
+						"kind": "code",
+						"text": "`currentIR`"
+					},
+					{
+						"kind": "text",
+						"text": ";\ncallers can persist it as the next "
+					},
+					{
+						"kind": "code",
+						"text": "`expectedBaseHash`"
+					},
+					{
+						"kind": "text",
+						"text": ". "
+					},
+					{
+						"kind": "code",
+						"text": "`expectedBaseHash`"
+					},
+					{
+						"kind": "text",
+						"text": "\nis echoed back only when one was supplied."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 233,
+					"name": "currentHash",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 234,
+					"name": "expectedBaseHash",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 232,
+					"name": "hasConflict",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						233,
+						234,
+						232
+					]
+				}
+			]
+		},
+		{
+			"id": 235,
+			"name": "RestoreConflictInput",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Inputs to "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "checkRestoreConflict",
+						"target": 220
+					},
+					{
+						"kind": "text",
+						"text": ".\n\n"
+					},
+					{
+						"kind": "code",
+						"text": "`expectedBaseHash`"
+					},
+					{
+						"kind": "text",
+						"text": " is the optimistic-concurrency token: the "
+					},
+					{
+						"kind": "code",
+						"text": "`PageIR`"
+					},
+					{
+						"kind": "text",
+						"text": "\nfingerprint the restore was planned against — typically the live\n"
+					},
+					{
+						"kind": "code",
+						"text": "`currentIR`"
+					},
+					{
+						"kind": "text",
+						"text": " hash captured when the snapshot/diff view was opened, or a\npersisted "
+					},
+					{
+						"kind": "code",
+						"text": "`SnapshotMeta.pageIRHash`"
+					},
+					{
+						"kind": "text",
+						"text": ". Omitting it disables the check\n(always reports no conflict), which keeps pre-token callers working."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 236,
+					"name": "currentIR",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "@anvilkit/core",
+							"packagePath": "src/types/ir.ts",
+							"qualifiedName": "PageIR"
+						},
+						"name": "PageIR",
+						"package": "@anvilkit/core"
+					}
+				},
+				{
+					"id": 237,
+					"name": "expectedBaseHash",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						236,
+						237
+					]
+				}
+			],
+			"extendedBy": [
+				{
+					"type": "reference",
+					"target": 223,
+					"name": "PrepareRestoreInput"
+				}
+			]
+		},
+		{
+			"id": 244,
+			"name": "RetentionPlan",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Deterministic deletion plan returned by "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "planRetention",
+						"target": 238
+					},
+					{
+						"kind": "text",
+						"text": ". "
+					},
+					{
+						"kind": "code",
+						"text": "`deleteIds`"
+					},
+					{
+						"kind": "text",
+						"text": "\nand "
+					},
+					{
+						"kind": "code",
+						"text": "`keepIds`"
+					},
+					{
+						"kind": "text",
+						"text": " partition the input ids and are both ordered oldest-first\n(ascending "
+					},
+					{
+						"kind": "code",
+						"text": "`savedAt`"
+					},
+					{
+						"kind": "text",
+						"text": ", ascending "
+					},
+					{
+						"kind": "code",
+						"text": "`id`"
+					},
+					{
+						"kind": "text",
+						"text": " tie-break — matching "
+					},
+					{
+						"kind": "code",
+						"text": "`evictOldest`"
+					},
+					{
+						"kind": "text",
+						"text": "), so\nthe plan is reproducible for the same inputs."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 245,
+					"name": "deleteIds",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					}
+				},
+				{
+					"id": 246,
+					"name": "keepIds",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						245,
+						246
+					]
+				}
+			]
+		},
+		{
+			"id": 247,
+			"name": "RetentionPlanOptions",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Options for "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "planRetention",
+						"target": 238
+					},
+					{
+						"kind": "text",
+						"text": " / "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "runRetention",
+						"target": 261
+					},
+					{
+						"kind": "text",
+						"text": ".\n\n- **"
+					},
+					{
+						"kind": "code",
+						"text": "`now`"
+					},
+					{
+						"kind": "text",
+						"text": "** — injectable wall-clock used for age comparisons (defaults to\n  "
+					},
+					{
+						"kind": "code",
+						"text": "`Date.now()`"
+					},
+					{
+						"kind": "text",
+						"text": "); pass a fixed value for deterministic age-based planning.\n- **"
+					},
+					{
+						"kind": "code",
+						"text": "`protectedIds`"
+					},
+					{
+						"kind": "text",
+						"text": "** — snapshot ids that must never be evicted, regardless of\n  age or count pressure."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 248,
+					"name": "now",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 249,
+					"name": "protectedIds",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						248,
+						249
+					]
+				}
+			],
+			"extendedBy": [
+				{
+					"type": "reference",
+					"target": 257,
+					"name": "RunRetentionOptions"
+				}
+			]
+		},
+		{
+			"id": 250,
+			"name": "RetentionPolicy",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Declarative retention policy composed by "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "planRetention",
+						"target": 238
+					},
+					{
+						"kind": "text",
+						"text": ". Every field\nis optional and additive — supply either, both, or neither:\n\n- **"
+					},
+					{
+						"kind": "code",
+						"text": "`maxSnapshots`"
+					},
+					{
+						"kind": "text",
+						"text": "** — keep at most this many snapshots, evicting the oldest\n  overflow (the historical count-only behavior of "
+					},
+					{
+						"kind": "code",
+						"text": "`evictOldest`"
+					},
+					{
+						"kind": "text",
+						"text": "). A\n  non-finite or "
+					},
+					{
+						"kind": "code",
+						"text": "`< 1`"
+					},
+					{
+						"kind": "text",
+						"text": " value disables the count cap.\n- **"
+					},
+					{
+						"kind": "code",
+						"text": "`maxAgeMs`"
+					},
+					{
+						"kind": "text",
+						"text": "** — evict any snapshot older than this many milliseconds\n  relative to \"now\". A non-finite or "
+					},
+					{
+						"kind": "code",
+						"text": "`<= 0`"
+					},
+					{
+						"kind": "text",
+						"text": " value disables age expiry.\n\nProtected snapshots (see "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "RetentionPlanOptions.protectedIds",
+						"target": 249
+					},
+					{
+						"kind": "text",
+						"text": " and the\n"
+					},
+					{
+						"kind": "code",
+						"text": "`meta.protected`"
+					},
+					{
+						"kind": "text",
+						"text": " flag) are never evicted by either rule."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 252,
+					"name": "maxAgeMs",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 251,
+					"name": "maxSnapshots",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						252,
+						251
+					]
+				}
+			]
+		},
+		{
+			"id": 253,
+			"name": "RetentionResult",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Outcome of "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "runRetention",
+						"target": 261
+					},
+					{
+						"kind": "text",
+						"text": ": the computed "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "RetentionPlan",
+						"target": 244
+					},
+					{
+						"kind": "text",
+						"text": ", the ids\nactually deleted ("
+					},
+					{
+						"kind": "code",
+						"text": "`[]`"
+					},
+					{
+						"kind": "text",
+						"text": " for a dry run or when nothing matched), and whether\nthis was a dry run."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 255,
+					"name": "deletedIds",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					}
+				},
+				{
+					"id": 256,
+					"name": "dryRun",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 254,
+					"name": "plan",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reference",
+						"target": 244,
+						"name": "RetentionPlan",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						255,
+						256,
+						254
+					]
+				}
+			]
+		},
+		{
+			"id": 257,
+			"name": "RunRetentionOptions",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Options for "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "runRetention",
+						"target": 261
+					},
+					{
+						"kind": "text",
+						"text": ": "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "RetentionPlanOptions",
+						"target": 247
+					},
+					{
+						"kind": "text",
+						"text": " plus "
+					},
+					{
+						"kind": "code",
+						"text": "`dryRun`"
+					},
+					{
+						"kind": "text",
+						"text": "."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 258,
+					"name": "dryRun",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "When "
+							},
+							{
+								"kind": "code",
+								"text": "`true`"
+							},
+							{
+								"kind": "text",
+								"text": ", compute and return the plan without deleting anything."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 259,
+					"name": "now",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true,
+						"isInherited": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"target": 248,
+						"name": "RetentionPlanOptions.now"
+					}
+				},
+				{
+					"id": 260,
+					"name": "protectedIds",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true,
+						"isInherited": true
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"target": 249,
+						"name": "RetentionPlanOptions.protectedIds"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						258,
+						259,
+						260
+					]
+				}
+			],
+			"extendedTypes": [
+				{
+					"type": "reference",
+					"target": 247,
+					"name": "RetentionPlanOptions",
+					"package": "@anvilkit/plugin-version-history"
+				}
+			]
+		},
+		{
+			"id": 37,
 			"name": "SnapshotAdapter",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 42,
+					"id": 54,
 					"name": "delete",
 					"variant": "declaration",
 					"kind": 1024,
@@ -797,21 +2115,21 @@
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 43,
+							"id": 55,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"signatures": [
 								{
-									"id": 44,
+									"id": 56,
 									"name": "__type",
 									"variant": "signature",
 									"kind": 4096,
 									"flags": {},
 									"parameters": [
 										{
-											"id": 45,
+											"id": 57,
 											"name": "id",
 											"variant": "param",
 											"kind": 32768,
@@ -824,7 +2142,7 @@
 									],
 									"type": {
 										"type": "reference",
-										"target": 14,
+										"target": 22,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -840,7 +2158,320 @@
 					}
 				},
 				{
-					"id": 35,
+					"id": 58,
+					"name": "deleteMany",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional batch delete for administrative cleanup. Removes every id in\n"
+							},
+							{
+								"kind": "code",
+								"text": "`ids`"
+							},
+							{
+								"kind": "text",
+								"text": " (unknown ids are ignored) while leaving the remaining snapshots\nloadable. Additive and fully backward compatible — adapters that omit it\nare unaffected and callers must feature-detect it. Equivalent in effect\nto calling "
+							},
+							{
+								"kind": "code",
+								"text": "`delete`"
+							},
+							{
+								"kind": "text",
+								"text": " per id, but adapters can implement it more\nefficiently (the reference localStorage adapter does a single index\nwrite)."
+							}
+						]
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 59,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 60,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"parameters": [
+										{
+											"id": 61,
+											"name": "ids",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "typeOperator",
+												"operator": "readonly",
+												"target": {
+													"type": "array",
+													"elementType": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": 22,
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										],
+										"name": "MaybePromise",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 62,
+					"name": "exportAll",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional portability export. Materializes every snapshot's full "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": "\n(reconstructing the internal delta chain via "
+							},
+							{
+								"kind": "code",
+								"text": "`load`"
+							},
+							{
+								"kind": "text",
+								"text": ") into a\nself-contained "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryExport",
+								"target": 128
+							},
+							{
+								"kind": "text",
+								"text": " archive in deterministic save\norder. Additive/optional — feature-detect it. Pairs with\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "importAll",
+								"target": 65
+							},
+							{
+								"kind": "text",
+								"text": "."
+							}
+						]
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 63,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 64,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"target": 22,
+										"typeArguments": [
+											{
+												"type": "reference",
+												"target": 128,
+												"name": "VersionHistoryExport",
+												"package": "@anvilkit/plugin-version-history"
+											}
+										],
+										"name": "MaybePromise",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 65,
+					"name": "importAll",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional portability import. Restores snapshots from a\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryExport",
+								"target": 128
+							},
+							{
+								"kind": "text",
+								"text": " produced by "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "exportAll",
+								"target": 62
+							},
+							{
+								"kind": "text",
+								"text": ". The default\n"
+							},
+							{
+								"kind": "code",
+								"text": "`\"merge\"`"
+							},
+							{
+								"kind": "text",
+								"text": " mode adds/overwrites by id; "
+							},
+							{
+								"kind": "code",
+								"text": "`\"replace\"`"
+							},
+							{
+								"kind": "text",
+								"text": " clears the store first.\nImported snapshots preserve their original ids/metadata and are stored as\nstandalone keyframes, so each is immediately loadable. Additive/optional —\nfeature-detect it. Throws a "
+							},
+							{
+								"kind": "code",
+								"text": "`STORAGE_CORRUPT`"
+							},
+							{
+								"kind": "text",
+								"text": " "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryError",
+								"target": 204
+							},
+							{
+								"kind": "text",
+								"text": "\n(via "
+							},
+							{
+								"kind": "code",
+								"text": "`normalizeVersionHistoryExport`"
+							},
+							{
+								"kind": "text",
+								"text": ") when the archive is malformed."
+							}
+						]
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 66,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 67,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"parameters": [
+										{
+											"id": 68,
+											"name": "data",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"target": 128,
+												"name": "VersionHistoryExport",
+												"package": "@anvilkit/plugin-version-history"
+											}
+										},
+										{
+											"id": 69,
+											"name": "options",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "reference",
+												"target": 134,
+												"name": "VersionHistoryImportOptions",
+												"package": "@anvilkit/plugin-version-history"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": 22,
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										],
+										"name": "MaybePromise",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 43,
 					"name": "list",
 					"variant": "declaration",
 					"kind": 1024,
@@ -850,21 +2481,21 @@
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 36,
+							"id": 44,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"signatures": [
 								{
-									"id": 37,
+									"id": 45,
 									"name": "__type",
 									"variant": "signature",
 									"kind": 4096,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 14,
+										"target": 22,
 										"typeArguments": [
 											{
 												"type": "typeOperator",
@@ -873,7 +2504,7 @@
 													"type": "array",
 													"elementType": {
 														"type": "reference",
-														"target": 65,
+														"target": 94,
 														"name": "SnapshotMeta",
 														"package": "@anvilkit/plugin-version-history"
 													}
@@ -889,8 +2520,173 @@
 					}
 				},
 				{
-					"id": 38,
+					"id": 50,
 					"name": "load",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 51,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 52,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"parameters": [
+										{
+											"id": 53,
+											"name": "id",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": 22,
+										"typeArguments": [
+											{
+												"type": "reference",
+												"target": {
+													"packageName": "@anvilkit/core",
+													"packagePath": "src/types/ir.ts",
+													"qualifiedName": "PageIR"
+												},
+												"name": "PageIR",
+												"package": "@anvilkit/core"
+											}
+										],
+										"name": "MaybePromise",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 83,
+					"name": "presence",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reference",
+						"target": 84,
+						"name": "SnapshotAdapterPresence",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				},
+				{
+					"id": 46,
+					"name": "query",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional paginated/filtered/sorted view over the same metadata "
+							},
+							{
+								"kind": "code",
+								"text": "`list()`"
+							},
+							{
+								"kind": "text",
+								"text": "\nreturns. Additive and fully backward compatible — adapters that omit it\nare unaffected, and callers must feature-detect it. Reference adapters\nimplement it by delegating to "
+							},
+							{
+								"kind": "code",
+								"text": "`querySnapshots`"
+							},
+							{
+								"kind": "text",
+								"text": " from "
+							},
+							{
+								"kind": "code",
+								"text": "`./utils/query.js`"
+							},
+							{
+								"kind": "text",
+								"text": "."
+							}
+						]
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 47,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 48,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"parameters": [
+										{
+											"id": 49,
+											"name": "options",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"target": 115,
+												"name": "SnapshotQuery",
+												"package": "@anvilkit/plugin-version-history"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": 22,
+										"typeArguments": [
+											{
+												"type": "reference",
+												"target": 112,
+												"name": "SnapshotPage",
+												"package": "@anvilkit/plugin-version-history"
+											}
+										],
+										"name": "MaybePromise",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 38,
+					"name": "save",
 					"variant": "declaration",
 					"kind": 1024,
 					"flags": {
@@ -914,81 +2710,6 @@
 									"parameters": [
 										{
 											"id": 41,
-											"name": "id",
-											"variant": "param",
-											"kind": 32768,
-											"flags": {},
-											"type": {
-												"type": "intrinsic",
-												"name": "string"
-											}
-										}
-									],
-									"type": {
-										"type": "reference",
-										"target": 14,
-										"typeArguments": [
-											{
-												"type": "reference",
-												"target": {
-													"packageName": "@anvilkit/core",
-													"packagePath": "src/types/ir.ts",
-													"qualifiedName": "PageIR"
-												},
-												"name": "PageIR",
-												"package": "@anvilkit/core"
-											}
-										],
-										"name": "MaybePromise",
-										"package": "@anvilkit/plugin-version-history"
-									}
-								}
-							]
-						}
-					}
-				},
-				{
-					"id": 54,
-					"name": "presence",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isOptional": true,
-						"isReadonly": true
-					},
-					"type": {
-						"type": "reference",
-						"target": 55,
-						"name": "SnapshotAdapterPresence",
-						"package": "@anvilkit/plugin-version-history"
-					}
-				},
-				{
-					"id": 30,
-					"name": "save",
-					"variant": "declaration",
-					"kind": 1024,
-					"flags": {
-						"isReadonly": true
-					},
-					"type": {
-						"type": "reflection",
-						"declaration": {
-							"id": 31,
-							"name": "__type",
-							"variant": "declaration",
-							"kind": 65536,
-							"flags": {},
-							"signatures": [
-								{
-									"id": 32,
-									"name": "__type",
-									"variant": "signature",
-									"kind": 4096,
-									"flags": {},
-									"parameters": [
-										{
-											"id": 33,
 											"name": "ir",
 											"variant": "param",
 											"kind": 32768,
@@ -1005,7 +2726,7 @@
 											}
 										},
 										{
-											"id": 34,
+											"id": 42,
 											"name": "meta",
 											"variant": "param",
 											"kind": 32768,
@@ -1028,7 +2749,7 @@
 														"typeArguments": [
 															{
 																"type": "reference",
-																"target": 65,
+																"target": 94,
 																"name": "SnapshotMeta",
 																"package": "@anvilkit/plugin-version-history"
 															},
@@ -1057,7 +2778,7 @@
 									],
 									"type": {
 										"type": "reference",
-										"target": 14,
+										"target": 22,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -1073,7 +2794,7 @@
 					}
 				},
 				{
-					"id": 46,
+					"id": 75,
 					"name": "subscribe",
 					"variant": "declaration",
 					"kind": 1024,
@@ -1084,21 +2805,21 @@
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 47,
+							"id": 76,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"signatures": [
 								{
-									"id": 48,
+									"id": 77,
 									"name": "__type",
 									"variant": "signature",
 									"kind": 4096,
 									"flags": {},
 									"parameters": [
 										{
-											"id": 49,
+											"id": 78,
 											"name": "onUpdate",
 											"variant": "param",
 											"kind": 32768,
@@ -1106,21 +2827,21 @@
 											"type": {
 												"type": "reflection",
 												"declaration": {
-													"id": 50,
+													"id": 79,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
 													"flags": {},
 													"signatures": [
 														{
-															"id": 51,
+															"id": 80,
 															"name": "__type",
 															"variant": "signature",
 															"kind": 4096,
 															"flags": {},
 															"parameters": [
 																{
-																	"id": 52,
+																	"id": 81,
 																	"name": "ir",
 																	"variant": "param",
 																	"kind": 32768,
@@ -1137,7 +2858,7 @@
 																	}
 																},
 																{
-																	"id": 53,
+																	"id": 82,
 																	"name": "peer",
 																	"variant": "param",
 																	"kind": 32768,
@@ -1146,7 +2867,7 @@
 																	},
 																	"type": {
 																		"type": "reference",
-																		"target": 16,
+																		"target": 24,
 																		"name": "PeerInfo",
 																		"package": "@anvilkit/plugin-version-history"
 																	}
@@ -1164,8 +2885,151 @@
 									],
 									"type": {
 										"type": "reference",
-										"target": 71,
+										"target": 125,
 										"name": "Unsubscribe",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 70,
+					"name": "updateMeta",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Optional metadata update. Patches the mutable, host-curated fields of a\nstored snapshot's metadata (the "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "SnapshotMetaPatch",
+								"target": 105
+							},
+							{
+								"kind": "text",
+								"text": " subset —\nlabel/tags/milestone/protected/author/notes) in place, leaving its\n"
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": "/delta-chain record and identity fields ("
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": "/"
+							},
+							{
+								"kind": "code",
+								"text": "`savedAt`"
+							},
+							{
+								"kind": "text",
+								"text": "/\n"
+							},
+							{
+								"kind": "code",
+								"text": "`pageIRHash`"
+							},
+							{
+								"kind": "text",
+								"text": "/"
+							},
+							{
+								"kind": "code",
+								"text": "`delta`"
+							},
+							{
+								"kind": "text",
+								"text": ") untouched. Omitted patch fields are left unchanged.\n\nAdditive and fully backward compatible — adapters that omit it are\nunaffected and callers must feature-detect it. Throws a\n"
+							},
+							{
+								"kind": "code",
+								"text": "`SNAPSHOT_NOT_FOUND`"
+							},
+							{
+								"kind": "text",
+								"text": " "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryError",
+								"target": 204
+							},
+							{
+								"kind": "text",
+								"text": " for an unknown id."
+							}
+						]
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 71,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"signatures": [
+								{
+									"id": 72,
+									"name": "__type",
+									"variant": "signature",
+									"kind": 4096,
+									"flags": {},
+									"parameters": [
+										{
+											"id": 73,
+											"name": "id",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "string"
+											}
+										},
+										{
+											"id": 74,
+											"name": "patch",
+											"variant": "param",
+											"kind": 32768,
+											"flags": {},
+											"type": {
+												"type": "reference",
+												"target": 105,
+												"name": "SnapshotMetaPatch",
+												"package": "@anvilkit/plugin-version-history"
+											}
+										}
+									],
+									"type": {
+										"type": "reference",
+										"target": 22,
+										"typeArguments": [
+											{
+												"type": "intrinsic",
+												"name": "void"
+											}
+										],
+										"name": "MaybePromise",
 										"package": "@anvilkit/plugin-version-history"
 									}
 								}
@@ -1178,39 +3042,44 @@
 				{
 					"title": "Properties",
 					"children": [
-						42,
-						35,
-						38,
 						54,
-						30,
-						46
+						58,
+						62,
+						65,
+						43,
+						50,
+						83,
+						46,
+						38,
+						75,
+						70
 					]
 				}
 			]
 		},
 		{
-			"id": 55,
+			"id": 84,
 			"name": "SnapshotAdapterPresence",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 59,
+					"id": 88,
 					"name": "onPeerChange",
 					"variant": "declaration",
 					"kind": 2048,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 60,
+							"id": 89,
 							"name": "onPeerChange",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 61,
+									"id": 90,
 									"name": "callback",
 									"variant": "param",
 									"kind": 32768,
@@ -1218,21 +3087,21 @@
 									"type": {
 										"type": "reflection",
 										"declaration": {
-											"id": 62,
+											"id": 91,
 											"name": "__type",
 											"variant": "declaration",
 											"kind": 65536,
 											"flags": {},
 											"signatures": [
 												{
-													"id": 63,
+													"id": 92,
 													"name": "__type",
 													"variant": "signature",
 													"kind": 4096,
 													"flags": {},
 													"parameters": [
 														{
-															"id": 64,
+															"id": 93,
 															"name": "peers",
 															"variant": "param",
 															"kind": 32768,
@@ -1244,7 +3113,7 @@
 																	"type": "array",
 																	"elementType": {
 																		"type": "reference",
-																		"target": 25,
+																		"target": 33,
 																		"name": "PresenceState",
 																		"package": "@anvilkit/plugin-version-history"
 																	}
@@ -1264,7 +3133,7 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 71,
+								"target": 125,
 								"name": "Unsubscribe",
 								"package": "@anvilkit/plugin-version-history"
 							}
@@ -1272,28 +3141,28 @@
 					]
 				},
 				{
-					"id": 56,
+					"id": 85,
 					"name": "update",
 					"variant": "declaration",
 					"kind": 2048,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 57,
+							"id": 86,
 							"name": "update",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 58,
+									"id": 87,
 									"name": "state",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 25,
+										"target": 33,
 										"name": "PresenceState",
 										"package": "@anvilkit/plugin-version-history"
 									}
@@ -1311,21 +3180,43 @@
 				{
 					"title": "Methods",
 					"children": [
-						59,
-						56
+						88,
+						85
 					]
 				}
 			]
 		},
 		{
-			"id": 65,
+			"id": 94,
 			"name": "SnapshotMeta",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 70,
+					"id": 103,
+					"name": "author",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Free-form author / actor attribution for audit trails (e.g. a user id,\nemail, or display name). The package treats it as an opaque string and\nnever parses it.\n\nOptional and backward compatible — older records omit it."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 99,
 					"name": "delta",
 					"variant": "declaration",
 					"kind": 1024,
@@ -1367,13 +3258,13 @@
 					},
 					"type": {
 						"type": "reference",
-						"target": 74,
+						"target": 139,
 						"name": "IRDiff",
 						"package": "@anvilkit/plugin-version-history"
 					}
 				},
 				{
-					"id": 66,
+					"id": 95,
 					"name": "id",
 					"variant": "declaration",
 					"kind": 1024,
@@ -1386,7 +3277,7 @@
 					}
 				},
 				{
-					"id": 67,
+					"id": 96,
 					"name": "label",
 					"variant": "declaration",
 					"kind": 1024,
@@ -1400,7 +3291,69 @@
 					}
 				},
 				{
-					"id": 69,
+					"id": 101,
+					"name": "milestone",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Marks this snapshot as a named milestone / checkpoint a host wants to\nsurface prominently in version-history UIs (vs. an ordinary autosave).\n\nOptional and backward compatible — older records omit it, which is\nequivalent to "
+							},
+							{
+								"kind": "code",
+								"text": "`false`"
+							},
+							{
+								"kind": "text",
+								"text": " (not a milestone)."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 104,
+					"name": "notes",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Free-form, human-readable notes describing the snapshot — longer-form\ncontext than the short "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "SnapshotMeta.label",
+								"target": 96
+							},
+							{
+								"kind": "text",
+								"text": ".\n\nOptional and backward compatible — older records omit it."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 98,
 					"name": "pageIRHash",
 					"variant": "declaration",
 					"kind": 1024,
@@ -1413,12 +3366,376 @@
 					}
 				},
 				{
-					"id": 68,
+					"id": 102,
+					"name": "protected",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "When "
+							},
+							{
+								"kind": "code",
+								"text": "`true`"
+							},
+							{
+								"kind": "text",
+								"text": ", the snapshot is exempt from automatic retention eviction:\n"
+							},
+							{
+								"kind": "code",
+								"text": "`planRetention`"
+							},
+							{
+								"kind": "text",
+								"text": " reads this flag and never places a protected snapshot in\nits delete plan, regardless of age or count pressure.\n\nOptional and backward compatible — older records omit it, which is\nequivalent to \"not protected\"."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 97,
 					"name": "savedAt",
 					"variant": "declaration",
 					"kind": 1024,
 					"flags": {
 						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 100,
+					"name": "tags",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Host-assigned labels for grouping, filtering, and searching snapshots\n(e.g. "
+							},
+							{
+								"kind": "code",
+								"text": "`[\"release\", \"qa\"]`"
+							},
+							{
+								"kind": "text",
+								"text": "). Set at save time via\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "SnapshotAdapter.save",
+								"target": 38
+							},
+							{
+								"kind": "text",
+								"text": " or amended later with\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "SnapshotAdapter.updateMeta",
+								"target": 70
+							},
+							{
+								"kind": "text",
+								"text": ".\n\nOptional and backward compatible — records written before tagging\nexisted omit it (treated as \"no tags\"); it is never required."
+							}
+						]
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						103,
+						99,
+						95,
+						96,
+						101,
+						104,
+						98,
+						102,
+						97,
+						100
+					]
+				}
+			]
+		},
+		{
+			"id": 105,
+			"name": "SnapshotMetaPatch",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "The mutable, host-curated subset of "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotMeta",
+						"target": 94
+					},
+					{
+						"kind": "text",
+						"text": " that\n"
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotAdapter.updateMeta",
+						"target": 70
+					},
+					{
+						"kind": "text",
+						"text": " may patch in place. The identity /\nprovenance fields ("
+					},
+					{
+						"kind": "code",
+						"text": "`id`"
+					},
+					{
+						"kind": "text",
+						"text": ", "
+					},
+					{
+						"kind": "code",
+						"text": "`savedAt`"
+					},
+					{
+						"kind": "text",
+						"text": ", "
+					},
+					{
+						"kind": "code",
+						"text": "`pageIRHash`"
+					},
+					{
+						"kind": "text",
+						"text": ", "
+					},
+					{
+						"kind": "code",
+						"text": "`delta`"
+					},
+					{
+						"kind": "text",
+						"text": ") are intentionally\nexcluded — they describe *what* was captured and *when*, and never change\nafter a snapshot is written.\n\nEvery field is optional; an omitted field is left unchanged by the update."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 110,
+					"name": "author",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 106,
+					"name": "label",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 108,
+					"name": "milestone",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 111,
+					"name": "notes",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 109,
+					"name": "protected",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					}
+				},
+				{
+					"id": 107,
+					"name": "tags",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						110,
+						106,
+						108,
+						111,
+						109,
+						107
+					]
+				}
+			]
+		},
+		{
+			"id": 112,
+			"name": "SnapshotPage",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A single page of snapshot metadata returned by "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotAdapter.query",
+						"target": 46
+					},
+					{
+						"kind": "text",
+						"text": "."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 113,
+					"name": "items",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "reference",
+								"target": 94,
+								"name": "SnapshotMeta",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						}
+					}
+				},
+				{
+					"id": 114,
+					"name": "nextCursor",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Resume token for the next page (the last item's "
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": "). Absent on the\nfinal page — i.e. when no further items remain."
+							}
+						]
 					},
 					"type": {
 						"type": "intrinsic",
@@ -1430,17 +3747,684 @@
 				{
 					"title": "Properties",
 					"children": [
-						70,
-						66,
-						67,
-						69,
-						68
+						113,
+						114
 					]
 				}
 			]
 		},
 		{
-			"id": 74,
+			"id": 115,
+			"name": "SnapshotQuery",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Optional query for paginating, filtering, and sorting snapshot metadata\nvia "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotAdapter.query",
+						"target": 46
+					},
+					{
+						"kind": "text",
+						"text": ". Every field is optional; an empty query\n("
+					},
+					{
+						"kind": "code",
+						"text": "`{}`"
+					},
+					{
+						"kind": "text",
+						"text": ") is equivalent to "
+					},
+					{
+						"kind": "code",
+						"text": "`list()`"
+					},
+					{
+						"kind": "text",
+						"text": " (all metadata, input order)."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 116,
+					"name": "cursor",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Opaque resume token — the "
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": " of the last item from a previous page.\nResults continue immediately after it in the resolved order. An unknown\ncursor (e.g. the referenced snapshot was deleted) restarts from the head."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 122,
+					"name": "filter",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 123,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"children": [
+								{
+									"id": 124,
+									"name": "label",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isOptional": true,
+										"isReadonly": true
+									},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Case-insensitive substring match against "
+											},
+											{
+												"kind": "inline-tag",
+												"tag": "@link",
+												"text": "SnapshotMeta.label",
+												"target": 96
+											},
+											{
+												"kind": "text",
+												"text": "."
+											}
+										]
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										124
+									]
+								}
+							]
+						}
+					}
+				},
+				{
+					"id": 117,
+					"name": "limit",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Maximum number of items to return. An omitted, non-finite, or\nnon-positive value returns all remaining items."
+							}
+						]
+					},
+					"type": {
+						"type": "intrinsic",
+						"name": "number"
+					}
+				},
+				{
+					"id": 118,
+					"name": "sort",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 119,
+							"name": "__type",
+							"variant": "declaration",
+							"kind": 65536,
+							"flags": {},
+							"children": [
+								{
+									"id": 121,
+									"name": "direction",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isReadonly": true
+									},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "literal",
+												"value": "asc"
+											},
+											{
+												"type": "literal",
+												"value": "desc"
+											}
+										]
+									}
+								},
+								{
+									"id": 120,
+									"name": "field",
+									"variant": "declaration",
+									"kind": 1024,
+									"flags": {
+										"isReadonly": true
+									},
+									"type": {
+										"type": "union",
+										"types": [
+											{
+												"type": "literal",
+												"value": "savedAt"
+											},
+											{
+												"type": "literal",
+												"value": "label"
+											}
+										]
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										121,
+										120
+									]
+								}
+							]
+						}
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						116,
+						122,
+						117,
+						118
+					]
+				}
+			]
+		},
+		{
+			"id": 128,
+			"name": "VersionHistoryExport",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Self-contained, JSON-serializable archive of every snapshot in an adapter —\nproduced by "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotAdapter.exportAll",
+						"target": 62
+					},
+					{
+						"kind": "text",
+						"text": " and consumed by\n"
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotAdapter.importAll",
+						"target": 65
+					},
+					{
+						"kind": "text",
+						"text": ". Each entry carries a full "
+					},
+					{
+						"kind": "code",
+						"text": "`PageIR`"
+					},
+					{
+						"kind": "text",
+						"text": ", so a\nround-trip "
+					},
+					{
+						"kind": "code",
+						"text": "`importAll(exportAll())`"
+					},
+					{
+						"kind": "text",
+						"text": " into a fresh adapter reproduces loadable\nsnapshots.\n\n"
+					},
+					{
+						"kind": "code",
+						"text": "`version`"
+					},
+					{
+						"kind": "text",
+						"text": " is the archive schema version (currently "
+					},
+					{
+						"kind": "code",
+						"text": "`1`"
+					},
+					{
+						"kind": "text",
+						"text": ") — bump it if the\nenvelope shape ever changes so importers can refuse or migrate older files.\nThis is intentionally NOT the adapter's internal delta-chain format."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 130,
+					"name": "snapshots",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "typeOperator",
+						"operator": "readonly",
+						"target": {
+							"type": "array",
+							"elementType": {
+								"type": "reference",
+								"target": 131,
+								"name": "VersionHistoryExportEntry",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						}
+					}
+				},
+				{
+					"id": 129,
+					"name": "version",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "literal",
+						"value": 1
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						130,
+						129
+					]
+				}
+			]
+		},
+		{
+			"id": 131,
+			"name": "VersionHistoryExportEntry",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "A single entry in a "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "VersionHistoryExport",
+						"target": 128
+					},
+					{
+						"kind": "text",
+						"text": ": a snapshot's metadata\npaired with its fully-materialized "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "PageIR",
+						"target": {
+							"packageName": "@anvilkit/core",
+							"packagePath": "src/types/ir.ts",
+							"qualifiedName": "PageIR"
+						}
+					},
+					{
+						"kind": "text",
+						"text": ".\n\nUnlike an adapter's internal delta-chain record, the "
+					},
+					{
+						"kind": "code",
+						"text": "`ir`"
+					},
+					{
+						"kind": "text",
+						"text": " here is a\ncomplete, standalone page (the chain is reconstructed during export), so\nimporting the entry reproduces a directly loadable snapshot."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 133,
+					"name": "ir",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "@anvilkit/core",
+							"packagePath": "src/types/ir.ts",
+							"qualifiedName": "PageIR"
+						},
+						"name": "PageIR",
+						"package": "@anvilkit/core"
+					}
+				},
+				{
+					"id": 132,
+					"name": "meta",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isReadonly": true
+					},
+					"type": {
+						"type": "reference",
+						"target": 94,
+						"name": "SnapshotMeta",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						133,
+						132
+					]
+				}
+			]
+		},
+		{
+			"id": 134,
+			"name": "VersionHistoryImportOptions",
+			"variant": "declaration",
+			"kind": 256,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Options for "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotAdapter.importAll",
+						"target": 65
+					},
+					{
+						"kind": "text",
+						"text": ".\n\n- "
+					},
+					{
+						"kind": "code",
+						"text": "`\"merge\"`"
+					},
+					{
+						"kind": "text",
+						"text": " (default) — add the archive's snapshots to the existing store,\n  overwriting any whose "
+					},
+					{
+						"kind": "code",
+						"text": "`id`"
+					},
+					{
+						"kind": "text",
+						"text": " already exists and appending the rest.\n- "
+					},
+					{
+						"kind": "code",
+						"text": "`\"replace\"`"
+					},
+					{
+						"kind": "text",
+						"text": " — clear the existing store first, then import the archive."
+					}
+				]
+			},
+			"children": [
+				{
+					"id": 135,
+					"name": "mode",
+					"variant": "declaration",
+					"kind": 1024,
+					"flags": {
+						"isOptional": true,
+						"isReadonly": true
+					},
+					"type": {
+						"type": "union",
+						"types": [
+							{
+								"type": "literal",
+								"value": "replace"
+							},
+							{
+								"type": "literal",
+								"value": "merge"
+							}
+						]
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						135
+					]
+				}
+			]
+		},
+		{
+			"id": 18,
+			"name": "BuildPageIR",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Host-provided bridge that converts the live editor document returned by\n"
+					},
+					{
+						"kind": "code",
+						"text": "`ctx.getData()`"
+					},
+					{
+						"kind": "text",
+						"text": " (in a real "
+					},
+					{
+						"kind": "code",
+						"text": "`<Studio>`"
+					},
+					{
+						"kind": "text",
+						"text": " session this is Puck "
+					},
+					{
+						"kind": "code",
+						"text": "`Data`"
+					},
+					{
+						"kind": "text",
+						"text": ", not\n"
+					},
+					{
+						"kind": "code",
+						"text": "`PageIR`"
+					},
+					{
+						"kind": "text",
+						"text": ") into the "
+					},
+					{
+						"kind": "code",
+						"text": "`PageIR`"
+					},
+					{
+						"kind": "text",
+						"text": " the snapshot adapter persists.\n\nThreaded through "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "CreateVersionHistoryPluginOptions.buildIR",
+						"target": 11
+					},
+					{
+						"kind": "text",
+						"text": ". The\nheader save action calls it only when the raw data is not already a\n"
+					},
+					{
+						"kind": "code",
+						"text": "`PageIR`"
+					},
+					{
+						"kind": "text",
+						"text": " (the fast-path), so passing it is what makes \"Save snapshot\"\npersist in production sessions. Return "
+					},
+					{
+						"kind": "code",
+						"text": "`null`"
+					},
+					{
+						"kind": "text",
+						"text": " to signal the current data\ncannot be converted and the save should be skipped. May be sync or async."
+					}
+				]
+			},
+			"type": {
+				"type": "reflection",
+				"declaration": {
+					"id": 19,
+					"name": "__type",
+					"variant": "declaration",
+					"kind": 65536,
+					"flags": {},
+					"signatures": [
+						{
+							"id": 20,
+							"name": "__type",
+							"variant": "signature",
+							"kind": 4096,
+							"flags": {},
+							"parameters": [
+								{
+									"id": 21,
+									"name": "data",
+									"variant": "param",
+									"kind": 32768,
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "unknown"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"target": 22,
+								"typeArguments": [
+									{
+										"type": "union",
+										"types": [
+											{
+												"type": "reference",
+												"target": {
+													"packageName": "@anvilkit/core",
+													"packagePath": "src/types/ir.ts",
+													"qualifiedName": "PageIR"
+												},
+												"name": "PageIR",
+												"package": "@anvilkit/core"
+											},
+											{
+												"type": "literal",
+												"value": null
+											}
+										]
+									}
+								],
+								"name": "MaybePromise",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						}
+					]
+				}
+			}
+		},
+		{
+			"id": 139,
 			"name": "IRDiff",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -1452,7 +4436,7 @@
 					"type": "array",
 					"elementType": {
 						"type": "reference",
-						"target": 75,
+						"target": 140,
 						"name": "IRDiffOp",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -1460,7 +4444,7 @@
 			}
 		},
 		{
-			"id": 75,
+			"id": 140,
 			"name": "IRDiffOp",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -1519,14 +4503,14 @@
 					{
 						"type": "reflection",
 						"declaration": {
-							"id": 76,
+							"id": 141,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"children": [
 								{
-									"id": 77,
+									"id": 142,
 									"name": "kind",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1537,7 +4521,7 @@
 									}
 								},
 								{
-									"id": 79,
+									"id": 144,
 									"name": "node",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1554,7 +4538,7 @@
 									}
 								},
 								{
-									"id": 78,
+									"id": 143,
 									"name": "path",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1569,9 +4553,9 @@
 								{
 									"title": "Properties",
 									"children": [
-										77,
-										79,
-										78
+										142,
+										144,
+										143
 									]
 								}
 							]
@@ -1580,14 +4564,14 @@
 					{
 						"type": "reflection",
 						"declaration": {
-							"id": 80,
+							"id": 145,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"children": [
 								{
-									"id": 81,
+									"id": 146,
 									"name": "kind",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1598,7 +4582,7 @@
 									}
 								},
 								{
-									"id": 83,
+									"id": 148,
 									"name": "nodeId",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1609,7 +4593,7 @@
 									}
 								},
 								{
-									"id": 82,
+									"id": 147,
 									"name": "path",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1624,9 +4608,9 @@
 								{
 									"title": "Properties",
 									"children": [
-										81,
-										83,
-										82
+										146,
+										148,
+										147
 									]
 								}
 							]
@@ -1635,14 +4619,14 @@
 					{
 						"type": "reflection",
 						"declaration": {
-							"id": 84,
+							"id": 149,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"children": [
 								{
-									"id": 86,
+									"id": 151,
 									"name": "from",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1653,7 +4637,7 @@
 									}
 								},
 								{
-									"id": 85,
+									"id": 150,
 									"name": "kind",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1664,7 +4648,7 @@
 									}
 								},
 								{
-									"id": 88,
+									"id": 153,
 									"name": "nodeId",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1675,7 +4659,7 @@
 									}
 								},
 								{
-									"id": 87,
+									"id": 152,
 									"name": "to",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1690,10 +4674,10 @@
 								{
 									"title": "Properties",
 									"children": [
-										86,
-										85,
-										88,
-										87
+										151,
+										150,
+										153,
+										152
 									]
 								}
 							]
@@ -1702,14 +4686,14 @@
 					{
 						"type": "reflection",
 						"declaration": {
-							"id": 89,
+							"id": 154,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"children": [
 								{
-									"id": 94,
+									"id": 159,
 									"name": "after",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1720,7 +4704,7 @@
 									}
 								},
 								{
-									"id": 93,
+									"id": 158,
 									"name": "before",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1731,7 +4715,7 @@
 									}
 								},
 								{
-									"id": 92,
+									"id": 157,
 									"name": "key",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1742,7 +4726,7 @@
 									}
 								},
 								{
-									"id": 90,
+									"id": 155,
 									"name": "kind",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1753,7 +4737,7 @@
 									}
 								},
 								{
-									"id": 91,
+									"id": 156,
 									"name": "path",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1768,11 +4752,11 @@
 								{
 									"title": "Properties",
 									"children": [
-										94,
-										93,
-										92,
-										90,
-										91
+										159,
+										158,
+										157,
+										155,
+										156
 									]
 								}
 							]
@@ -1781,14 +4765,14 @@
 					{
 						"type": "reflection",
 						"declaration": {
-							"id": 95,
+							"id": 160,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"children": [
 								{
-									"id": 99,
+									"id": 164,
 									"name": "after",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1806,7 +4790,7 @@
 									}
 								},
 								{
-									"id": 98,
+									"id": 163,
 									"name": "before",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1824,7 +4808,7 @@
 									}
 								},
 								{
-									"id": 96,
+									"id": 161,
 									"name": "kind",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1835,7 +4819,7 @@
 									}
 								},
 								{
-									"id": 97,
+									"id": 162,
 									"name": "path",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1850,10 +4834,10 @@
 								{
 									"title": "Properties",
 									"children": [
-										99,
-										98,
-										96,
-										97
+										164,
+										163,
+										161,
+										162
 									]
 								}
 							]
@@ -1862,14 +4846,14 @@
 					{
 						"type": "reflection",
 						"declaration": {
-							"id": 100,
+							"id": 165,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
 							"flags": {},
 							"children": [
 								{
-									"id": 105,
+									"id": 170,
 									"name": "after",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1880,7 +4864,7 @@
 									}
 								},
 								{
-									"id": 104,
+									"id": 169,
 									"name": "before",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1891,7 +4875,7 @@
 									}
 								},
 								{
-									"id": 103,
+									"id": 168,
 									"name": "key",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1919,7 +4903,7 @@
 									}
 								},
 								{
-									"id": 101,
+									"id": 166,
 									"name": "kind",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1930,7 +4914,7 @@
 									}
 								},
 								{
-									"id": 102,
+									"id": 167,
 									"name": "path",
 									"variant": "declaration",
 									"kind": 1024,
@@ -1945,11 +4929,11 @@
 								{
 									"title": "Properties",
 									"children": [
-										105,
-										104,
-										103,
-										101,
-										102
+										170,
+										169,
+										168,
+										166,
+										167
 									]
 								}
 							]
@@ -1959,14 +4943,14 @@
 			}
 		},
 		{
-			"id": 14,
+			"id": 22,
 			"name": "MaybePromise",
 			"variant": "declaration",
 			"kind": 2097152,
 			"flags": {},
 			"typeParameters": [
 				{
-					"id": 15,
+					"id": 23,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -1978,7 +4962,7 @@
 				"types": [
 					{
 						"type": "reference",
-						"target": 15,
+						"target": 23,
 						"name": "T",
 						"package": "@anvilkit/plugin-version-history",
 						"refersToTypeParameter": true
@@ -1993,7 +4977,7 @@
 						"typeArguments": [
 							{
 								"type": "reference",
-								"target": 15,
+								"target": 23,
 								"name": "T",
 								"package": "@anvilkit/plugin-version-history",
 								"refersToTypeParameter": true
@@ -2006,7 +4990,109 @@
 			}
 		},
 		{
-			"id": 71,
+			"id": 243,
+			"name": "RetentionAdapter",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "The slice of "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "SnapshotAdapter",
+						"target": 37
+					},
+					{
+						"kind": "text",
+						"text": " "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "runRetention",
+						"target": 261
+					},
+					{
+						"kind": "text",
+						"text": " needs: "
+					},
+					{
+						"kind": "code",
+						"text": "`list`"
+					},
+					{
+						"kind": "text",
+						"text": " to\nread current metadata, plus the optional "
+					},
+					{
+						"kind": "code",
+						"text": "`deleteMany`"
+					},
+					{
+						"kind": "text",
+						"text": " / "
+					},
+					{
+						"kind": "code",
+						"text": "`delete`"
+					},
+					{
+						"kind": "text",
+						"text": " it uses to\napply the plan. Any full "
+					},
+					{
+						"kind": "code",
+						"text": "`SnapshotAdapter`"
+					},
+					{
+						"kind": "text",
+						"text": " satisfies it."
+					}
+				]
+			},
+			"type": {
+				"type": "reference",
+				"target": {
+					"packageName": "typescript",
+					"packagePath": "lib/lib.es5.d.ts",
+					"qualifiedName": "Pick"
+				},
+				"typeArguments": [
+					{
+						"type": "reference",
+						"target": 37,
+						"name": "SnapshotAdapter",
+						"package": "@anvilkit/plugin-version-history"
+					},
+					{
+						"type": "union",
+						"types": [
+							{
+								"type": "literal",
+								"value": "list"
+							},
+							{
+								"type": "literal",
+								"value": "delete"
+							},
+							{
+								"type": "literal",
+								"value": "deleteMany"
+							}
+						]
+					}
+				],
+				"name": "Pick",
+				"package": "typescript"
+			}
+		},
+		{
+			"id": 125,
 			"name": "Unsubscribe",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -2014,14 +5100,14 @@
 			"type": {
 				"type": "reflection",
 				"declaration": {
-					"id": 72,
+					"id": 126,
 					"name": "__type",
 					"variant": "declaration",
 					"kind": 65536,
 					"flags": {},
 					"signatures": [
 						{
-							"id": 73,
+							"id": 127,
 							"name": "__type",
 							"variant": "signature",
 							"kind": 4096,
@@ -2036,14 +5122,194 @@
 			}
 		},
 		{
-			"id": 142,
+			"id": 214,
 			"name": "VersionHistoryErrorCode",
 			"variant": "declaration",
 			"kind": 2097152,
 			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Discriminant carried by every "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "VersionHistoryError",
+						"target": 204
+					},
+					{
+						"kind": "text",
+						"text": ". Callers switch on\r\n"
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "VersionHistoryError.code",
+						"target": 209
+					},
+					{
+						"kind": "text",
+						"text": " to recover by category instead of\r\nstring-matching "
+					},
+					{
+						"kind": "code",
+						"text": "`message`"
+					},
+					{
+						"kind": "text",
+						"text": ".\r\n\r\n- "
+					},
+					{
+						"kind": "code",
+						"text": "`\"CONFLICT\"`"
+					},
+					{
+						"kind": "text",
+						"text": " — an optimistic-concurrency check failed: the live document\r\n  changed since a restore was planned (see "
+					},
+					{
+						"kind": "code",
+						"text": "`prepareRestore`"
+					},
+					{
+						"kind": "text",
+						"text": "). Retry with\r\n  "
+					},
+					{
+						"kind": "code",
+						"text": "`force`"
+					},
+					{
+						"kind": "text",
+						"text": " to override.\r\n- "
+					},
+					{
+						"kind": "code",
+						"text": "`\"PERMISSION_DENIED\"`"
+					},
+					{
+						"kind": "text",
+						"text": " — the host/adapter rejected a "
+					},
+					{
+						"kind": "code",
+						"text": "`save`"
+					},
+					{
+						"kind": "text",
+						"text": "/"
+					},
+					{
+						"kind": "code",
+						"text": "`load`"
+					},
+					{
+						"kind": "text",
+						"text": "/"
+					},
+					{
+						"kind": "code",
+						"text": "`list`"
+					},
+					{
+						"kind": "text",
+						"text": "/\r\n  "
+					},
+					{
+						"kind": "code",
+						"text": "`delete`"
+					},
+					{
+						"kind": "text",
+						"text": "/"
+					},
+					{
+						"kind": "code",
+						"text": "`restore`"
+					},
+					{
+						"kind": "text",
+						"text": " on authorization grounds (the actor is not allowed to\r\n  perform it). Surfaces with remote or collaborative adapters; the request\r\n  is well-formed but forbidden, so retrying without new credentials will not\r\n  help.\r\n- "
+					},
+					{
+						"kind": "code",
+						"text": "`\"SNAPSHOT_NOT_FOUND\"`"
+					},
+					{
+						"kind": "text",
+						"text": " — "
+					},
+					{
+						"kind": "code",
+						"text": "`load`"
+					},
+					{
+						"kind": "text",
+						"text": "/"
+					},
+					{
+						"kind": "code",
+						"text": "`delete`"
+					},
+					{
+						"kind": "text",
+						"text": " referenced an id that does not\r\n  exist in the adapter.\r\n- "
+					},
+					{
+						"kind": "code",
+						"text": "`\"STORAGE_CORRUPT\"`"
+					},
+					{
+						"kind": "text",
+						"text": " — a persisted payload could not be parsed or decoded.\r\n- "
+					},
+					{
+						"kind": "code",
+						"text": "`\"STORAGE_QUOTA_EXCEEDED\"`"
+					},
+					{
+						"kind": "text",
+						"text": " — the backing store rejected a write because it\r\n  is full (e.g. the "
+					},
+					{
+						"kind": "code",
+						"text": "`localStorage`"
+					},
+					{
+						"kind": "text",
+						"text": " quota).\r\n- "
+					},
+					{
+						"kind": "code",
+						"text": "`\"STORAGE_UNAVAILABLE\"`"
+					},
+					{
+						"kind": "text",
+						"text": " — the backing store is missing or inaccessible\r\n  (e.g. "
+					},
+					{
+						"kind": "code",
+						"text": "`localStorage`"
+					},
+					{
+						"kind": "text",
+						"text": " blocked in a sandboxed or private context)."
+					}
+				]
+			},
 			"type": {
 				"type": "union",
 				"types": [
+					{
+						"type": "literal",
+						"value": "CONFLICT"
+					},
+					{
+						"type": "literal",
+						"value": "PERMISSION_DENIED"
+					},
 					{
 						"type": "literal",
 						"value": "SNAPSHOT_NOT_FOUND"
@@ -2064,21 +5330,89 @@
 			}
 		},
 		{
-			"id": 113,
+			"id": 215,
+			"name": "VersionHistoryOperation",
+			"variant": "declaration",
+			"kind": 2097152,
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Version-history operations an adapter or host can gate on authorization.\r\nUsed to describe which action was denied in a "
+					},
+					{
+						"kind": "code",
+						"text": "`\"PERMISSION_DENIED\"`"
+					},
+					{
+						"kind": "text",
+						"text": "\r\n"
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "VersionHistoryError",
+						"target": 204
+					},
+					{
+						"kind": "text",
+						"text": " (see "
+					},
+					{
+						"kind": "inline-tag",
+						"tag": "@link",
+						"text": "createPermissionDeniedError",
+						"target": 200
+					},
+					{
+						"kind": "text",
+						"text": ")."
+					}
+				]
+			},
+			"type": {
+				"type": "union",
+				"types": [
+					{
+						"type": "literal",
+						"value": "save"
+					},
+					{
+						"type": "literal",
+						"value": "load"
+					},
+					{
+						"type": "literal",
+						"value": "list"
+					},
+					{
+						"type": "literal",
+						"value": "delete"
+					},
+					{
+						"type": "literal",
+						"value": "restore"
+					}
+				]
+			}
+		},
+		{
+			"id": 178,
 			"name": "applyDiff",
 			"variant": "declaration",
 			"kind": 64,
 			"flags": {},
 			"signatures": [
 				{
-					"id": 114,
+					"id": 179,
 					"name": "applyDiff",
 					"variant": "signature",
 					"kind": 4096,
 					"flags": {},
 					"parameters": [
 						{
-							"id": 115,
+							"id": 180,
 							"name": "a",
 							"variant": "param",
 							"kind": 32768,
@@ -2095,14 +5429,14 @@
 							}
 						},
 						{
-							"id": 116,
+							"id": 181,
 							"name": "diff",
 							"variant": "param",
 							"kind": 32768,
 							"flags": {},
 							"type": {
 								"type": "reference",
-								"target": 74,
+								"target": 139,
 								"name": "IRDiff",
 								"package": "@anvilkit/plugin-version-history"
 							}
@@ -2122,21 +5456,242 @@
 			]
 		},
 		{
-			"id": 11,
+			"id": 220,
+			"name": "checkRestoreConflict",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"signatures": [
+				{
+					"id": 221,
+					"name": "checkRestoreConflict",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Pure optimistic-concurrency check for a rollback. Hashes "
+							},
+							{
+								"kind": "code",
+								"text": "`currentIR`"
+							},
+							{
+								"kind": "text",
+								"text": " and\ncompares it to "
+							},
+							{
+								"kind": "code",
+								"text": "`expectedBaseHash`"
+							},
+							{
+								"kind": "text",
+								"text": ": a mismatch means the document changed\nunderneath the planned restore (a remote collaborator or a local edit),\nso blindly applying the snapshot would clobber that work.\n\nHas no side effects and never throws — it only reports. Use\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "prepareRestore",
+								"target": 228
+							},
+							{
+								"kind": "text",
+								"text": " when you want a throwing guard instead."
+							}
+						]
+					},
+					"parameters": [
+						{
+							"id": 222,
+							"name": "input",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 235,
+								"name": "RestoreConflictInput",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": 231,
+						"name": "RestoreConflict",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				}
+			]
+		},
+		{
+			"id": 200,
+			"name": "createPermissionDeniedError",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"signatures": [
+				{
+					"id": 201,
+					"name": "createPermissionDeniedError",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Convenience constructor for an authorization failure. Host and remote\r\nadapters call this when the current actor is not permitted to perform a\r\nversion-history "
+							},
+							{
+								"kind": "code",
+								"text": "`operation`"
+							},
+							{
+								"kind": "text",
+								"text": " ("
+							},
+							{
+								"kind": "code",
+								"text": "`\"save\"`"
+							},
+							{
+								"kind": "text",
+								"text": ", "
+							},
+							{
+								"kind": "code",
+								"text": "`\"load\"`"
+							},
+							{
+								"kind": "text",
+								"text": ", "
+							},
+							{
+								"kind": "code",
+								"text": "`\"list\"`"
+							},
+							{
+								"kind": "text",
+								"text": ", "
+							},
+							{
+								"kind": "code",
+								"text": "`\"delete\"`"
+							},
+							{
+								"kind": "text",
+								"text": ", or\r\n"
+							},
+							{
+								"kind": "code",
+								"text": "`\"restore\"`"
+							},
+							{
+								"kind": "text",
+								"text": "), yielding a "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryError",
+								"target": 204
+							},
+							{
+								"kind": "text",
+								"text": " whose\r\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryError.code",
+								"target": 209
+							},
+							{
+								"kind": "text",
+								"text": " is "
+							},
+							{
+								"kind": "code",
+								"text": "`\"PERMISSION_DENIED\"`"
+							},
+							{
+								"kind": "text",
+								"text": " so callers can\r\ndiscriminate it without string-matching the message.\r\n\r\nEquivalent to "
+							},
+							{
+								"kind": "code",
+								"text": "`new VersionHistoryError(\"PERMISSION_DENIED\", message)`"
+							},
+							{
+								"kind": "text",
+								"text": "; the\r\ndirect constructor remains available for fully custom messages. An optional\r\n"
+							},
+							{
+								"kind": "code",
+								"text": "`detail`"
+							},
+							{
+								"kind": "text",
+								"text": " is appended to the default message to explain the denial."
+							}
+						]
+					},
+					"parameters": [
+						{
+							"id": 202,
+							"name": "operation",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 215,
+								"name": "VersionHistoryOperation",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						},
+						{
+							"id": 203,
+							"name": "detail",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {
+								"isOptional": true
+							},
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": 204,
+						"name": "VersionHistoryError",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				}
+			]
+		},
+		{
+			"id": 15,
 			"name": "createVersionHistoryPlugin",
 			"variant": "declaration",
 			"kind": 64,
 			"flags": {},
 			"signatures": [
 				{
-					"id": 12,
+					"id": 16,
 					"name": "createVersionHistoryPlugin",
 					"variant": "signature",
 					"kind": 4096,
 					"flags": {},
 					"parameters": [
 						{
-							"id": 13,
+							"id": 17,
 							"name": "options",
 							"variant": "param",
 							"kind": 32768,
@@ -2175,21 +5730,21 @@
 			]
 		},
 		{
-			"id": 125,
+			"id": 190,
 			"name": "diffIR",
 			"variant": "declaration",
 			"kind": 64,
 			"flags": {},
 			"signatures": [
 				{
-					"id": 126,
+					"id": 191,
 					"name": "diffIR",
 					"variant": "signature",
 					"kind": 4096,
 					"flags": {},
 					"parameters": [
 						{
-							"id": 127,
+							"id": 192,
 							"name": "a",
 							"variant": "param",
 							"kind": 32768,
@@ -2206,7 +5761,7 @@
 							}
 						},
 						{
-							"id": 128,
+							"id": 193,
 							"name": "b",
 							"variant": "param",
 							"kind": 32768,
@@ -2225,7 +5780,7 @@
 					],
 					"type": {
 						"type": "reference",
-						"target": 74,
+						"target": 139,
 						"name": "IRDiff",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -2263,9 +5818,103 @@
 					},
 					"type": {
 						"type": "reference",
-						"target": 29,
+						"target": 37,
 						"name": "SnapshotAdapter",
 						"package": "@anvilkit/plugin-version-history"
+					}
+				}
+			]
+		},
+		{
+			"id": 194,
+			"name": "isIRDiff",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"signatures": [
+				{
+					"id": 195,
+					"name": "isIRDiff",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Structural guard for a persisted "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "IRDiff",
+								"target": 139
+							},
+							{
+								"kind": "text",
+								"text": " — a (possibly empty) array of\nwell-formed "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "IRDiffOp",
+								"target": 140
+							},
+							{
+								"kind": "text",
+								"text": "s. Apply it at the storage trust boundary before\ncasting an untrusted/parsed payload to "
+							},
+							{
+								"kind": "code",
+								"text": "`IRDiff`"
+							},
+							{
+								"kind": "text",
+								"text": " and feeding it to\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "applyDiff",
+								"target": 178
+							},
+							{
+								"kind": "text",
+								"text": ": a malformed op is rejected here instead of throwing an\nopaque "
+							},
+							{
+								"kind": "code",
+								"text": "`DiffApplyError`"
+							},
+							{
+								"kind": "text",
+								"text": " (or silently misapplying) deep inside replay. An\nempty array (no changes) is valid."
+							}
+						]
+					},
+					"parameters": [
+						{
+							"id": 196,
+							"name": "value",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "unknown"
+							}
+						}
+					],
+					"type": {
+						"type": "predicate",
+						"name": "value",
+						"asserts": false,
+						"targetType": {
+							"type": "reference",
+							"target": 139,
+							"name": "IRDiff",
+							"package": "@anvilkit/plugin-version-history"
+						}
 					}
 				}
 			]
@@ -2332,7 +5981,7 @@
 					],
 					"type": {
 						"type": "reference",
-						"target": 29,
+						"target": 37,
 						"name": "SnapshotAdapter",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -2340,28 +5989,839 @@
 			]
 		},
 		{
-			"id": 129,
+			"id": 136,
+			"name": "normalizeVersionHistoryExport",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"signatures": [
+				{
+					"id": 137,
+					"name": "normalizeVersionHistoryExport",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Pure validator/normalizer for the "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryExport",
+								"target": 128
+							},
+							{
+								"kind": "text",
+								"text": " archive shape.\n\nThe reference adapters call this from "
+							},
+							{
+								"kind": "code",
+								"text": "`importAll`"
+							},
+							{
+								"kind": "text",
+								"text": " so a malformed archive is\nrejected with a typed "
+							},
+							{
+								"kind": "code",
+								"text": "`STORAGE_CORRUPT`"
+							},
+							{
+								"kind": "text",
+								"text": " "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryError",
+								"target": 204
+							},
+							{
+								"kind": "text",
+								"text": " before\nany mutation, rather than silently storing junk. Exported because it is the\ncanonical, side-effect-free gate for hand-built or third-party archives too.\n\nValidates that the envelope is "
+							},
+							{
+								"kind": "code",
+								"text": "`{ version: 1; snapshots: Entry[] }`"
+							},
+							{
+								"kind": "text",
+								"text": " and that\nevery entry carries a well-formed "
+							},
+							{
+								"kind": "code",
+								"text": "`meta`"
+							},
+							{
+								"kind": "text",
+								"text": " and a "
+							},
+							{
+								"kind": "code",
+								"text": "`PageIR`"
+							},
+							{
+								"kind": "text",
+								"text": "-shaped "
+							},
+							{
+								"kind": "code",
+								"text": "`ir`"
+							},
+							{
+								"kind": "text",
+								"text": ". The\nreturned archive is frozen and key-canonicalized (extraneous "
+							},
+							{
+								"kind": "code",
+								"text": "`meta`"
+							},
+							{
+								"kind": "text",
+								"text": " fields\nare dropped); entry order is preserved exactly. The "
+							},
+							{
+								"kind": "code",
+								"text": "`ir`"
+							},
+							{
+								"kind": "text",
+								"text": " payloads are passed\nthrough by reference — callers that persist them clone as needed."
+							}
+						]
+					},
+					"parameters": [
+						{
+							"id": 138,
+							"name": "value",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "unknown"
+							}
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": 128,
+						"name": "VersionHistoryExport",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				}
+			]
+		},
+		{
+			"id": 238,
+			"name": "planRetention",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"signatures": [
+				{
+					"id": 239,
+					"name": "planRetention",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Pure, deterministic retention planner. Composes the count cap, age expiry,\nand protection rules of a "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "RetentionPolicy",
+								"target": 250
+							},
+							{
+								"kind": "text",
+								"text": " into a single\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "RetentionPlan",
+								"target": 244
+							},
+							{
+								"kind": "text",
+								"text": " without mutating "
+							},
+							{
+								"kind": "code",
+								"text": "`snapshots`"
+							},
+							{
+								"kind": "text",
+								"text": " or touching any store.\n\nSemantics:\n- **protection** — a snapshot is protected when its "
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": " is in\n  "
+							},
+							{
+								"kind": "code",
+								"text": "`options.protectedIds`"
+							},
+							{
+								"kind": "text",
+								"text": " OR it carries a truthy "
+							},
+							{
+								"kind": "code",
+								"text": "`meta.protected`"
+							},
+							{
+								"kind": "text",
+								"text": " flag (read\n  forward-compatibly, so no schema change is required). Protected snapshots\n  are never in "
+							},
+							{
+								"kind": "code",
+								"text": "`deleteIds`"
+							},
+							{
+								"kind": "text",
+								"text": ", even if they are the oldest or age-expired.\n- **age** — when "
+							},
+							{
+								"kind": "code",
+								"text": "`policy.maxAgeMs`"
+							},
+							{
+								"kind": "text",
+								"text": " is enabled, an unprotected snapshot is\n  evicted when "
+							},
+							{
+								"kind": "code",
+								"text": "`now - Date.parse(savedAt) > maxAgeMs`"
+							},
+							{
+								"kind": "text",
+								"text": ". Unparseable "
+							},
+							{
+								"kind": "code",
+								"text": "`savedAt`"
+							},
+							{
+								"kind": "text",
+								"text": "\n  values never expire (the "
+							},
+							{
+								"kind": "code",
+								"text": "`NaN`"
+							},
+							{
+								"kind": "text",
+								"text": " comparison is "
+							},
+							{
+								"kind": "code",
+								"text": "`false`"
+							},
+							{
+								"kind": "text",
+								"text": ").\n- **count** — when "
+							},
+							{
+								"kind": "code",
+								"text": "`policy.maxSnapshots`"
+							},
+							{
+								"kind": "text",
+								"text": " is enabled, the oldest unprotected\n  survivors (after age expiry) are evicted until at most "
+							},
+							{
+								"kind": "code",
+								"text": "`maxSnapshots`"
+							},
+							{
+								"kind": "text",
+								"text": "\n  remain. Protected snapshots are always kept and still count toward the\n  total, so the kept count can exceed the cap if enough are protected.\n\n"
+							},
+							{
+								"kind": "code",
+								"text": "`deleteIds`"
+							},
+							{
+								"kind": "text",
+								"text": " / "
+							},
+							{
+								"kind": "code",
+								"text": "`keepIds`"
+							},
+							{
+								"kind": "text",
+								"text": " are ordered oldest-first for reproducibility."
+							}
+						]
+					},
+					"parameters": [
+						{
+							"id": 240,
+							"name": "snapshots",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "typeOperator",
+								"operator": "readonly",
+								"target": {
+									"type": "array",
+									"elementType": {
+										"type": "reference",
+										"target": 94,
+										"name": "SnapshotMeta",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							}
+						},
+						{
+							"id": 241,
+							"name": "policy",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 250,
+								"name": "RetentionPolicy",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						},
+						{
+							"id": 242,
+							"name": "options",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 247,
+								"name": "RetentionPlanOptions",
+								"package": "@anvilkit/plugin-version-history"
+							},
+							"defaultValue": "{}"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": 244,
+						"name": "RetentionPlan",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				}
+			]
+		},
+		{
+			"id": 228,
+			"name": "prepareRestore",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"signatures": [
+				{
+					"id": 229,
+					"name": "prepareRestore",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Conflict-guarded rollback resolver. Runs "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "checkRestoreConflict",
+								"target": 220
+							},
+							{
+								"kind": "text",
+								"text": " and:\n\n- returns "
+							},
+							{
+								"kind": "code",
+								"text": "`snapshotIR`"
+							},
+							{
+								"kind": "text",
+								"text": " unchanged when there is no conflict (including when\n  no "
+							},
+							{
+								"kind": "code",
+								"text": "`expectedBaseHash`"
+							},
+							{
+								"kind": "text",
+								"text": " was supplied — fully backward compatible), or when\n  "
+							},
+							{
+								"kind": "code",
+								"text": "`force`"
+							},
+							{
+								"kind": "text",
+								"text": " is "
+							},
+							{
+								"kind": "code",
+								"text": "`true`"
+							},
+							{
+								"kind": "text",
+								"text": ";\n- otherwise throws a typed "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "VersionHistoryError",
+								"target": 204
+							},
+							{
+								"kind": "text",
+								"text": " with code\n  "
+							},
+							{
+								"kind": "code",
+								"text": "`\"CONFLICT\"`"
+							},
+							{
+								"kind": "text",
+								"text": " so the host can prompt the user and retry with "
+							},
+							{
+								"kind": "code",
+								"text": "`force`"
+							},
+							{
+								"kind": "text",
+								"text": ".\n\nPure: it resolves *what* to restore but never dispatches — the host owns\napplying the returned IR to the editor."
+							}
+						]
+					},
+					"parameters": [
+						{
+							"id": 230,
+							"name": "input",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 223,
+								"name": "PrepareRestoreInput",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "@anvilkit/core",
+							"packagePath": "src/types/ir.ts",
+							"qualifiedName": "PageIR"
+						},
+						"name": "PageIR",
+						"package": "@anvilkit/core"
+					}
+				}
+			]
+		},
+		{
+			"id": 216,
+			"name": "querySnapshots",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"signatures": [
+				{
+					"id": 217,
+					"name": "querySnapshots",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Pure, deterministic reference implementation of the optional\n"
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "SnapshotAdapter.query",
+								"target": 46
+							},
+							{
+								"kind": "text",
+								"text": " capability over an in-memory array.\n\nReference adapters (in-memory, localStorage) implement "
+							},
+							{
+								"kind": "code",
+								"text": "`query`"
+							},
+							{
+								"kind": "text",
+								"text": " by\ndelegating here so the filter/sort/pagination semantics live in exactly\none place. "
+							},
+							{
+								"kind": "code",
+								"text": "`all`"
+							},
+							{
+								"kind": "text",
+								"text": " is never mutated.\n\nSemantics:\n- **filter.label** — case-insensitive substring match. Snapshots without a\n  "
+							},
+							{
+								"kind": "code",
+								"text": "`label`"
+							},
+							{
+								"kind": "text",
+								"text": " are excluded whenever a label filter is supplied.\n- **sort** — when omitted, the input order is preserved (mirroring\n  "
+							},
+							{
+								"kind": "code",
+								"text": "`list()`"
+							},
+							{
+								"kind": "text",
+								"text": "). When supplied, snapshots are ordered by "
+							},
+							{
+								"kind": "code",
+								"text": "`field`"
+							},
+							{
+								"kind": "text",
+								"text": "/"
+							},
+							{
+								"kind": "code",
+								"text": "`direction`"
+							},
+							{
+								"kind": "text",
+								"text": "\n  with a stable ascending "
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": " tie-break (matching "
+							},
+							{
+								"kind": "code",
+								"text": "`evictOldest`"
+							},
+							{
+								"kind": "text",
+								"text": "), giving a\n  strict total order so cursor pagination is reproducible.\n- **cursor / limit** — "
+							},
+							{
+								"kind": "code",
+								"text": "`cursor`"
+							},
+							{
+								"kind": "text",
+								"text": " is the opaque "
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": " of the last item from a\n  previous page; results resume immediately after it (an unknown cursor\n  restarts from the head). An omitted, non-finite, or non-positive "
+							},
+							{
+								"kind": "code",
+								"text": "`limit`"
+							},
+							{
+								"kind": "text",
+								"text": "\n  returns all remaining items. "
+							},
+							{
+								"kind": "code",
+								"text": "`nextCursor`"
+							},
+							{
+								"kind": "text",
+								"text": " is the last returned item's\n  "
+							},
+							{
+								"kind": "code",
+								"text": "`id`"
+							},
+							{
+								"kind": "text",
+								"text": " when more items remain and is absent on the final page."
+							}
+						]
+					},
+					"parameters": [
+						{
+							"id": 218,
+							"name": "all",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "typeOperator",
+								"operator": "readonly",
+								"target": {
+									"type": "array",
+									"elementType": {
+										"type": "reference",
+										"target": 94,
+										"name": "SnapshotMeta",
+										"package": "@anvilkit/plugin-version-history"
+									}
+								}
+							}
+						},
+						{
+							"id": 219,
+							"name": "options",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 115,
+								"name": "SnapshotQuery",
+								"package": "@anvilkit/plugin-version-history"
+							},
+							"defaultValue": "{}"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": 112,
+						"name": "SnapshotPage",
+						"package": "@anvilkit/plugin-version-history"
+					}
+				}
+			]
+		},
+		{
+			"id": 261,
+			"name": "runRetention",
+			"variant": "declaration",
+			"kind": 64,
+			"flags": {},
+			"signatures": [
+				{
+					"id": 262,
+					"name": "runRetention",
+					"variant": "signature",
+					"kind": 4096,
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "Manual cleanup API: plan retention over an adapter's current snapshots and\n(unless "
+							},
+							{
+								"kind": "code",
+								"text": "`dryRun`"
+							},
+							{
+								"kind": "text",
+								"text": ") apply it. The plan is computed by "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "planRetention",
+								"target": 238
+							},
+							{
+								"kind": "text",
+								"text": "\nfrom "
+							},
+							{
+								"kind": "code",
+								"text": "`adapter.list()`"
+							},
+							{
+								"kind": "text",
+								"text": ". Deletions prefer the batch "
+							},
+							{
+								"kind": "code",
+								"text": "`adapter.deleteMany`"
+							},
+							{
+								"kind": "text",
+								"text": " and\nfall back to per-id "
+							},
+							{
+								"kind": "code",
+								"text": "`adapter.delete`"
+							},
+							{
+								"kind": "text",
+								"text": "; if the adapter exposes neither, nothing\nis deleted ("
+							},
+							{
+								"kind": "code",
+								"text": "`deletedIds`"
+							},
+							{
+								"kind": "text",
+								"text": " is "
+							},
+							{
+								"kind": "code",
+								"text": "`[]`"
+							},
+							{
+								"kind": "text",
+								"text": ").\n\nPass "
+							},
+							{
+								"kind": "code",
+								"text": "`{ dryRun: true }`"
+							},
+							{
+								"kind": "text",
+								"text": " to preview the plan without mutating the store — the\nreturned "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "RetentionResult.plan",
+								"target": 254
+							},
+							{
+								"kind": "text",
+								"text": " is identical to a real run, but\n"
+							},
+							{
+								"kind": "code",
+								"text": "`deletedIds`"
+							},
+							{
+								"kind": "text",
+								"text": " is "
+							},
+							{
+								"kind": "code",
+								"text": "`[]`"
+							},
+							{
+								"kind": "text",
+								"text": " and no adapter mutation occurs."
+							}
+						]
+					},
+					"parameters": [
+						{
+							"id": 263,
+							"name": "adapter",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 243,
+								"name": "RetentionAdapter",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						},
+						{
+							"id": 264,
+							"name": "policy",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 250,
+								"name": "RetentionPolicy",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						},
+						{
+							"id": 265,
+							"name": "options",
+							"variant": "param",
+							"kind": 32768,
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"target": 257,
+								"name": "RunRetentionOptions",
+								"package": "@anvilkit/plugin-version-history"
+							},
+							"defaultValue": "{}"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"target": {
+							"packageName": "typescript",
+							"packagePath": "lib/lib.es5.d.ts",
+							"qualifiedName": "Promise"
+						},
+						"typeArguments": [
+							{
+								"type": "reference",
+								"target": 253,
+								"name": "RetentionResult",
+								"package": "@anvilkit/plugin-version-history"
+							}
+						],
+						"name": "Promise",
+						"package": "typescript"
+					}
+				}
+			]
+		},
+		{
+			"id": 197,
 			"name": "summarizeDiff",
 			"variant": "declaration",
 			"kind": 64,
 			"flags": {},
 			"signatures": [
 				{
-					"id": 130,
+					"id": 198,
 					"name": "summarizeDiff",
 					"variant": "signature",
 					"kind": 4096,
 					"flags": {},
 					"parameters": [
 						{
-							"id": 131,
+							"id": 199,
 							"name": "diff",
 							"variant": "param",
 							"kind": 32768,
 							"flags": {},
 							"type": {
 								"type": "reference",
-								"target": 74,
+								"target": 139,
 								"name": "IRDiff",
 								"package": "@anvilkit/plugin-version-history"
 							}
@@ -2369,7 +6829,7 @@
 					],
 					"type": {
 						"type": "reference",
-						"target": 106,
+						"target": 171,
 						"name": "IRDiffSummary",
 						"package": "@anvilkit/plugin-version-history"
 					}
@@ -2381,44 +6841,69 @@
 		{
 			"title": "Classes",
 			"children": [
-				117,
-				132
+				182,
+				204
 			]
 		},
 		{
 			"title": "Interfaces",
 			"children": [
 				8,
-				106,
+				171,
 				3,
-				16,
-				20,
-				23,
-				25,
-				29,
-				55,
-				65
+				24,
+				223,
+				28,
+				31,
+				33,
+				231,
+				235,
+				244,
+				247,
+				250,
+				253,
+				257,
+				37,
+				84,
+				94,
+				105,
+				112,
+				115,
+				128,
+				131,
+				134
 			]
 		},
 		{
 			"title": "Type Aliases",
 			"children": [
-				74,
-				75,
-				14,
-				71,
-				142
+				18,
+				139,
+				140,
+				22,
+				243,
+				125,
+				214,
+				215
 			]
 		},
 		{
 			"title": "Functions",
 			"children": [
-				113,
-				11,
-				125,
+				178,
+				220,
+				200,
+				15,
+				190,
 				1,
+				194,
 				5,
-				129
+				136,
+				238,
+				228,
+				216,
+				261,
+				197
 			]
 		}
 	],
@@ -2434,15 +6919,31 @@
 		},
 		{
 			"kind": "text",
-			"text": ").** Header actions and the diff/apply engine are stable. The sidebar-panel slot contribution is deferred until "
+			"text": ").** Header actions and the diff/apply engine are stable. The plugin can also contribute the StudioSidebar "
 		},
 		{
 			"kind": "code",
-			"text": "`StudioPluginContext`"
+			"text": "`history`"
 		},
 		{
 			"kind": "text",
-			"text": " exposes the sidebar registration API.\n\nHeadless version-history plugin for Anvilkit Studio. Snapshot persistence is delegated to a host-provided "
+			"text": " panel through the supported "
+		},
+		{
+			"kind": "code",
+			"text": "`ctx.registerHistoryPanel`"
+		},
+		{
+			"kind": "text",
+			"text": " slot — pass the "
+		},
+		{
+			"kind": "code",
+			"text": "`renderPanel`"
+		},
+		{
+			"kind": "text",
+			"text": " option (see [Sidebar history panel](#sidebar-history-panel)).\n\nHeadless version-history plugin for Anvilkit Studio. Snapshot persistence is delegated to a host-provided "
 		},
 		{
 			"kind": "code",
@@ -2642,7 +7143,31 @@
 		},
 		{
 			"kind": "text",
-			"text": " and gets full control over storage (in-memory, localStorage, Firestore, S3, …).\n- **Deterministic diff/apply engine** — "
+			"text": " (plus optional "
+		},
+		{
+			"kind": "code",
+			"text": "`deleteMany?`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`exportAll?`"
+		},
+		{
+			"kind": "text",
+			"text": " / "
+		},
+		{
+			"kind": "code",
+			"text": "`importAll?`"
+		},
+		{
+			"kind": "text",
+			"text": " for batch cleanup and portability) and gets full control over storage (in-memory, localStorage, Firestore, S3, …).\n- **Deterministic diff/apply engine** — "
 		},
 		{
 			"kind": "code",
@@ -2714,7 +7239,7 @@
 		},
 		{
 			"kind": "text",
-			"text": " is the same contract the reference adapters use; consumers can validate their own implementation against it.\n- **Bundle budget** — 8 KB gzipped enforced in CI via "
+			"text": " is the same contract the reference adapters use; consumers can validate their own implementation against it.\n- **Bundle budget** — ~10 KB gzipped entry chunk enforced in CI via "
 		},
 		{
 			"kind": "code",
@@ -2726,7 +7251,7 @@
 		},
 		{
 			"kind": "code",
-			"text": "```ts\nfunction createVersionHistoryPlugin(\n  options: CreateVersionHistoryPluginOptions,\n): StudioPlugin;\n\ninterface CreateVersionHistoryPluginOptions {\n  readonly adapter: SnapshotAdapter;\n  readonly maxSnapshots?: number;\n}\n```"
+			"text": "```ts\nfunction createVersionHistoryPlugin(\n  options: CreateVersionHistoryPluginOptions,\n): StudioPlugin;\n\ninterface CreateVersionHistoryPluginOptions {\n  readonly adapter: SnapshotAdapter;\n  readonly maxSnapshots?: number;\n  /** Puck `Data` → `PageIR` bridge so \"Save snapshot\" works in a real `<Studio>` session. */\n  readonly buildIR?: (data: unknown) => PageIR | null | Promise<PageIR | null>;\n  /** Render the StudioSidebar `history` panel body — see below. */\n  readonly renderPanel?: () => ReactNode;\n}\n```"
 		},
 		{
 			"kind": "text",
@@ -2770,7 +7295,151 @@
 		},
 		{
 			"kind": "text",
-			"text": ").\n\n### "
+			"text": ").\n\n### Sidebar history panel\n\nPass "
+		},
+		{
+			"kind": "code",
+			"text": "`renderPanel`"
+		},
+		{
+			"kind": "text",
+			"text": " to contribute the StudioSidebar "
+		},
+		{
+			"kind": "code",
+			"text": "`history`"
+		},
+		{
+			"kind": "text",
+			"text": " module body. The plugin registers a "
+		},
+		{
+			"kind": "code",
+			"text": "`StudioHistoryPanel`"
+		},
+		{
+			"kind": "text",
+			"text": " through core's supported, rendered "
+		},
+		{
+			"kind": "code",
+			"text": "`ctx.registerHistoryPanel`"
+		},
+		{
+			"kind": "text",
+			"text": " slot during "
+		},
+		{
+			"kind": "code",
+			"text": "`register()`"
+		},
+		{
+			"kind": "text",
+			"text": "; this makes the "
+		},
+		{
+			"kind": "code",
+			"text": "`history`"
+		},
+		{
+			"kind": "text",
+			"text": " rail tab appear ("
+		},
+		{
+			"kind": "code",
+			"text": "`SidebarRail`"
+		},
+		{
+			"kind": "text",
+			"text": " gates it on "
+		},
+		{
+			"kind": "code",
+			"text": "`historyPanel !== null`"
+		},
+		{
+			"kind": "text",
+			"text": ") and renders your thunk inside the panel via core's "
+		},
+		{
+			"kind": "code",
+			"text": "`HistoryModule`"
+		},
+		{
+			"kind": "text",
+			"text": ". The runtime auto-tears-down the registration on "
+		},
+		{
+			"kind": "code",
+			"text": "`<Studio>`"
+		},
+		{
+			"kind": "text",
+			"text": " unmount. Omitting "
+		},
+		{
+			"kind": "code",
+			"text": "`renderPanel`"
+		},
+		{
+			"kind": "text",
+			"text": " keeps the prior header-actions-only behavior — no sidebar panel, no rail tab.\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```tsx\nimport { createVersionHistoryPlugin } from \"@anvilkit/plugin-version-history\";\nimport { VersionHistoryUI } from \"@anvilkit/plugin-version-history/ui\";\n\nconst plugin = createVersionHistoryPlugin({\n  adapter,\n  renderPanel: () => (\n    <VersionHistoryUI\n      adapter={adapter}\n      currentIR={currentIR}\n      onRestore={(ir) => puckApi.dispatch({ type: \"setData\", data: irToPuckData(ir) })}\n    />\n  ),\n});\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nThe host owns the "
+		},
+		{
+			"kind": "code",
+			"text": "`currentIR`"
+		},
+		{
+			"kind": "text",
+			"text": " read and "
+		},
+		{
+			"kind": "code",
+			"text": "`onRestore`"
+		},
+		{
+			"kind": "text",
+			"text": " dispatch: a plugin submodule may resolve its own "
+		},
+		{
+			"kind": "code",
+			"text": "`@puckeditor/core`"
+		},
+		{
+			"kind": "text",
+			"text": " copy at runtime (the dual-puck hazard), so reading reactive Puck state must happen in the host's React/Puck context. "
+		},
+		{
+			"kind": "code",
+			"text": "`currentIR`"
+		},
+		{
+			"kind": "text",
+			"text": " typically comes from "
+		},
+		{
+			"kind": "code",
+			"text": "`puckDataToIR(data, puckConfig)`"
+		},
+		{
+			"kind": "text",
+			"text": " ("
+		},
+		{
+			"kind": "code",
+			"text": "`@anvilkit/ir`"
+		},
+		{
+			"kind": "text",
+			"text": ") against the host's reactive Puck data.\n\n### "
 		},
 		{
 			"kind": "code",
@@ -2782,11 +7451,11 @@
 		},
 		{
 			"kind": "code",
-			"text": "```ts\ninterface SnapshotAdapter {\n  save(\n    ir: PageIR,\n    meta: Partial<Omit<SnapshotMeta, \"id\" | \"savedAt\">>,\n  ): MaybePromise<string>;\n  list(): MaybePromise<readonly SnapshotMeta[]>;\n  load(id: string): MaybePromise<PageIR>;\n  delete?(id: string): MaybePromise<void>;\n  subscribe?(onUpdate: (ir: PageIR, peer?: PeerInfo) => void): Unsubscribe;\n  presence?: SnapshotAdapterPresence;\n}\n```"
+			"text": "```ts\ninterface SnapshotAdapter {\n  save(\n    ir: PageIR,\n    meta: Partial<Omit<SnapshotMeta, \"id\" | \"savedAt\">>,\n  ): MaybePromise<string>;\n  list(): MaybePromise<readonly SnapshotMeta[]>;\n  load(id: string): MaybePromise<PageIR>;\n  delete?(id: string): MaybePromise<void>;\n  deleteMany?(ids: readonly string[]): MaybePromise<void>;\n  exportAll?(): MaybePromise<VersionHistoryExport>;\n  importAll?(\n    data: VersionHistoryExport,\n    options?: { mode?: \"replace\" | \"merge\" },\n  ): MaybePromise<void>;\n  subscribe?(onUpdate: (ir: PageIR, peer?: PeerInfo) => void): Unsubscribe;\n  presence?: SnapshotAdapterPresence;\n}\n```"
 		},
 		{
 			"kind": "text",
-			"text": "\n\n| Method           | Required? | Purpose                                                                   |\n| ---------------- | --------- | ------------------------------------------------------------------------- |\n| "
+			"text": "\n\n| Method            | Required? | Purpose                                                                   |\n| ----------------- | --------- | ------------------------------------------------------------------------- |\n| "
 		},
 		{
 			"kind": "code",
@@ -2794,7 +7463,7 @@
 		},
 		{
 			"kind": "text",
-			"text": " | yes       | Persist a "
+			"text": "  | yes       | Persist a "
 		},
 		{
 			"kind": "code",
@@ -2810,7 +7479,7 @@
 		},
 		{
 			"kind": "text",
-			"text": "         | yes       | Return all snapshots in order (newest-first by convention).               |\n| "
+			"text": "          | yes       | Return all snapshots in order (newest-first by convention).               |\n| "
 		},
 		{
 			"kind": "code",
@@ -2818,7 +7487,7 @@
 		},
 		{
 			"kind": "text",
-			"text": "       | yes       | Hydrate by id. Throw "
+			"text": "        | yes       | Hydrate by id. Throw "
 		},
 		{
 			"kind": "code",
@@ -2834,7 +7503,7 @@
 		},
 		{
 			"kind": "text",
-			"text": "     | optional  | Required when "
+			"text": "      | optional  | Required when "
 		},
 		{
 			"kind": "code",
@@ -2846,11 +7515,67 @@
 		},
 		{
 			"kind": "code",
+			"text": "`deleteMany(ids)`"
+		},
+		{
+			"kind": "text",
+			"text": " | optional  | Batch delete for admin cleanup; leaves the remaining snapshots loadable.  |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`exportAll()`"
+		},
+		{
+			"kind": "text",
+			"text": "     | optional  | Materialize all snapshots as a portable "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryExport`"
+		},
+		{
+			"kind": "text",
+			"text": " archive.   |\n| "
+		},
+		{
+			"kind": "code",
+			"text": "`importAll(data)`"
+		},
+		{
+			"kind": "text",
+			"text": " | optional  | Restore from a "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryExport`"
+		},
+		{
+			"kind": "text",
+			"text": " ("
+		},
+		{
+			"kind": "code",
+			"text": "`\"merge\"`"
+		},
+		{
+			"kind": "text",
+			"text": " default, or "
+		},
+		{
+			"kind": "code",
+			"text": "`\"replace\"`"
+		},
+		{
+			"kind": "text",
+			"text": ").|\n| "
+		},
+		{
+			"kind": "code",
 			"text": "`subscribe(cb)`"
 		},
 		{
 			"kind": "text",
-			"text": "  | optional  | Push updates from collaborative adapters (e.g., "
+			"text": "   | optional  | Push updates from collaborative adapters (e.g., "
 		},
 		{
 			"kind": "code",
@@ -2866,7 +7591,7 @@
 		},
 		{
 			"kind": "text",
-			"text": "       | optional  | Multi-user cursor / selection channel. Implemented by the Yjs adapter.    |\n\nAll methods may be sync or async ("
+			"text": "        | optional  | Multi-user cursor / selection channel. Implemented by the Yjs adapter.    |\n\nAll methods may be sync or async ("
 		},
 		{
 			"kind": "code",
@@ -2874,7 +7599,103 @@
 		},
 		{
 			"kind": "text",
-			"text": "). Frozen, structurally-equal results are recommended.\n\n### "
+			"text": "). Frozen, structurally-equal results are recommended.\n\n#### Batch delete & portability\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "`deleteMany`"
+		},
+		{
+			"kind": "text",
+			"text": ", "
+		},
+		{
+			"kind": "code",
+			"text": "`exportAll`"
+		},
+		{
+			"kind": "text",
+			"text": ", and "
+		},
+		{
+			"kind": "code",
+			"text": "`importAll`"
+		},
+		{
+			"kind": "text",
+			"text": " are additive, optional, and backward\ncompatible — adapters that omit them are unaffected, and callers must\nfeature-detect them. The in-memory and "
+		},
+		{
+			"kind": "code",
+			"text": "`localStorage`"
+		},
+		{
+			"kind": "text",
+			"text": " reference adapters\nimplement all three; the header "
+		},
+		{
+			"kind": "code",
+			"text": "`maxSnapshots`"
+		},
+		{
+			"kind": "text",
+			"text": " retention path automatically\nprefers "
+		},
+		{
+			"kind": "code",
+			"text": "`deleteMany`"
+		},
+		{
+			"kind": "text",
+			"text": " when present.\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nconst archive = await adapter.exportAll?.(); // { version: 1; snapshots: [{ meta, ir }] }\n\n// Round-trips into a fresh adapter: imported snapshots keep their original\n// ids/metadata and are stored as standalone keyframes, so each is loadable.\nawait fresh.importAll?.(archive, { mode: \"replace\" }); // or \"merge\" (default)\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "`exportAll`"
+		},
+		{
+			"kind": "text",
+			"text": " reconstructs each snapshot's **full** "
+		},
+		{
+			"kind": "code",
+			"text": "`PageIR`"
+		},
+		{
+			"kind": "text",
+			"text": " from the internal\ndelta chain, so the archive is self-contained and JSON-serializable (it is _not_\nthe delta-chain wire format). "
+		},
+		{
+			"kind": "code",
+			"text": "`normalizeVersionHistoryExport(value)`"
+		},
+		{
+			"kind": "text",
+			"text": " is the\nexported, side-effect-free validator the adapters use to reject a malformed\narchive with a "
+		},
+		{
+			"kind": "code",
+			"text": "`STORAGE_CORRUPT`"
+		},
+		{
+			"kind": "text",
+			"text": " "
+		},
+		{
+			"kind": "code",
+			"text": "`VersionHistoryError`"
+		},
+		{
+			"kind": "text",
+			"text": " before any mutation —\ncall it directly to validate hand-built or third-party archives.\n\n### "
 		},
 		{
 			"kind": "code",
@@ -3086,7 +7907,79 @@
 		},
 		{
 			"kind": "code",
-			"text": "```ts\nclass VersionHistoryError extends Error {\n  readonly code: VersionHistoryErrorCode;\n}\n\ntype VersionHistoryErrorCode =\n  | \"SNAPSHOT_NOT_FOUND\"\n  | \"STORAGE_CORRUPT\"\n  | \"STORAGE_QUOTA_EXCEEDED\"\n  | \"STORAGE_UNAVAILABLE\";\n```"
+			"text": "```ts\nclass VersionHistoryError extends Error {\n  readonly code: VersionHistoryErrorCode;\n}\n\ntype VersionHistoryErrorCode =\n  | \"CONFLICT\" // optimistic-concurrency: doc changed under a planned restore\n  | \"PERMISSION_DENIED\" // host/adapter rejected the op on authorization grounds\n  | \"SNAPSHOT_NOT_FOUND\"\n  | \"STORAGE_CORRUPT\"\n  | \"STORAGE_QUOTA_EXCEEDED\"\n  | \"STORAGE_UNAVAILABLE\";\n```"
+		},
+		{
+			"kind": "text",
+			"text": "\n\nRemote and collaborative adapters reject unauthorized "
+		},
+		{
+			"kind": "code",
+			"text": "`save`"
+		},
+		{
+			"kind": "text",
+			"text": "/"
+		},
+		{
+			"kind": "code",
+			"text": "`load`"
+		},
+		{
+			"kind": "text",
+			"text": "/"
+		},
+		{
+			"kind": "code",
+			"text": "`list`"
+		},
+		{
+			"kind": "text",
+			"text": "/"
+		},
+		{
+			"kind": "code",
+			"text": "`delete`"
+		},
+		{
+			"kind": "text",
+			"text": "/"
+		},
+		{
+			"kind": "code",
+			"text": "`restore`"
+		},
+		{
+			"kind": "text",
+			"text": " calls by throwing a "
+		},
+		{
+			"kind": "code",
+			"text": "`PERMISSION_DENIED`"
+		},
+		{
+			"kind": "text",
+			"text": " error. Use the "
+		},
+		{
+			"kind": "code",
+			"text": "`createPermissionDeniedError(operation, detail?)`"
+		},
+		{
+			"kind": "text",
+			"text": " convenience constructor, or throw "
+		},
+		{
+			"kind": "code",
+			"text": "`new VersionHistoryError(\"PERMISSION_DENIED\", message)`"
+		},
+		{
+			"kind": "text",
+			"text": " directly:\n\n"
+		},
+		{
+			"kind": "code",
+			"text": "```ts\nimport { createPermissionDeniedError } from \"@anvilkit/plugin-version-history\";\n\nasync function load(id: string) {\n  if (!viewer.canRead(roomId)) {\n    throw createPermissionDeniedError(\"load\", `viewer ${viewer.id} lacks read access`);\n  }\n  // …\n}\n```"
 		},
 		{
 			"kind": "text",
@@ -3306,7 +8199,15 @@
 		},
 		{
 			"kind": "text",
-			"text": "\n\nThe FIFO eviction loop calls "
+			"text": "\n\nThe FIFO eviction path removes the oldest snapshots when the count would exceed the cap — preferring "
+		},
+		{
+			"kind": "code",
+			"text": "`adapter.deleteMany(ids)`"
+		},
+		{
+			"kind": "text",
+			"text": " (a single store mutation) and falling back to per-id "
 		},
 		{
 			"kind": "code",
@@ -3314,7 +8215,15 @@
 		},
 		{
 			"kind": "text",
-			"text": " when the snapshot count would exceed the cap. Adapters that omit "
+			"text": ". Adapters that omit both "
+		},
+		{
+			"kind": "code",
+			"text": "`deleteMany`"
+		},
+		{
+			"kind": "text",
+			"text": " and "
 		},
 		{
 			"kind": "code",
@@ -3330,15 +8239,7 @@
 		},
 		{
 			"kind": "text",
-			"text": "; either implement "
-		},
-		{
-			"kind": "code",
-			"text": "`delete`"
-		},
-		{
-			"kind": "text",
-			"text": " or omit "
+			"text": "; either implement one of them or omit "
 		},
 		{
 			"kind": "code",
@@ -3346,7 +8247,7 @@
 		},
 		{
 			"kind": "text",
-			"text": ".\n\n### Bundle budget\n\nThe published entry has an 8 KB gzipped budget enforced in CI by "
+			"text": ".\n\n### Bundle budget\n\nThe published entry chunk has a ~10 KB gzipped budget enforced in CI by "
 		},
 		{
 			"kind": "code",
@@ -3354,11 +8255,19 @@
 		},
 		{
 			"kind": "text",
-			"text": " and "
+			"text": ", with a complementary "
 		},
 		{
 			"kind": "code",
 			"text": "`.size-limit.json`"
+		},
+		{
+			"kind": "text",
+			"text": " budget on "
+		},
+		{
+			"kind": "code",
+			"text": "`dist/index.js`"
 		},
 		{
 			"kind": "text",
@@ -3520,142 +8429,142 @@
 		"11": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/plugin.ts",
-			"qualifiedName": "createVersionHistoryPlugin"
+			"qualifiedName": "CreateVersionHistoryPluginOptions.buildIR"
 		},
 		"12": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/plugin.ts",
-			"qualifiedName": "createVersionHistoryPlugin"
+			"qualifiedName": "CreateVersionHistoryPluginOptions.renderPanel"
 		},
 		"13": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/plugin.ts",
-			"qualifiedName": "options"
+			"qualifiedName": "__type"
 		},
 		"14": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types/types.ts",
-			"qualifiedName": "MaybePromise"
+			"packagePath": "src/plugin.ts",
+			"qualifiedName": "__type"
 		},
 		"15": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types/types.ts",
-			"qualifiedName": "T"
+			"packagePath": "src/plugin.ts",
+			"qualifiedName": "createVersionHistoryPlugin"
 		},
 		"16": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PeerInfo"
+			"packagePath": "src/plugin.ts",
+			"qualifiedName": "createVersionHistoryPlugin"
 		},
 		"17": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PeerInfo.id"
+			"packagePath": "src/plugin.ts",
+			"qualifiedName": "options"
 		},
 		"18": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PeerInfo.displayName"
+			"qualifiedName": "BuildPageIR"
 		},
 		"19": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PeerInfo.color"
+			"qualifiedName": "__type"
 		},
 		"20": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceCursor"
+			"qualifiedName": "__type"
 		},
 		"21": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceCursor.x"
+			"qualifiedName": "data"
 		},
 		"22": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceCursor.y"
+			"qualifiedName": "MaybePromise"
 		},
 		"23": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceSelection"
+			"qualifiedName": "T"
 		},
 		"24": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceSelection.nodeIds"
+			"qualifiedName": "PeerInfo"
 		},
 		"25": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceState"
+			"qualifiedName": "PeerInfo.id"
 		},
 		"26": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceState.peer"
+			"qualifiedName": "PeerInfo.displayName"
 		},
 		"27": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceState.cursor"
+			"qualifiedName": "PeerInfo.color"
 		},
 		"28": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "PresenceState.selection"
+			"qualifiedName": "PresenceCursor"
 		},
 		"29": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapter"
+			"qualifiedName": "PresenceCursor.x"
 		},
 		"30": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapter.save"
+			"qualifiedName": "PresenceCursor.y"
 		},
 		"31": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "PresenceSelection"
 		},
 		"32": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "PresenceSelection.nodeIds"
 		},
 		"33": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "ir"
+			"qualifiedName": "PresenceState"
 		},
 		"34": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "meta"
+			"qualifiedName": "PresenceState.peer"
 		},
 		"35": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapter.list"
+			"qualifiedName": "PresenceState.cursor"
 		},
 		"36": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "PresenceState.selection"
 		},
 		"37": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "SnapshotAdapter"
 		},
 		"38": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapter.load"
+			"qualifiedName": "SnapshotAdapter.save"
 		},
 		"39": {
 			"packageName": "@anvilkit/plugin-version-history",
@@ -3670,17 +8579,17 @@
 		"41": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "id"
+			"qualifiedName": "ir"
 		},
 		"42": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapter.delete"
+			"qualifiedName": "meta"
 		},
 		"43": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "SnapshotAdapter.list"
 		},
 		"44": {
 			"packageName": "@anvilkit/plugin-version-history",
@@ -3690,12 +8599,12 @@
 		"45": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "id"
+			"qualifiedName": "__type"
 		},
 		"46": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapter.subscribe"
+			"qualifiedName": "SnapshotAdapter.query"
 		},
 		"47": {
 			"packageName": "@anvilkit/plugin-version-history",
@@ -3710,12 +8619,12 @@
 		"49": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "onUpdate"
+			"qualifiedName": "options"
 		},
 		"50": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "SnapshotAdapter.load"
 		},
 		"51": {
 			"packageName": "@anvilkit/plugin-version-history",
@@ -3725,57 +8634,57 @@
 		"52": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "ir"
+			"qualifiedName": "__type"
 		},
 		"53": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "peer"
+			"qualifiedName": "id"
 		},
 		"54": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapter.presence"
+			"qualifiedName": "SnapshotAdapter.delete"
 		},
 		"55": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapterPresence"
+			"qualifiedName": "__type"
 		},
 		"56": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapterPresence.update"
+			"qualifiedName": "__type"
 		},
 		"57": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapterPresence.update"
+			"qualifiedName": "id"
 		},
 		"58": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "state"
+			"qualifiedName": "SnapshotAdapter.deleteMany"
 		},
 		"59": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapterPresence.onPeerChange"
+			"qualifiedName": "__type"
 		},
 		"60": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotAdapterPresence.onPeerChange"
+			"qualifiedName": "__type"
 		},
 		"61": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "callback"
+			"qualifiedName": "ids"
 		},
 		"62": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "SnapshotAdapter.exportAll"
 		},
 		"63": {
 			"packageName": "@anvilkit/plugin-version-history",
@@ -3785,42 +8694,42 @@
 		"64": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "peers"
+			"qualifiedName": "__type"
 		},
 		"65": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotMeta"
+			"qualifiedName": "SnapshotAdapter.importAll"
 		},
 		"66": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotMeta.id"
+			"qualifiedName": "__type"
 		},
 		"67": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotMeta.label"
+			"qualifiedName": "__type"
 		},
 		"68": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotMeta.savedAt"
+			"qualifiedName": "data"
 		},
 		"69": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotMeta.pageIRHash"
+			"qualifiedName": "options"
 		},
 		"70": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "SnapshotMeta.delta"
+			"qualifiedName": "SnapshotAdapter.updateMeta"
 		},
 		"71": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "Unsubscribe"
+			"qualifiedName": "__type"
 		},
 		"72": {
 			"packageName": "@anvilkit/plugin-version-history",
@@ -3830,352 +8739,967 @@
 		"73": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/types/types.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "id"
 		},
 		"74": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
-			"qualifiedName": "IRDiff"
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "patch"
 		},
 		"75": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
-			"qualifiedName": "IRDiffOp"
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotAdapter.subscribe"
 		},
 		"76": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"77": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
-			"qualifiedName": "__type.kind"
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type"
 		},
 		"78": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
-			"qualifiedName": "__type.path"
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "onUpdate"
 		},
 		"79": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
-			"qualifiedName": "__type.node"
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type"
 		},
 		"80": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
+			"packagePath": "src/types/types.ts",
 			"qualifiedName": "__type"
 		},
 		"81": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
-			"qualifiedName": "__type.kind"
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "ir"
 		},
 		"82": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
-			"qualifiedName": "__type.path"
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "peer"
 		},
 		"83": {
 			"packageName": "@anvilkit/plugin-version-history",
-			"packagePath": "src/utils/diff.ts",
-			"qualifiedName": "__type.nodeId"
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotAdapter.presence"
 		},
 		"84": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotAdapterPresence"
+		},
+		"85": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotAdapterPresence.update"
+		},
+		"86": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotAdapterPresence.update"
+		},
+		"87": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "state"
+		},
+		"88": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotAdapterPresence.onPeerChange"
+		},
+		"89": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotAdapterPresence.onPeerChange"
+		},
+		"90": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "callback"
+		},
+		"91": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type"
+		},
+		"92": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type"
+		},
+		"93": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "peers"
+		},
+		"94": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta"
+		},
+		"95": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.id"
+		},
+		"96": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.label"
+		},
+		"97": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.savedAt"
+		},
+		"98": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.pageIRHash"
+		},
+		"99": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.delta"
+		},
+		"100": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.tags"
+		},
+		"101": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.milestone"
+		},
+		"102": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.protected"
+		},
+		"103": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.author"
+		},
+		"104": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMeta.notes"
+		},
+		"105": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMetaPatch"
+		},
+		"106": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMetaPatch.label"
+		},
+		"107": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMetaPatch.tags"
+		},
+		"108": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMetaPatch.milestone"
+		},
+		"109": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMetaPatch.protected"
+		},
+		"110": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMetaPatch.author"
+		},
+		"111": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotMetaPatch.notes"
+		},
+		"112": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotPage"
+		},
+		"113": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotPage.items"
+		},
+		"114": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotPage.nextCursor"
+		},
+		"115": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotQuery"
+		},
+		"116": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotQuery.cursor"
+		},
+		"117": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotQuery.limit"
+		},
+		"118": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotQuery.sort"
+		},
+		"119": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type"
+		},
+		"120": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type.field"
+		},
+		"121": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type.direction"
+		},
+		"122": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "SnapshotQuery.filter"
+		},
+		"123": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type"
+		},
+		"124": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type.label"
+		},
+		"125": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "Unsubscribe"
+		},
+		"126": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type"
+		},
+		"127": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "__type"
+		},
+		"128": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "VersionHistoryExport"
+		},
+		"129": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "VersionHistoryExport.version"
+		},
+		"130": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "VersionHistoryExport.snapshots"
+		},
+		"131": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "VersionHistoryExportEntry"
+		},
+		"132": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "VersionHistoryExportEntry.meta"
+		},
+		"133": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "VersionHistoryExportEntry.ir"
+		},
+		"134": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "VersionHistoryImportOptions"
+		},
+		"135": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/types/types.ts",
+			"qualifiedName": "VersionHistoryImportOptions.mode"
+		},
+		"136": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/archive.ts",
+			"qualifiedName": "normalizeVersionHistoryExport"
+		},
+		"137": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/archive.ts",
+			"qualifiedName": "normalizeVersionHistoryExport"
+		},
+		"138": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/archive.ts",
+			"qualifiedName": "value"
+		},
+		"139": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "IRDiff"
+		},
+		"140": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "IRDiffOp"
+		},
+		"141": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type"
 		},
-		"85": {
+		"142": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.kind"
 		},
-		"86": {
+		"143": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "__type.path"
+		},
+		"144": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "__type.node"
+		},
+		"145": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "__type"
+		},
+		"146": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "__type.kind"
+		},
+		"147": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "__type.path"
+		},
+		"148": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "__type.nodeId"
+		},
+		"149": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "__type"
+		},
+		"150": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "__type.kind"
+		},
+		"151": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.from"
 		},
-		"87": {
+		"152": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.to"
 		},
-		"88": {
+		"153": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.nodeId"
 		},
-		"89": {
+		"154": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type"
 		},
-		"90": {
+		"155": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.kind"
 		},
-		"91": {
+		"156": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.path"
 		},
-		"92": {
+		"157": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.key"
 		},
-		"93": {
+		"158": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.before"
 		},
-		"94": {
+		"159": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.after"
 		},
-		"95": {
+		"160": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type"
 		},
-		"96": {
+		"161": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.kind"
 		},
-		"97": {
+		"162": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.path"
 		},
-		"98": {
+		"163": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.before"
 		},
-		"99": {
+		"164": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.after"
 		},
-		"100": {
+		"165": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type"
 		},
-		"101": {
+		"166": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.kind"
 		},
-		"102": {
+		"167": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.path"
 		},
-		"103": {
+		"168": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.key"
 		},
-		"104": {
+		"169": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.before"
 		},
-		"105": {
+		"170": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "__type.after"
 		},
-		"106": {
+		"171": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "IRDiffSummary"
 		},
-		"107": {
+		"172": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "IRDiffSummary.added"
 		},
-		"108": {
+		"173": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "IRDiffSummary.removed"
 		},
-		"109": {
+		"174": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "IRDiffSummary.moved"
 		},
-		"110": {
+		"175": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "IRDiffSummary.changed"
 		},
-		"111": {
+		"176": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "IRDiffSummary.metaChanged"
 		},
-		"112": {
+		"177": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "IRDiffSummary.description"
 		},
-		"113": {
+		"178": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "applyDiff"
 		},
-		"114": {
+		"179": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "applyDiff"
 		},
-		"115": {
+		"180": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "a"
 		},
-		"116": {
+		"181": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "diff"
 		},
-		"117": {
+		"182": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "DiffApplyError"
 		},
-		"118": {
+		"183": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "DiffApplyError.__constructor"
 		},
-		"119": {
+		"184": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "DiffApplyError"
 		},
-		"120": {
+		"185": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "message"
 		},
-		"121": {
+		"186": {
 			"packageName": "typescript",
 			"packagePath": "lib/lib.es5.d.ts",
 			"qualifiedName": "Error.name"
 		},
-		"122": {
+		"187": {
 			"packageName": "typescript",
 			"packagePath": "lib/lib.es5.d.ts",
 			"qualifiedName": "Error.message"
 		},
-		"123": {
+		"188": {
 			"packageName": "typescript",
 			"packagePath": "lib/lib.es5.d.ts",
 			"qualifiedName": "Error.stack"
 		},
-		"124": {
+		"189": {
 			"packageName": "typescript",
 			"packagePath": "lib/lib.es2022.error.d.ts",
 			"qualifiedName": "Error.cause"
 		},
-		"125": {
+		"190": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "diffIR"
 		},
-		"126": {
+		"191": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "diffIR"
 		},
-		"127": {
+		"192": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "a"
 		},
-		"128": {
+		"193": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "b"
 		},
-		"129": {
+		"194": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "isIRDiff"
+		},
+		"195": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "isIRDiff"
+		},
+		"196": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/diff.ts",
+			"qualifiedName": "value"
+		},
+		"197": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "summarizeDiff"
 		},
-		"130": {
+		"198": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "summarizeDiff"
 		},
-		"131": {
+		"199": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/diff.ts",
 			"qualifiedName": "diff"
 		},
-		"132": {
+		"200": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/errors.ts",
+			"qualifiedName": "createPermissionDeniedError"
+		},
+		"201": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/errors.ts",
+			"qualifiedName": "createPermissionDeniedError"
+		},
+		"202": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/errors.ts",
+			"qualifiedName": "operation"
+		},
+		"203": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/errors.ts",
+			"qualifiedName": "detail"
+		},
+		"204": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/errors.ts",
 			"qualifiedName": "VersionHistoryError"
 		},
-		"133": {
+		"205": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/errors.ts",
 			"qualifiedName": "VersionHistoryError.__constructor"
 		},
-		"134": {
+		"206": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/errors.ts",
 			"qualifiedName": "VersionHistoryError"
 		},
-		"135": {
+		"207": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/errors.ts",
 			"qualifiedName": "code"
 		},
-		"136": {
+		"208": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/errors.ts",
 			"qualifiedName": "message"
 		},
-		"137": {
+		"209": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/errors.ts",
 			"qualifiedName": "VersionHistoryError.code"
 		},
-		"138": {
+		"210": {
 			"packageName": "typescript",
 			"packagePath": "lib/lib.es5.d.ts",
 			"qualifiedName": "Error.name"
 		},
-		"139": {
+		"211": {
 			"packageName": "typescript",
 			"packagePath": "lib/lib.es5.d.ts",
 			"qualifiedName": "Error.message"
 		},
-		"140": {
+		"212": {
 			"packageName": "typescript",
 			"packagePath": "lib/lib.es5.d.ts",
 			"qualifiedName": "Error.stack"
 		},
-		"141": {
+		"213": {
 			"packageName": "typescript",
 			"packagePath": "lib/lib.es2022.error.d.ts",
 			"qualifiedName": "Error.cause"
 		},
-		"142": {
+		"214": {
 			"packageName": "@anvilkit/plugin-version-history",
 			"packagePath": "src/utils/errors.ts",
 			"qualifiedName": "VersionHistoryErrorCode"
+		},
+		"215": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/errors.ts",
+			"qualifiedName": "VersionHistoryOperation"
+		},
+		"216": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/query.ts",
+			"qualifiedName": "querySnapshots"
+		},
+		"217": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/query.ts",
+			"qualifiedName": "querySnapshots"
+		},
+		"218": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/query.ts",
+			"qualifiedName": "all"
+		},
+		"219": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/query.ts",
+			"qualifiedName": "options"
+		},
+		"220": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "checkRestoreConflict"
+		},
+		"221": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "checkRestoreConflict"
+		},
+		"222": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "input"
+		},
+		"223": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "PrepareRestoreInput"
+		},
+		"224": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "PrepareRestoreInput.snapshotIR"
+		},
+		"225": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "PrepareRestoreInput.force"
+		},
+		"226": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflictInput.currentIR"
+		},
+		"227": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflictInput.expectedBaseHash"
+		},
+		"228": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "prepareRestore"
+		},
+		"229": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "prepareRestore"
+		},
+		"230": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "input"
+		},
+		"231": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflict"
+		},
+		"232": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflict.hasConflict"
+		},
+		"233": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflict.currentHash"
+		},
+		"234": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflict.expectedBaseHash"
+		},
+		"235": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflictInput"
+		},
+		"236": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflictInput.currentIR"
+		},
+		"237": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/restore.ts",
+			"qualifiedName": "RestoreConflictInput.expectedBaseHash"
+		},
+		"238": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "planRetention"
+		},
+		"239": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "planRetention"
+		},
+		"240": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "snapshots"
+		},
+		"241": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "policy"
+		},
+		"242": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "options"
+		},
+		"243": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionAdapter"
+		},
+		"244": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPlan"
+		},
+		"245": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPlan.deleteIds"
+		},
+		"246": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPlan.keepIds"
+		},
+		"247": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPlanOptions"
+		},
+		"248": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPlanOptions.now"
+		},
+		"249": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPlanOptions.protectedIds"
+		},
+		"250": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPolicy"
+		},
+		"251": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPolicy.maxSnapshots"
+		},
+		"252": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPolicy.maxAgeMs"
+		},
+		"253": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionResult"
+		},
+		"254": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionResult.plan"
+		},
+		"255": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionResult.deletedIds"
+		},
+		"256": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionResult.dryRun"
+		},
+		"257": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RunRetentionOptions"
+		},
+		"258": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RunRetentionOptions.dryRun"
+		},
+		"259": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPlanOptions.now"
+		},
+		"260": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "RetentionPlanOptions.protectedIds"
+		},
+		"261": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "runRetention"
+		},
+		"262": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "runRetention"
+		},
+		"263": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "adapter"
+		},
+		"264": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "policy"
+		},
+		"265": {
+			"packageName": "@anvilkit/plugin-version-history",
+			"packagePath": "src/utils/retention.ts",
+			"qualifiedName": "options"
 		}
 	},
 	"files": {
