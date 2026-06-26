@@ -33,17 +33,29 @@ export const saveSnapshotAction: StudioHeaderAction = {
 			return;
 		}
 
-		const ir = toPageIR(ctx.getData());
-		if (!ir) {
-			ctx.log(
-				"info",
-				"Version history save deferred until phase5-013 wires Puck data to PageIR conversion.",
-			);
-			return;
-		}
-
+		// Guard the in-flight flag around the conversion too, so an async
+		// `buildIR` bridge cannot race a second click into a duplicate save.
 		state.saveInFlight = true;
 		try {
+			const data = ctx.getData();
+			// Fast-path: data already in PageIR shape (e.g. a headless host).
+			// Otherwise defer to the host-provided `buildIR` bridge so a real
+			// `<Studio>` session — where `ctx.getData()` returns Puck data —
+			// can still persist a snapshot.
+			let ir = toPageIR(data);
+			if (!ir && state.buildIR) {
+				ir = await Promise.resolve(state.buildIR(data));
+			}
+			if (!ir) {
+				ctx.log(
+					"info",
+					state.buildIR
+						? "Version history save skipped because buildIR returned no PageIR for the current editor data."
+						: "Version history save skipped because the editor data is not PageIR and no buildIR option was provided.",
+				);
+				return;
+			}
+
 			const id = await Promise.resolve(
 				state.adapter.save(ir, {
 					pageIRHash: hashPageIR(ir),
@@ -55,20 +67,25 @@ export const saveSnapshotAction: StudioHeaderAction = {
 			if (state.maxSnapshots !== undefined) {
 				const idsToDelete = evictOldest(snapshots, state.maxSnapshots);
 				if (idsToDelete.length > 0) {
-					if (!state.adapter.delete) {
+					if (state.adapter.deleteMany) {
+						// Prefer the batch path so retention is a single store
+						// mutation instead of one delete call per id.
+						await Promise.resolve(state.adapter.deleteMany(idsToDelete));
+						snapshots = await Promise.resolve(state.adapter.list());
+					} else if (state.adapter.delete) {
+						for (const snapshotId of idsToDelete) {
+							await Promise.resolve(state.adapter.delete(snapshotId));
+						}
+						snapshots = await Promise.resolve(state.adapter.list());
+					} else {
 						ctx.log(
 							"warn",
-							"Version history maxSnapshots overflow could not evict because adapter.delete is unavailable.",
+							"Version history maxSnapshots overflow could not evict because the adapter implements neither deleteMany nor delete.",
 							{
 								maxSnapshots: state.maxSnapshots,
 								overflowIds: idsToDelete,
 							},
 						);
-					} else {
-						for (const snapshotId of idsToDelete) {
-							await Promise.resolve(state.adapter.delete(snapshotId));
-						}
-						snapshots = await Promise.resolve(state.adapter.list());
 					}
 				}
 			}
