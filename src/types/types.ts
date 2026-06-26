@@ -222,7 +222,17 @@ export interface PresenceState {
 	readonly selection?: PresenceSelection;
 }
 
-/** Presence channel an adapter exposes for live cursors/selections. */
+/**
+ * Presence channel a collaborative adapter exposes for live cursors /
+ * selections.
+ *
+ * Optional and **host / collaboration-adapter owned**: the bundled reference
+ * adapters (in-memory, localStorage) are single-user and intentionally do not
+ * implement it. Only a real multiplayer transport — e.g. a Yjs adapter such as
+ * `@anvilkit/plugin-collab-yjs` (`YjsSnapshotAdapter`) — provides it, so this
+ * interface lives here as the shared contract that collaborative adapters
+ * implement, not something the reference adapters supply.
+ */
 export interface SnapshotAdapterPresence {
 	/** Publish the local peer's presence to other collaborators. */
 	update(state: PresenceState): void;
@@ -320,18 +330,29 @@ export interface SnapshotAdapter {
 		patch: SnapshotMetaPatch,
 	) => MaybePromise<void>;
 	/**
-	 * Optional change subscription for collaborative adapters. Invokes
-	 * `onUpdate` whenever a remote peer mutates the shared document (with the
-	 * new `ir` and the originating `peer` when known); the panel drops its load
-	 * cache and re-lists so the diff view never shows a stale snapshot. Returns
-	 * an {@link Unsubscribe}. Omitted by local/single-user adapters.
+	 * Optional change subscription, **owned by the host / a collaborative
+	 * adapter — not by the bundled reference adapters**. The in-memory and
+	 * localStorage reference adapters are single-user and intentionally do not
+	 * implement it; a real collaboration transport (e.g. a Yjs adapter such as
+	 * `@anvilkit/plugin-collab-yjs`) supplies it. Callers must feature-detect it.
+	 *
+	 * When implemented, `onUpdate` fires whenever a remote peer mutates the
+	 * shared document (with the new `ir` and the originating `peer` when known);
+	 * the panel drops its load cache and re-lists so the diff view never shows a
+	 * stale snapshot. Returns an {@link Unsubscribe}; call it to stop receiving
+	 * updates (idempotent — calling it again after the first time is a no-op).
 	 */
 	readonly subscribe?: (
 		onUpdate: (ir: PageIR, peer?: PeerInfo) => void,
 	) => Unsubscribe;
 	/**
-	 * Optional presence channel for live cursors/selections in collaborative
-	 * sessions. Omitted by adapters without multiplayer awareness.
+	 * Optional presence channel for live cursors / selections, **owned by the
+	 * host / a collaborative adapter — not by the bundled reference adapters**.
+	 * The in-memory and localStorage reference adapters have no multiplayer
+	 * awareness and intentionally do not implement it; a real collaboration
+	 * transport (e.g. a Yjs adapter such as `@anvilkit/plugin-collab-yjs`)
+	 * supplies it. Callers must feature-detect it. See
+	 * {@link SnapshotAdapterPresence} for the channel contract.
 	 */
 	readonly presence?: SnapshotAdapterPresence;
 }
