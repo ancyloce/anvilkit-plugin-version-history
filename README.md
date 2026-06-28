@@ -1,6 +1,6 @@
 # @anvilkit/plugin-version-history
 
-> **Alpha (`0.1.7`).** Header actions and the diff/apply engine are stable. The plugin can also contribute the StudioSidebar `history` panel through the supported `ctx.registerHistoryPanel` slot — pass the `renderPanel` option (see [Sidebar history panel](#sidebar-history-panel)).
+> **Alpha (`0.1.8`).** Header actions and the diff/apply engine are stable. The plugin can also contribute the StudioSidebar `history` panel through the supported `ctx.registerHistoryPanel` slot — pass the `renderPanel` option (see [Sidebar history panel](#sidebar-history-panel)).
 
 Headless version-history plugin for Anvilkit Studio. Snapshot persistence is delegated to a host-provided `SnapshotAdapter`, so the plugin itself ships no I/O — only the diff/apply engine, header actions, optional UI primitives, and reference adapters for tests and demos.
 
