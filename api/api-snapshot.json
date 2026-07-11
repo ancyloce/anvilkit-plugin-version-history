@@ -179,7 +179,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Typed error thrown across the version-history surface (adapters, the restore\r\nguard, host integrations). The "
+						"text": "Typed error thrown across the version-history surface (adapters, the restore\nguard, host integrations). The "
 					},
 					{
 						"kind": "inline-tag",
@@ -189,7 +189,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " discriminant\r\nlets callers branch on the failure category instead of parsing "
+						"text": " discriminant\nlets callers branch on the failure category instead of parsing "
 					},
 					{
 						"kind": "code",
@@ -1133,7 +1133,8 @@
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/contracts"
+						"package": "@anvilkit/contracts",
+						"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 					},
 					"inheritedFrom": {
 						"type": "reference",
@@ -1199,7 +1200,8 @@
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/contracts"
+						"package": "@anvilkit/contracts",
+						"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 					}
 				}
 			],
@@ -1622,7 +1624,8 @@
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/contracts"
+						"package": "@anvilkit/contracts",
+						"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 					}
 				},
 				{
@@ -2260,7 +2263,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Host-provided storage backend for snapshots — the single integration seam\r\nbetween this plugin and a persistence layer (in-memory, localStorage, Yjs,\r\na REST API, …). "
+						"text": "Host-provided storage backend for snapshots — the single integration seam\nbetween this plugin and a persistence layer (in-memory, localStorage, Yjs,\na REST API, …). "
 					},
 					{
 						"kind": "code",
@@ -2284,7 +2287,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " are the required core; everything else\r\nis optional and must be feature-detected by callers, so older adapters keep\r\nworking unchanged. Methods may be sync or async."
+						"text": " are the required core; everything else\nis optional and must be feature-detected by callers, so older adapters keep\nworking unchanged. Methods may be sync or async."
 					}
 				]
 			},
@@ -2310,7 +2313,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " while keeping the rest\r\nloadable (adapters re-root any deltas that chained onto it). Additive and\r\nbackward compatible — feature-detect it."
+								"text": " while keeping the rest\nloadable (adapters re-root any deltas that chained onto it). Additive and\nbackward compatible — feature-detect it."
 							}
 						]
 					},
@@ -2372,7 +2375,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Optional batch delete for administrative cleanup. Removes every id in\r\n"
+								"text": "Optional batch delete for administrative cleanup. Removes every id in\n"
 							},
 							{
 								"kind": "code",
@@ -2380,7 +2383,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " (unknown ids are ignored) while leaving the remaining snapshots\r\nloadable. Additive and fully backward compatible — adapters that omit it\r\nare unaffected and callers must feature-detect it. Equivalent in effect\r\nto calling "
+								"text": " (unknown ids are ignored) while leaving the remaining snapshots\nloadable. Additive and fully backward compatible — adapters that omit it\nare unaffected and callers must feature-detect it. Equivalent in effect\nto calling "
 							},
 							{
 								"kind": "code",
@@ -2388,7 +2391,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " per id, but adapters can implement it more\r\nefficiently (the reference localStorage adapter does a single index\r\nwrite)."
+								"text": " per id, but adapters can implement it more\nefficiently (the reference localStorage adapter does a single index\nwrite)."
 							}
 						]
 					},
@@ -2465,7 +2468,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "\r\n(reconstructing the internal delta chain via "
+								"text": "\n(reconstructing the internal delta chain via "
 							},
 							{
 								"kind": "code",
@@ -2473,7 +2476,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ") into a\r\nself-contained "
+								"text": ") into a\nself-contained "
 							},
 							{
 								"kind": "inline-tag",
@@ -2483,7 +2486,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " archive in deterministic save\r\norder. Additive/optional — feature-detect it. Pairs with\r\n"
+								"text": " archive in deterministic save\norder. Additive/optional — feature-detect it. Pairs with\n"
 							},
 							{
 								"kind": "inline-tag",
@@ -2544,7 +2547,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Optional portability import. Restores snapshots from a\r\n"
+								"text": "Optional portability import. Restores snapshots from a\n"
 							},
 							{
 								"kind": "inline-tag",
@@ -2564,7 +2567,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ". The default\r\n"
+								"text": ". The default\n"
 							},
 							{
 								"kind": "code",
@@ -2580,7 +2583,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " clears the store first.\r\nImported snapshots preserve their original ids/metadata and are stored as\r\nstandalone keyframes, so each is immediately loadable. Additive/optional —\r\nfeature-detect it. Throws a "
+								"text": " clears the store first.\nImported snapshots preserve their original ids/metadata and are stored as\nstandalone keyframes, so each is immediately loadable. Additive/optional —\nfeature-detect it. Throws a "
 							},
 							{
 								"kind": "code",
@@ -2598,7 +2601,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "\r\n(via "
+								"text": "\n(via "
 							},
 							{
 								"kind": "code",
@@ -2749,7 +2752,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " by id, reconstructing\r\nit from the internal delta chain if needed. Throws a "
+								"text": " by id, reconstructing\nit from the internal delta chain if needed. Throws a "
 							},
 							{
 								"kind": "code",
@@ -2757,7 +2760,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "\r\n"
+								"text": "\n"
 							},
 							{
 								"kind": "inline-tag",
@@ -2811,7 +2814,8 @@
 													"qualifiedName": "PageIR"
 												},
 												"name": "PageIR",
-												"package": "@anvilkit/contracts"
+												"package": "@anvilkit/contracts",
+												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 											}
 										],
 										"name": "MaybePromise",
@@ -2835,7 +2839,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Optional presence channel for live cursors / selections, **owned by the\r\nhost / a collaborative adapter — not by the bundled reference adapters**.\r\nThe in-memory and localStorage reference adapters have no multiplayer\r\nawareness and intentionally do not implement it; a real collaboration\r\ntransport (e.g. a Yjs adapter such as "
+								"text": "Optional presence channel for live cursors / selections, **owned by the\nhost / a collaborative adapter — not by the bundled reference adapters**.\nThe in-memory and localStorage reference adapters have no multiplayer\nawareness and intentionally do not implement it; a real collaboration\ntransport (e.g. a Yjs adapter such as "
 							},
 							{
 								"kind": "code",
@@ -2843,7 +2847,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ")\r\nsupplies it. Callers must feature-detect it. See\r\n"
+								"text": ")\nsupplies it. Callers must feature-detect it. See\n"
 							},
 							{
 								"kind": "inline-tag",
@@ -2885,7 +2889,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "\r\nreturns. Additive and fully backward compatible — adapters that omit it\r\nare unaffected, and callers must feature-detect it. Reference adapters\r\nimplement it by delegating to "
+								"text": "\nreturns. Additive and fully backward compatible — adapters that omit it\nare unaffected, and callers must feature-detect it. Reference adapters\nimplement it by delegating to "
 							},
 							{
 								"kind": "code",
@@ -2974,7 +2978,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " as a new snapshot and resolve to its newly assigned id.\r\nThe adapter owns "
+								"text": " as a new snapshot and resolve to its newly assigned id.\nThe adapter owns "
 							},
 							{
 								"kind": "code",
@@ -2990,7 +2994,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " (hence they are omitted from the meta\r\nargument) and may store the IR as a delta against earlier snapshots."
+								"text": " (hence they are omitted from the meta\nargument) and may store the IR as a delta against earlier snapshots."
 							}
 						]
 					},
@@ -3024,7 +3028,8 @@
 													"qualifiedName": "PageIR"
 												},
 												"name": "PageIR",
-												"package": "@anvilkit/contracts"
+												"package": "@anvilkit/contracts",
+												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 											}
 										},
 										{
@@ -3108,7 +3113,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Optional change subscription, **owned by the host / a collaborative\r\nadapter — not by the bundled reference adapters**. The in-memory and\r\nlocalStorage reference adapters are single-user and intentionally do not\r\nimplement it; a real collaboration transport (e.g. a Yjs adapter such as\r\n"
+								"text": "Optional change subscription, **owned by the host / a collaborative\nadapter — not by the bundled reference adapters**. The in-memory and\nlocalStorage reference adapters are single-user and intentionally do not\nimplement it; a real collaboration transport (e.g. a Yjs adapter such as\n"
 							},
 							{
 								"kind": "code",
@@ -3116,7 +3121,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ") supplies it. Callers must feature-detect it.\r\n\r\nWhen implemented, "
+								"text": ") supplies it. Callers must feature-detect it.\n\nWhen implemented, "
 							},
 							{
 								"kind": "code",
@@ -3124,7 +3129,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " fires whenever a remote peer mutates the\r\nshared document (with the new "
+								"text": " fires whenever a remote peer mutates the\nshared document (with the new "
 							},
 							{
 								"kind": "code",
@@ -3140,7 +3145,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " when known);\r\nthe panel drops its load cache and re-lists so the diff view never shows a\r\nstale snapshot. Returns an "
+								"text": " when known);\nthe panel drops its load cache and re-lists so the diff view never shows a\nstale snapshot. Returns an "
 							},
 							{
 								"kind": "inline-tag",
@@ -3150,7 +3155,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "; call it to stop receiving\r\nupdates (idempotent — calling it again after the first time is a no-op)."
+								"text": "; call it to stop receiving\nupdates (idempotent — calling it again after the first time is a no-op)."
 							}
 						]
 					},
@@ -3206,7 +3211,8 @@
 																			"qualifiedName": "PageIR"
 																		},
 																		"name": "PageIR",
-																		"package": "@anvilkit/contracts"
+																		"package": "@anvilkit/contracts",
+																		"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 																	}
 																},
 																{
@@ -3259,7 +3265,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Optional metadata update. Patches the mutable, host-curated fields of a\r\nstored snapshot's metadata (the "
+								"text": "Optional metadata update. Patches the mutable, host-curated fields of a\nstored snapshot's metadata (the "
 							},
 							{
 								"kind": "inline-tag",
@@ -3269,7 +3275,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " subset —\r\nlabel/tags/milestone/protected/author/notes) in place, leaving its\r\n"
+								"text": " subset —\nlabel/tags/milestone/protected/author/notes) in place, leaving its\n"
 							},
 							{
 								"kind": "code",
@@ -3293,7 +3299,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "/\r\n"
+								"text": "/\n"
 							},
 							{
 								"kind": "code",
@@ -3309,7 +3315,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ") untouched. Omitted patch fields are left unchanged.\r\n\r\nAdditive and fully backward compatible — adapters that omit it are\r\nunaffected and callers must feature-detect it. Throws a\r\n"
+								"text": ") untouched. Omitted patch fields are left unchanged.\n\nAdditive and fully backward compatible — adapters that omit it are\nunaffected and callers must feature-detect it. Throws a\n"
 							},
 							{
 								"kind": "code",
@@ -3419,7 +3425,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Presence channel a collaborative adapter exposes for live cursors /\r\nselections.\r\n\r\nOptional and **host / collaboration-adapter owned**: the bundled reference\r\nadapters (in-memory, localStorage) are single-user and intentionally do not\r\nimplement it. Only a real multiplayer transport — e.g. a Yjs adapter such as\r\n"
+						"text": "Presence channel a collaborative adapter exposes for live cursors /\nselections.\n\nOptional and **host / collaboration-adapter owned**: the bundled reference\nadapters (in-memory, localStorage) are single-user and intentionally do not\nimplement it. Only a real multiplayer transport — e.g. a Yjs adapter such as\n"
 					},
 					{
 						"kind": "code",
@@ -3435,7 +3441,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ") — provides it, so this\r\ninterface lives here as the shared contract that collaborative adapters\r\nimplement, not something the reference adapters supply."
+						"text": ") — provides it, so this\ninterface lives here as the shared contract that collaborative adapters\nimplement, not something the reference adapters supply."
 					}
 				]
 			},
@@ -3465,7 +3471,7 @@
 									},
 									{
 										"kind": "text",
-										"text": " fires with\r\nthe full set whenever it changes. Returns an "
+										"text": " fires with\nthe full set whenever it changes. Returns an "
 									},
 									{
 										"kind": "inline-tag",
@@ -3606,7 +3612,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Lightweight, listable descriptor of a stored snapshot — everything the UI\r\nneeds without materializing the full "
+						"text": "Lightweight, listable descriptor of a stored snapshot — everything the UI\nneeds without materializing the full "
 					},
 					{
 						"kind": "code",
@@ -3614,7 +3620,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ". Identity/provenance fields\r\n("
+						"text": ". Identity/provenance fields\n("
 					},
 					{
 						"kind": "code",
@@ -3646,7 +3652,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ") are immutable; the rest is the\r\nhost-curated, patchable "
+						"text": ") are immutable; the rest is the\nhost-curated, patchable "
 					},
 					{
 						"kind": "inline-tag",
@@ -3674,7 +3680,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Free-form author / actor attribution for audit trails (e.g. a user id,\r\nemail, or display name). The package treats it as an opaque string and\r\nnever parses it.\r\n\r\nOptional and backward compatible — older records omit it."
+								"text": "Free-form author / actor attribution for audit trails (e.g. a user id,\nemail, or display name). The package treats it as an opaque string and\nnever parses it.\n\nOptional and backward compatible — older records omit it."
 							}
 						]
 					},
@@ -3696,7 +3702,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Structural diff from the immediately previous snapshot to this\r\none (L2). Optional — only populated when the producing adapter\r\nopts in (e.g. "
+								"text": "Structural diff from the immediately previous snapshot to this\none (L2). Optional — only populated when the producing adapter\nopts in (e.g. "
 							},
 							{
 								"kind": "code",
@@ -3704,7 +3710,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "). Useful\r\nfor audit logs, undo-stack replay, and human-readable change\r\nsummaries via "
+								"text": "). Useful\nfor audit logs, undo-stack replay, and human-readable change\nsummaries via "
 							},
 							{
 								"kind": "code",
@@ -3720,7 +3726,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ".\r\n\r\nSnapshots written by older adapter versions omit this field; the\r\nshape stays backward compatible."
+								"text": ".\n\nSnapshots written by older adapter versions omit this field; the\nshape stays backward compatible."
 							}
 						]
 					},
@@ -3811,7 +3817,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Marks this snapshot as a named milestone / checkpoint a host wants to\r\nsurface prominently in version-history UIs (vs. an ordinary autosave).\r\n\r\nOptional and backward compatible — older records omit it, which is\r\nequivalent to "
+								"text": "Marks this snapshot as a named milestone / checkpoint a host wants to\nsurface prominently in version-history UIs (vs. an ordinary autosave).\n\nOptional and backward compatible — older records omit it, which is\nequivalent to "
 							},
 							{
 								"kind": "code",
@@ -3841,7 +3847,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Free-form, human-readable notes describing the snapshot — longer-form\r\ncontext than the short "
+								"text": "Free-form, human-readable notes describing the snapshot — longer-form\ncontext than the short "
 							},
 							{
 								"kind": "inline-tag",
@@ -3851,7 +3857,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ".\r\n\r\nOptional and backward compatible — older records omit it."
+								"text": ".\n\nOptional and backward compatible — older records omit it."
 							}
 						]
 					},
@@ -3910,7 +3916,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ", the snapshot is exempt from automatic retention eviction:\r\n"
+								"text": ", the snapshot is exempt from automatic retention eviction:\n"
 							},
 							{
 								"kind": "code",
@@ -3918,7 +3924,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " reads this flag and never places a protected snapshot in\r\nits delete plan, regardless of age or count pressure.\r\n\r\nOptional and backward compatible — older records omit it, which is\r\nequivalent to \"not protected\"."
+								"text": " reads this flag and never places a protected snapshot in\nits delete plan, regardless of age or count pressure.\n\nOptional and backward compatible — older records omit it, which is\nequivalent to \"not protected\"."
 							}
 						]
 					},
@@ -3961,7 +3967,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Host-assigned labels for grouping, filtering, and searching snapshots\r\n(e.g. "
+								"text": "Host-assigned labels for grouping, filtering, and searching snapshots\n(e.g. "
 							},
 							{
 								"kind": "code",
@@ -3969,7 +3975,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "). Set at save time via\r\n"
+								"text": "). Set at save time via\n"
 							},
 							{
 								"kind": "inline-tag",
@@ -3979,7 +3985,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " or amended later with\r\n"
+								"text": " or amended later with\n"
 							},
 							{
 								"kind": "inline-tag",
@@ -3989,7 +3995,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ".\r\n\r\nOptional and backward compatible — records written before tagging\r\nexisted omit it (treated as \"no tags\"); it is never required."
+								"text": ".\n\nOptional and backward compatible — records written before tagging\nexisted omit it (treated as \"no tags\"); it is never required."
 							}
 						]
 					},
@@ -4044,7 +4050,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " that\r\n"
+						"text": " that\n"
 					},
 					{
 						"kind": "inline-tag",
@@ -4054,7 +4060,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " may patch in place. The identity /\r\nprovenance fields ("
+						"text": " may patch in place. The identity /\nprovenance fields ("
 					},
 					{
 						"kind": "code",
@@ -4086,7 +4092,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ") are intentionally\r\nexcluded — they describe *what* was captured and *when*, and never change\r\nafter a snapshot is written.\r\n\r\nEvery field is optional; an omitted field is left unchanged by the update."
+						"text": ") are intentionally\nexcluded — they describe *what* was captured and *when*, and never change\nafter a snapshot is written.\n\nEvery field is optional; an omitted field is left unchanged by the update."
 					}
 				]
 			},
@@ -4265,7 +4271,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "). Absent on the\r\nfinal page — i.e. when no further items remain."
+								"text": "). Absent on the\nfinal page — i.e. when no further items remain."
 							}
 						]
 					},
@@ -4295,7 +4301,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Optional query for paginating, filtering, and sorting snapshot metadata\r\nvia "
+						"text": "Optional query for paginating, filtering, and sorting snapshot metadata\nvia "
 					},
 					{
 						"kind": "inline-tag",
@@ -4305,7 +4311,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ". Every field is optional; an empty query\r\n("
+						"text": ". Every field is optional; an empty query\n("
 					},
 					{
 						"kind": "code",
@@ -4347,7 +4353,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " of the last item from a previous page.\r\nResults continue immediately after it in the resolved order. An unknown\r\ncursor (e.g. the referenced snapshot was deleted) restarts from the head."
+								"text": " of the last item from a previous page.\nResults continue immediately after it in the resolved order. An unknown\ncursor (e.g. the referenced snapshot was deleted) restarts from the head."
 							}
 						]
 					},
@@ -4431,7 +4437,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Maximum number of items to return. An omitted, non-finite, or\r\nnon-positive value returns all remaining items."
+								"text": "Maximum number of items to return. An omitted, non-finite, or\nnon-positive value returns all remaining items."
 							}
 						]
 					},
@@ -4538,7 +4544,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Self-contained, JSON-serializable archive of every snapshot in an adapter —\r\nproduced by "
+						"text": "Self-contained, JSON-serializable archive of every snapshot in an adapter —\nproduced by "
 					},
 					{
 						"kind": "inline-tag",
@@ -4548,7 +4554,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " and consumed by\r\n"
+						"text": " and consumed by\n"
 					},
 					{
 						"kind": "inline-tag",
@@ -4566,7 +4572,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ", so a\r\nround-trip "
+						"text": ", so a\nround-trip "
 					},
 					{
 						"kind": "code",
@@ -4574,7 +4580,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " into a fresh adapter reproduces loadable\r\nsnapshots.\r\n\r\n"
+						"text": " into a fresh adapter reproduces loadable\nsnapshots.\n\n"
 					},
 					{
 						"kind": "code",
@@ -4590,7 +4596,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ") — bump it if the\r\nenvelope shape ever changes so importers can refuse or migrate older files.\r\nThis is intentionally NOT the adapter's internal delta-chain format."
+						"text": ") — bump it if the\nenvelope shape ever changes so importers can refuse or migrate older files.\nThis is intentionally NOT the adapter's internal delta-chain format."
 					}
 				]
 			},
@@ -4661,21 +4667,17 @@
 					},
 					{
 						"kind": "text",
-						"text": ": a snapshot's metadata\r\npaired with its fully-materialized "
+						"text": ": a snapshot's metadata\npaired with its fully-materialized "
 					},
 					{
 						"kind": "inline-tag",
 						"tag": "@link",
 						"text": "PageIR",
-						"target": {
-							"packageName": "@anvilkit/contracts",
-							"packagePath": "src/ir.ts",
-							"qualifiedName": "PageIR"
-						}
+						"target": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 					},
 					{
 						"kind": "text",
-						"text": ".\r\n\r\nUnlike an adapter's internal delta-chain record, the "
+						"text": ".\n\nUnlike an adapter's internal delta-chain record, the "
 					},
 					{
 						"kind": "code",
@@ -4683,7 +4685,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " here is a\r\ncomplete, standalone page (the chain is reconstructed during export), so\r\nimporting the entry reproduces a directly loadable snapshot."
+						"text": " here is a\ncomplete, standalone page (the chain is reconstructed during export), so\nimporting the entry reproduces a directly loadable snapshot."
 					}
 				]
 			},
@@ -4704,7 +4706,8 @@
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/contracts"
+						"package": "@anvilkit/contracts",
+						"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 					}
 				},
 				{
@@ -4753,7 +4756,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ".\r\n\r\n- "
+						"text": ".\n\n- "
 					},
 					{
 						"kind": "code",
@@ -4761,7 +4764,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " (default) — add the archive's snapshots to the existing store,\r\n  overwriting any whose "
+						"text": " (default) — add the archive's snapshots to the existing store,\n  overwriting any whose "
 					},
 					{
 						"kind": "code",
@@ -4769,7 +4772,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " already exists and appending the rest.\r\n- "
+						"text": " already exists and appending the rest.\n- "
 					},
 					{
 						"kind": "code",
@@ -4825,7 +4828,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Host-provided bridge that converts the live editor document returned by\r\n"
+						"text": "Host-provided bridge that converts the live editor document returned by\n"
 					},
 					{
 						"kind": "code",
@@ -4849,7 +4852,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ", not\r\n"
+						"text": ", not\n"
 					},
 					{
 						"kind": "code",
@@ -4865,7 +4868,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " the snapshot adapter persists.\r\n\r\nThreaded through "
+						"text": " the snapshot adapter persists.\n\nThreaded through "
 					},
 					{
 						"kind": "inline-tag",
@@ -4875,7 +4878,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ". The\r\nheader save action calls it only when the raw data is not already a\r\n"
+						"text": ". The\nheader save action calls it only when the raw data is not already a\n"
 					},
 					{
 						"kind": "code",
@@ -4883,7 +4886,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " (the fast-path), so passing it is what makes \"Save snapshot\"\r\npersist in production sessions. Return "
+						"text": " (the fast-path), so passing it is what makes \"Save snapshot\"\npersist in production sessions. Return "
 					},
 					{
 						"kind": "code",
@@ -4891,7 +4894,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " to signal the current data\r\ncannot be converted and the save should be skipped. May be sync or async."
+						"text": " to signal the current data\ncannot be converted and the save should be skipped. May be sync or async."
 					}
 				]
 			},
@@ -4938,7 +4941,8 @@
 													"qualifiedName": "PageIR"
 												},
 												"name": "PageIR",
-												"package": "@anvilkit/contracts"
+												"package": "@anvilkit/contracts",
+												"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 											},
 											{
 												"type": "literal",
@@ -5689,7 +5693,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ". Callers switch on\r\n"
+						"text": ". Callers switch on\n"
 					},
 					{
 						"kind": "inline-tag",
@@ -5699,7 +5703,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " to recover by category instead of\r\nstring-matching "
+						"text": " to recover by category instead of\nstring-matching "
 					},
 					{
 						"kind": "code",
@@ -5707,7 +5711,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ".\r\n\r\n- "
+						"text": ".\n\n- "
 					},
 					{
 						"kind": "code",
@@ -5715,7 +5719,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " — an optimistic-concurrency check failed: the live document\r\n  changed since a restore was planned (see "
+						"text": " — an optimistic-concurrency check failed: the live document\n  changed since a restore was planned (see "
 					},
 					{
 						"kind": "code",
@@ -5723,7 +5727,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "). Retry with\r\n  "
+						"text": "). Retry with\n  "
 					},
 					{
 						"kind": "code",
@@ -5731,7 +5735,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " to override.\r\n- "
+						"text": " to override.\n- "
 					},
 					{
 						"kind": "code",
@@ -5763,7 +5767,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "/\r\n  "
+						"text": "/\n  "
 					},
 					{
 						"kind": "code",
@@ -5779,7 +5783,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " on authorization grounds (the actor is not allowed to\r\n  perform it). Surfaces with remote or collaborative adapters; the request\r\n  is well-formed but forbidden, so retrying without new credentials will not\r\n  help.\r\n- "
+						"text": " on authorization grounds (the actor is not allowed to\n  perform it). Surfaces with remote or collaborative adapters; the request\n  is well-formed but forbidden, so retrying without new credentials will not\n  help.\n- "
 					},
 					{
 						"kind": "code",
@@ -5803,7 +5807,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " referenced an id that does not\r\n  exist in the adapter.\r\n- "
+						"text": " referenced an id that does not\n  exist in the adapter.\n- "
 					},
 					{
 						"kind": "code",
@@ -5811,7 +5815,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " — a persisted payload could not be parsed or decoded.\r\n- "
+						"text": " — a persisted payload could not be parsed or decoded.\n- "
 					},
 					{
 						"kind": "code",
@@ -5819,7 +5823,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " — the backing store rejected a write because it\r\n  is full (e.g. the "
+						"text": " — the backing store rejected a write because it\n  is full (e.g. the "
 					},
 					{
 						"kind": "code",
@@ -5827,7 +5831,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " quota).\r\n- "
+						"text": " quota).\n- "
 					},
 					{
 						"kind": "code",
@@ -5835,7 +5839,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " — the backing store is missing or inaccessible\r\n  (e.g. "
+						"text": " — the backing store is missing or inaccessible\n  (e.g. "
 					},
 					{
 						"kind": "code",
@@ -5887,7 +5891,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Version-history operations an adapter or host can gate on authorization.\r\nUsed to describe which action was denied in a "
+						"text": "Version-history operations an adapter or host can gate on authorization.\nUsed to describe which action was denied in a "
 					},
 					{
 						"kind": "code",
@@ -5895,7 +5899,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\r\n"
+						"text": "\n"
 					},
 					{
 						"kind": "inline-tag",
@@ -5973,7 +5977,8 @@
 									"qualifiedName": "PageIR"
 								},
 								"name": "PageIR",
-								"package": "@anvilkit/contracts"
+								"package": "@anvilkit/contracts",
+								"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 							}
 						},
 						{
@@ -5998,7 +6003,8 @@
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/contracts"
+						"package": "@anvilkit/contracts",
+						"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 					}
 				}
 			]
@@ -6091,7 +6097,7 @@
 						"summary": [
 							{
 								"kind": "text",
-								"text": "Convenience constructor for an authorization failure. Host and remote\r\nadapters call this when the current actor is not permitted to perform a\r\nversion-history "
+								"text": "Convenience constructor for an authorization failure. Host and remote\nadapters call this when the current actor is not permitted to perform a\nversion-history "
 							},
 							{
 								"kind": "code",
@@ -6131,7 +6137,7 @@
 							},
 							{
 								"kind": "text",
-								"text": ", or\r\n"
+								"text": ", or\n"
 							},
 							{
 								"kind": "code",
@@ -6149,7 +6155,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " whose\r\n"
+								"text": " whose\n"
 							},
 							{
 								"kind": "inline-tag",
@@ -6167,7 +6173,7 @@
 							},
 							{
 								"kind": "text",
-								"text": " so callers can\r\ndiscriminate it without string-matching the message.\r\n\r\nEquivalent to "
+								"text": " so callers can\ndiscriminate it without string-matching the message.\n\nEquivalent to "
 							},
 							{
 								"kind": "code",
@@ -6175,7 +6181,7 @@
 							},
 							{
 								"kind": "text",
-								"text": "; the\r\ndirect constructor remains available for fully custom messages. An optional\r\n"
+								"text": "; the\ndirect constructor remains available for fully custom messages. An optional\n"
 							},
 							{
 								"kind": "code",
@@ -6305,7 +6311,8 @@
 									"qualifiedName": "PageIR"
 								},
 								"name": "PageIR",
-								"package": "@anvilkit/contracts"
+								"package": "@anvilkit/contracts",
+								"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 							}
 						},
 						{
@@ -6322,7 +6329,8 @@
 									"qualifiedName": "PageIR"
 								},
 								"name": "PageIR",
-								"package": "@anvilkit/contracts"
+								"package": "@anvilkit/contracts",
+								"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 							}
 						}
 					],
@@ -6986,7 +6994,8 @@
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/contracts"
+						"package": "@anvilkit/contracts",
+						"externalUrl": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
 					}
 				}
 			]

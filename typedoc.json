@@ -1,0 +1,8 @@
+{
+	"$schema": "https://typedoc.org/schema.json",
+	"externalSymbolLinkMappings": {
+		"@anvilkit/contracts": {
+			"PageIR": "https://github.com/ancyloce/anvilkit-studio/blob/main/packages/foundation/contracts/src/ir.ts"
+		}
+	}
+}
