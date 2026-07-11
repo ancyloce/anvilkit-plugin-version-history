@@ -1128,12 +1128,12 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"packageName": "@anvilkit/core",
-							"packagePath": "src/types/ir.ts",
+							"packageName": "@anvilkit/contracts",
+							"packagePath": "src/ir.ts",
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/core"
+						"package": "@anvilkit/contracts"
 					},
 					"inheritedFrom": {
 						"type": "reference",
@@ -1194,12 +1194,12 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"packageName": "@anvilkit/core",
-							"packagePath": "src/types/ir.ts",
+							"packageName": "@anvilkit/contracts",
+							"packagePath": "src/ir.ts",
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/core"
+						"package": "@anvilkit/contracts"
 					}
 				}
 			],
@@ -1617,12 +1617,12 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"packageName": "@anvilkit/core",
-							"packagePath": "src/types/ir.ts",
+							"packageName": "@anvilkit/contracts",
+							"packagePath": "src/ir.ts",
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/core"
+						"package": "@anvilkit/contracts"
 					}
 				},
 				{
@@ -2806,12 +2806,12 @@
 											{
 												"type": "reference",
 												"target": {
-													"packageName": "@anvilkit/core",
-													"packagePath": "src/types/ir.ts",
+													"packageName": "@anvilkit/contracts",
+													"packagePath": "src/ir.ts",
 													"qualifiedName": "PageIR"
 												},
 												"name": "PageIR",
-												"package": "@anvilkit/core"
+												"package": "@anvilkit/contracts"
 											}
 										],
 										"name": "MaybePromise",
@@ -3019,12 +3019,12 @@
 											"type": {
 												"type": "reference",
 												"target": {
-													"packageName": "@anvilkit/core",
-													"packagePath": "src/types/ir.ts",
+													"packageName": "@anvilkit/contracts",
+													"packagePath": "src/ir.ts",
 													"qualifiedName": "PageIR"
 												},
 												"name": "PageIR",
-												"package": "@anvilkit/core"
+												"package": "@anvilkit/contracts"
 											}
 										},
 										{
@@ -3201,12 +3201,12 @@
 																	"type": {
 																		"type": "reference",
 																		"target": {
-																			"packageName": "@anvilkit/core",
-																			"packagePath": "src/types/ir.ts",
+																			"packageName": "@anvilkit/contracts",
+																			"packagePath": "src/ir.ts",
 																			"qualifiedName": "PageIR"
 																		},
 																		"name": "PageIR",
-																		"package": "@anvilkit/core"
+																		"package": "@anvilkit/contracts"
 																	}
 																},
 																{
@@ -4668,8 +4668,8 @@
 						"tag": "@link",
 						"text": "PageIR",
 						"target": {
-							"packageName": "@anvilkit/core",
-							"packagePath": "src/types/ir.ts",
+							"packageName": "@anvilkit/contracts",
+							"packagePath": "src/ir.ts",
 							"qualifiedName": "PageIR"
 						}
 					},
@@ -4699,12 +4699,12 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"packageName": "@anvilkit/core",
-							"packagePath": "src/types/ir.ts",
+							"packageName": "@anvilkit/contracts",
+							"packagePath": "src/ir.ts",
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/core"
+						"package": "@anvilkit/contracts"
 					}
 				},
 				{
@@ -4933,12 +4933,12 @@
 											{
 												"type": "reference",
 												"target": {
-													"packageName": "@anvilkit/core",
-													"packagePath": "src/types/ir.ts",
+													"packageName": "@anvilkit/contracts",
+													"packagePath": "src/ir.ts",
 													"qualifiedName": "PageIR"
 												},
 												"name": "PageIR",
-												"package": "@anvilkit/core"
+												"package": "@anvilkit/contracts"
 											},
 											{
 												"type": "literal",
@@ -5061,12 +5061,12 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"packageName": "@anvilkit/core",
-											"packagePath": "src/types/ir.ts",
+											"packageName": "@anvilkit/contracts",
+											"packagePath": "src/ir.ts",
 											"qualifiedName": "PageIRNode"
 										},
 										"name": "PageIRNode",
-										"package": "@anvilkit/core"
+										"package": "@anvilkit/contracts"
 									}
 								},
 								{
@@ -5968,12 +5968,12 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/ir.ts",
+									"packageName": "@anvilkit/contracts",
+									"packagePath": "src/ir.ts",
 									"qualifiedName": "PageIR"
 								},
 								"name": "PageIR",
-								"package": "@anvilkit/core"
+								"package": "@anvilkit/contracts"
 							}
 						},
 						{
@@ -5993,12 +5993,12 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"packageName": "@anvilkit/core",
-							"packagePath": "src/types/ir.ts",
+							"packageName": "@anvilkit/contracts",
+							"packagePath": "src/ir.ts",
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/core"
+						"package": "@anvilkit/contracts"
 					}
 				}
 			]
@@ -6300,12 +6300,12 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/ir.ts",
+									"packageName": "@anvilkit/contracts",
+									"packagePath": "src/ir.ts",
 									"qualifiedName": "PageIR"
 								},
 								"name": "PageIR",
-								"package": "@anvilkit/core"
+								"package": "@anvilkit/contracts"
 							}
 						},
 						{
@@ -6317,12 +6317,12 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"packageName": "@anvilkit/core",
-									"packagePath": "src/types/ir.ts",
+									"packageName": "@anvilkit/contracts",
+									"packagePath": "src/ir.ts",
 									"qualifiedName": "PageIR"
 								},
 								"name": "PageIR",
-								"package": "@anvilkit/core"
+								"package": "@anvilkit/contracts"
 							}
 						}
 					],
@@ -6981,12 +6981,12 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"packageName": "@anvilkit/core",
-							"packagePath": "src/types/ir.ts",
+							"packageName": "@anvilkit/contracts",
+							"packagePath": "src/ir.ts",
 							"qualifiedName": "PageIR"
 						},
 						"name": "PageIR",
-						"package": "@anvilkit/core"
+						"package": "@anvilkit/contracts"
 					}
 				}
 			]
