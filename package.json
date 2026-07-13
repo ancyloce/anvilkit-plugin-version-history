@@ -68,6 +68,7 @@
 	"dependencies": {
 		"@anvilkit/core": "workspace:*",
 		"@anvilkit/ir": "workspace:*",
+		"@anvilkit/plugin-canvas-studio": "workspace:*",
 		"@anvilkit/ui": "workspace:*",
 		"@anvilkit/utils": "workspace:*",
 		"lucide-react": "^1.21.0"
