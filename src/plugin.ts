@@ -4,10 +4,15 @@ import type {
 	StudioPluginRegistration,
 } from "@anvilkit/core/types";
 import { defineStudioPlugin } from "@anvilkit/core/types";
+import {
+	CANVAS_KEYSPACE,
+	type CanvasVersionHistoryEventPayload,
+	OPEN_REQUESTED_EVENT,
+	SAVE_REQUESTED_EVENT,
+} from "@anvilkit/plugin-canvas-studio/state/canvas-snapshot-bridge";
 import { History } from "lucide-react";
 import type { ReactNode } from "react";
 import { createElement } from "react";
-
 import config from "../meta/config.json";
 import packageJson from "../package.json";
 import {
@@ -21,10 +26,22 @@ import type {
 	VersionHistoryContribution,
 } from "./types/types.js";
 import {
+	appendCanvasSnapshotReference,
 	bindVersionHistoryState,
 	setVersionHistorySnapshots,
 	unbindVersionHistoryState,
 } from "./utils/state.js";
+
+/** Narrow an `unknown` event payload to a canvas-keyspace event (FR-073). */
+function asCanvasEventPayload(
+	payload: unknown,
+): CanvasVersionHistoryEventPayload | null {
+	if (typeof payload !== "object" || payload === null) return null;
+	const candidate = payload as Partial<CanvasVersionHistoryEventPayload>;
+	if (candidate.keyspace !== CANVAS_KEYSPACE) return null;
+	if (typeof candidate.designId !== "string") return null;
+	return candidate as CanvasVersionHistoryEventPayload;
+}
 
 // `version` is derived from package.json so a Changesets bump can never drift
 // the runtime metadata; `plugin.metadata-drift.test.ts` guards regressions.
@@ -114,6 +131,8 @@ export function createVersionHistoryPlugin(
 				},
 			];
 
+			let unsubscribeCanvasEvents: (() => void) | undefined;
+
 			const registration: StudioPluginRegistration = {
 				meta: META,
 				headerActions,
@@ -125,6 +144,7 @@ export function createVersionHistoryPlugin(
 							maxSnapshots,
 							saveInFlight: false,
 							snapshots: [],
+							canvasSnapshots: [],
 						});
 
 						try {
@@ -139,8 +159,41 @@ export function createVersionHistoryPlugin(
 								},
 							);
 						}
+
+						// FR-073: branch on `keyspace` — a canvas save/open is a
+						// distinct history from this plugin's own Puck-page
+						// handling above. `plugin-canvas-studio` already persists
+						// the actual CanvasIR through its own adapter; this plugin
+						// only tracks that it happened, via `CanvasSnapshotReference`.
+						const unsubSave = initCtx.on(SAVE_REQUESTED_EVENT, (payload) => {
+							const canvasPayload = asCanvasEventPayload(payload);
+							if (!canvasPayload || canvasPayload.snapshotId === undefined) {
+								return;
+							}
+							appendCanvasSnapshotReference(initCtx, {
+								keyspace: CANVAS_KEYSPACE,
+								designId: canvasPayload.designId,
+								snapshotId: canvasPayload.snapshotId,
+								recordedAt: new Date().toISOString(),
+							});
+						});
+						const unsubOpen = initCtx.on(OPEN_REQUESTED_EVENT, (payload) => {
+							const canvasPayload = asCanvasEventPayload(payload);
+							if (!canvasPayload) return;
+							initCtx.log(
+								"info",
+								"Canvas history open requested; delegating to the host's canvas snapshot picker.",
+								{ designId: canvasPayload.designId },
+							);
+						});
+						unsubscribeCanvasEvents = () => {
+							unsubSave();
+							unsubOpen();
+						};
 					},
 					onDestroy(destroyCtx) {
+						unsubscribeCanvasEvents?.();
+						unsubscribeCanvasEvents = undefined;
 						unbindVersionHistoryState(token, destroyCtx);
 					},
 				},

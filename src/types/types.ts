@@ -358,6 +358,25 @@ export interface SnapshotAdapter {
 }
 
 /**
+ * A lightweight pointer into `@anvilkit/plugin-canvas-studio`'s own
+ * snapshot store (FR-073) — NOT a duplicate persisted copy. This plugin's
+ * `SnapshotAdapter`/`SnapshotMeta` are `PageIR`-shaped and have no concept
+ * of a `CanvasIR` snapshot's content (delta chains, `pageIRHash`, etc. don't
+ * apply); canvas snapshot storage, loading, and restoring stay owned by
+ * `plugin-canvas-studio`'s `CanvasSnapshotBridge`/`CanvasSnapshotAdapter`.
+ * This plugin only tracks that a canvas save/open happened, so a shared
+ * history UI can list both kinds of history side by side.
+ */
+export interface CanvasSnapshotReference {
+	/** Always `"canvas"` — the namespace tag from `CanvasVersionHistoryEventPayload`. */
+	readonly keyspace: "canvas";
+	readonly designId: string;
+	readonly snapshotId: string;
+	/** When this plugin received the `save-requested` event. */
+	readonly recordedAt: string;
+}
+
+/**
  * Capability surface this plugin contributes to `<Studio>`.
  *
  * Carried as the `Contributes` type parameter of the returned
@@ -369,5 +388,7 @@ export interface VersionHistoryContribution {
 	readonly versionHistory: {
 		readonly adapter: SnapshotAdapter;
 		readonly snapshots: readonly SnapshotMeta[];
+		/** Canvas-keyspace snapshot references received via the event bus (FR-073). */
+		readonly canvasSnapshots: readonly CanvasSnapshotReference[];
 	};
 }
