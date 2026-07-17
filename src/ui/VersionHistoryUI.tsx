@@ -90,8 +90,8 @@ export function VersionHistoryUI({
   onConflict,
 }: VersionHistoryUIProps) {
   const msg = useMsg();
-  const snapshotCacheRef = React.useRef(
-    new LruCache<string, PageIR>(SNAPSHOT_CACHE_CAPACITY),
+  const [snapshotCache] = React.useState(
+    () => new LruCache<string, PageIR>(SNAPSHOT_CACHE_CAPACITY),
   );
   // Optimistic-concurrency token: the `currentIR` hash captured when a
   // snapshot is opened. Re-checked at restore time so a document that
@@ -112,16 +112,16 @@ export function VersionHistoryUI({
 
   const loadSnapshot = React.useCallback(
     async (id: string) => {
-      const cached = snapshotCacheRef.current.get(id);
+      const cached = snapshotCache.get(id);
       if (cached) {
         return cached;
       }
 
       const snapshot = await Promise.resolve(adapter.load(id));
-      snapshotCacheRef.current.set(id, snapshot);
+      snapshotCache.set(id, snapshot);
       return snapshot;
     },
-    [adapter],
+    [adapter, snapshotCache],
   );
 
   const refreshSnapshots = React.useCallback(async () => {
@@ -141,6 +141,7 @@ export function VersionHistoryUI({
       throw error;
     }
   }, [adapter, msg]);
+  const refreshSnapshotsEvent = React.useEffectEvent(refreshSnapshots);
 
   React.useEffect(() => {
     isMountedRef.current = true;
@@ -150,7 +151,7 @@ export function VersionHistoryUI({
   }, []);
 
   React.useEffect(() => {
-    snapshotCacheRef.current.clear();
+    snapshotCache.clear();
 
     if (!adapter.subscribe) {
       return undefined;
@@ -173,8 +174,8 @@ export function VersionHistoryUI({
       typeof cancelAnimationFrame === "function";
     const runRefresh = () => {
       refreshRaf = 0;
-      snapshotCacheRef.current.clear();
-      void refreshSnapshots().catch(() => {
+      snapshotCache.clear();
+      void refreshSnapshotsEvent().catch(() => {
         /* refreshSnapshots already surfaces listError */
       });
     };
@@ -189,12 +190,12 @@ export function VersionHistoryUI({
       if (refreshRaf && hasRaf) cancelAnimationFrame(refreshRaf);
       unsubscribe();
     };
-  }, [adapter, refreshSnapshots]);
+  }, [adapter, snapshotCache]);
 
   React.useEffect(() => {
     let isActive = true;
 
-    void refreshSnapshots().catch((error) => {
+    void refreshSnapshotsEvent().catch((error) => {
       if (!isActive) {
         return;
       }
@@ -209,7 +210,7 @@ export function VersionHistoryUI({
     return () => {
       isActive = false;
     };
-  }, [msg, refreshSnapshots]);
+  }, [msg]);
 
   React.useEffect(() => {
     if (!selectedSnapshotId) {
