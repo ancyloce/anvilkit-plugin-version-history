@@ -2,7 +2,9 @@ import { readFileSync } from "node:fs";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-import ts from "typescript";
+// The JS-based compiler API (npm alias of typescript@6.0.3): the native tsgo
+// typescript@7 pinned workspace-wide no longer ships ts.ScriptTarget import ts from "typescript"; co.
+import ts from "typescript-jsapi";
 import { describe, expect, it } from "vitest";
 
 const SRC_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
