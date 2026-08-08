@@ -7536,7 +7536,7 @@
 		},
 		{
 			"kind": "code",
-			"text": "`@puckeditor/core ^0.22.4`"
+			"text": "`@puckeditor/core ^0.23.0`"
 		},
 		{
 			"kind": "text",
