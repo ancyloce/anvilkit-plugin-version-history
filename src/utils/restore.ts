@@ -1,3 +1,35 @@
+/**
+ * @file The snapshot restore path (`p6-005`, PLAN-0026 §4 R5).
+ *
+ * ## Reading canonical documents
+ *
+ * This plugin reads **canonical** documents and pre-rewrite ones with
+ * the same code, because it reads neither. A snapshot is a `PageIR`
+ * whose node and root props are opaque JSON to every function here:
+ * nothing in this package branches on `appearance`, `interactions`,
+ * `bindings`, `designSystem`, `componentLibrary`, an authoring-schema
+ * marker, or any sidecar path. {@link hashPageIR} canonicalizes by
+ * key-sorting alone and {@link prepareRestore} returns the stored IR by
+ * REFERENCE. That is the tolerant parse: an unrecognised shape is
+ * carried through untouched rather than rejected or rewritten.
+ *
+ * ## The tolerance is time-boxed and closes in `p7-002`
+ *
+ * A snapshot taken before the canonical rewrite still carries the old
+ * shape, and this path deliberately restores it verbatim — **the host,
+ * not the plugin, owns migrating it before dispatching to the editor.**
+ * That seam is why {@link prepareRestore} is pure and identity-
+ * preserving; weakening it to return a rewritten copy would make this
+ * plugin a second, undeclared migration site.
+ *
+ * `p7-002` (final document migration) is what removes the need for the
+ * tolerance: once the store holds only canonical documents, "old shape"
+ * stops existing and this becomes an ordinary pass-through. Until then
+ * the tolerance is a migration window, not a design feature — do not
+ * build a version branch here in the meantime, and do not describe this
+ * pass-through as permanent.
+ */
+
 import type { PageIR } from "@anvilkit/core/types";
 
 import { VersionHistoryError } from "./errors.js";

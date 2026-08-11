@@ -115,6 +115,23 @@ export const openHistoryAction: StudioHeaderAction = {
 	},
 };
 
+/**
+ * Tolerant admission parse for `ctx.getData()` (`p6-005`).
+ *
+ * Envelope-only: it checks the four `PageIR` envelope members and never
+ * inspects `root.props` or any node's props, so a canonical document and
+ * a pre-rewrite one are admitted by exactly the same code. The `version`
+ * compared here is the **`PageIR` envelope version**, not an
+ * authoring-schema version — PLAN-0026 §5 removes the document's version
+ * markers (`authoringSchemaVersion`, `appearance.version`), not the IR
+ * envelope's, and nothing in this package reads the former.
+ *
+ * The tolerance is the migration window, not a feature: it closes when
+ * `p7-002` migrates the store, after which every admitted document is
+ * canonical by construction. Do not add a version branch here in the
+ * meantime — the host owns migrating a legacy document, on both the save
+ * side (its `buildIR` bridge) and the restore side (see `utils/restore.ts`).
+ */
 function toPageIR(value: unknown): PageIR | null {
 	if (value === null || typeof value !== "object") {
 		return null;
