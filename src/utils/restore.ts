@@ -13,21 +13,20 @@
  * REFERENCE. That is the tolerant parse: an unrecognised shape is
  * carried through untouched rather than rejected or rewritten.
  *
- * ## The tolerance is time-boxed and closes in `p7-002`
+ * ## The migration window is closed (`p7-002`)
  *
- * A snapshot taken before the canonical rewrite still carries the old
- * shape, and this path deliberately restores it verbatim — **the host,
- * not the plugin, owns migrating it before dispatching to the editor.**
- * That seam is why {@link prepareRestore} is pure and identity-
- * preserving; weakening it to return a rewritten copy would make this
- * plugin a second, undeclared migration site.
+ * `p7-002` migrated the stored snapshots — this plugin's records
+ * included, through the host's store-finalization runner — so "old
+ * shape" no longer exists in contract and this is an ordinary
+ * pass-through rather than a tolerance.
  *
- * `p7-002` (final document migration) is what removes the need for the
- * tolerance: once the store holds only canonical documents, "old shape"
- * stops existing and this becomes an ordinary pass-through. Until then
- * the tolerance is a migration window, not a design feature — do not
- * build a version branch here in the meantime, and do not describe this
- * pass-through as permanent.
+ * The property that made that possible is the one to preserve: this
+ * path restores a snapshot **verbatim**, and **the host, not the
+ * plugin, owns migrating anything that needs it before dispatching to
+ * the editor.** That seam is why {@link prepareRestore} is pure and
+ * identity-preserving. Weakening it to return a rewritten copy would
+ * make this plugin a second, undeclared migration site — still true,
+ * and now the only reason the rule needs stating.
  */
 
 import type { PageIR } from "@anvilkit/core/types";

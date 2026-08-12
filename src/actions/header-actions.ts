@@ -126,11 +126,12 @@ export const openHistoryAction: StudioHeaderAction = {
  * markers (`authoringSchemaVersion`, `appearance.version`), not the IR
  * envelope's, and nothing in this package reads the former.
  *
- * The tolerance is the migration window, not a feature: it closes when
- * `p7-002` migrates the store, after which every admitted document is
- * canonical by construction. Do not add a version branch here in the
- * meantime — the host owns migrating a legacy document, on both the save
- * side (its `buildIR` bridge) and the restore side (see `utils/restore.ts`).
+ * `p7-002` migrated the store, so every admitted document is canonical
+ * by construction and the migration window this parse was written for is
+ * closed. The envelope check stays because it is an envelope check.
+ * Do not add a version branch here — the host owns migrating anything
+ * out of contract, on both the save side (its `buildIR` bridge) and the
+ * restore side (see `utils/restore.ts`).
  */
 function toPageIR(value: unknown): PageIR | null {
 	if (value === null || typeof value !== "object") {
