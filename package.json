@@ -71,7 +71,7 @@
 		"@anvilkit/plugin-canvas-studio": "workspace:*",
 		"@anvilkit/ui": "workspace:*",
 		"@anvilkit/utils": "workspace:*",
-		"lucide-react": "^1.30.0"
+		"lucide-react": "^1.31.0"
 	},
 	"scripts": {
 		"build": "rslib build --lib esm && rslib build --lib cjs --no-clean",
@@ -99,7 +99,7 @@
 		"@types/node": "^26.2.0",
 		"@types/react": "^19.2.18",
 		"@types/react-dom": "19.2.4",
-		"axe-core": "4.11.3",
+		"axe-core": "^4.13.0",
 		"esbuild": "^0.28.1",
 		"fast-check": "^4.9.0",
 		"madge": "^8.0.0",
