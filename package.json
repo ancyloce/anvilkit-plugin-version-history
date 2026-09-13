@@ -71,7 +71,7 @@
 		"@anvilkit/plugin-canvas-studio": "workspace:*",
 		"@anvilkit/ui": "workspace:*",
 		"@anvilkit/utils": "workspace:*",
-		"lucide-react": "^1.31.0"
+		"lucide-react": "^1.41.0"
 	},
 	"scripts": {
 		"build": "rslib build --lib esm && rslib build --lib cjs --no-clean",
@@ -95,12 +95,12 @@
 		"@anvilkit/typescript-config": "workspace:*",
 		"@anvilkit/vitest-config": "workspace:*",
 		"@puckeditor/core": "^0.23.0",
-		"@rslib/core": "^0.23.2",
-		"@types/node": "^26.2.0",
+		"@rslib/core": "^1.0.0",
+		"@types/node": "^26.4.1",
 		"@types/react": "^19.2.18",
 		"@types/react-dom": "19.2.4",
 		"axe-core": "^4.13.0",
-		"esbuild": "^0.28.1",
+		"esbuild": "^0.28.2",
 		"fast-check": "^4.9.0",
 		"madge": "^8.0.0",
 		"publint": "^0.3.23",
@@ -109,7 +109,7 @@
 		"typedoc": "^0.28.20",
 		"typescript": "7.0.2",
 		"typescript-jsapi": "npm:typescript@6.0.3",
-		"vitest": "^4.1.10",
+		"vitest": "^5.0.0",
 		"vitest-axe": "^0.1.0"
 	}
 }
