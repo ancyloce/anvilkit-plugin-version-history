@@ -13,8 +13,8 @@ import {
 import { History } from "lucide-react";
 import type { ReactNode } from "react";
 import { createElement } from "react";
-import config from "../meta/config.json";
-import packageJson from "../package.json";
+import config from "../meta/config.json" with { type: "json" };
+import packageJson from "../package.json" with { type: "json" };
 import {
 	openHistoryAction,
 	saveSnapshotAction,
